@@ -44,8 +44,8 @@ export class Authservice {
          JSON.stringify(response));
          this.tokenStorage.saveTokenObject(response.access_token!);
          this.tokenStorage.saveToken(response.access_token!); 
- 
-
+  
+          
 
         // if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
         //    let data = response.data;
@@ -59,8 +59,13 @@ export class Authservice {
         //   alert(response.value);
         // }
         return response;
-      }));
+      }
+      
+    
+    ));
   }
+
+  
 
   
 }

@@ -21,7 +21,9 @@ import { Authservice } from '../../auth/service/authservice';
 export class Login implements OnInit {
   public loginForm!: FormGroup;
   button = 'Log In'
-   isLoading = false;
+   isLoading = true;
+
+   isShow = true;
  // authService = inject(Authservice);
   router = inject(Router);
   
@@ -86,6 +88,7 @@ initializeForm() {
        .subscribe(response => {
         this.isLoading = false;
         this.button = 'Log In';
+        this.isShow = false;
          this.router.navigate([WebConstants.WEB_URL.DASHBOARD]);
         if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
 
@@ -108,6 +111,13 @@ initializeForm() {
     }
     catch(error){
      alert("UnAuthorized!")
+    }
+    finally{
+      if(this.isShow)
+      {
+           alert("UnAuthorized!")
+           }
+
     }
            
   }

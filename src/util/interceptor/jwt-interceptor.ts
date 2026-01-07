@@ -8,8 +8,7 @@ import { takeCoverage } from 'v8';
 
 export const  jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
-  @Injectable() 
-  TokenStorage takeCoverage = new TokenType();
+ 
   
 
   const clonedRequest = req.clone({

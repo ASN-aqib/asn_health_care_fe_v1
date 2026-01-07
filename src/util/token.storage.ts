@@ -91,7 +91,12 @@ export class TokenStorage {
   // }
 
   public getToken(): string {
+    if (this.isBrowser) {
     return localStorage.getItem(WebConstants.USER.TOKEN)!;
+    }
+    else{
+      return  "";
+    }
   }
 
   // public getPages(): string {

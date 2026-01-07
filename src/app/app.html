@@ -8,5 +8,8 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
  
+ <div *ngIf="tokenStorage.getToken() !== null">
+<app-dashboard></app-dashboard>
+</div>
 
 <router-outlet />
