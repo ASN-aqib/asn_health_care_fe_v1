@@ -1,0 +1,18 @@
+.example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  height: 30vh;           /* Ensures the container fills the screen height */
+}
+
+.centered-div {
+  /* Optional: Add styling to visualize the div */
+  width: 200px;
+  height: 150px;
+ 
+ 
+}
