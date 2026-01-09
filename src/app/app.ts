@@ -4,10 +4,11 @@ import { Dashboard } from '../dashboard/component/dashboard';
 import { TokenStorage } from '../util/token.storage';
 import { CommonModule } from '@angular/common';
 import { tokenToString } from 'typescript';
+import { Leftmenu } from '../leftmenu/component/leftmenu';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Dashboard, CommonModule],
+  imports: [RouterOutlet, Leftmenu, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

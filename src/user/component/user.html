@@ -1,11 +1,11 @@
-<div>
+
 <div class="center-container">
     <div class="centered-div">
-<h2>Role</h2> 
+<h2>USER</h2> 
  
 
 
-  <mat-form-field appearance="outline"  >
+  <mat-form-field appearance="outline">
     <mat-label>Enter your Role</mat-label>
     <input
       matInput
@@ -26,19 +26,15 @@
       [formControl]="description"
      
       
-    />
-    
-      
-
+    /> 
 
   </mat-form-field>
   <br/>
 <button class="mat-button" mat-raised-button  color="primary" (click)="onClick($event)">Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
 <button class="mat-button" mat-raised-button  color="primary" (click)="clear($event)">Clear</button>
-
 </div>
-     </div>
-<br/><br/><br/>
+  </div>
+
      
 <div class="table-div">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

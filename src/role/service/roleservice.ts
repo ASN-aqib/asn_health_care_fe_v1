@@ -22,5 +22,17 @@ export class RoleService {
     return this.ajaxHelper.get(url);
   }
 
+  addrole(payload: any): Observable<BaseResponse<any>> {
+   
+    console.log("add role",payload);
 
+    return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.ROLE.ADD_ROLE, payload);
+  
+  }
+  findById(id: number): Observable<BaseResponse<any>> {
+    let url = this.baseUrl + WebConstants.API_URL.ROLE.FIND_BY_ID +id;
+
+   
+    return this.ajaxHelper.get(url);
+  }
 }

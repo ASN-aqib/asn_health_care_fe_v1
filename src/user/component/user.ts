@@ -5,32 +5,30 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
- import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { RoleService } from '../service/roleservice';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+
 import { first } from 'rxjs';
 import {MatButtonModule} from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { Userservice } from '../service/userservice';
 
-  export interface roleElement {
+  export interface userElement {
   id: number;
   role_name: number;
   
 }
 
-
 @Component({
-  selector: 'app-role',
-  imports: [MatFormFieldModule,MatTableModule, MatInputModule, FormsModule,
+  selector: 'app-user',
+    imports: [MatFormFieldModule,MatTableModule, MatInputModule, FormsModule,
      ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule,MatPaginator],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './role.html',
-  styleUrl: './role.css',
+  templateUrl: './user.html',
+  styleUrl: './user.css',
 })
-
-
-export class Role implements OnInit {
-  public dataSource = new MatTableDataSource<roleElement>();
+export class User implements OnInit {
+  public dataSource = new MatTableDataSource<userElement>();
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -44,7 +42,7 @@ export class Role implements OnInit {
  
  public  roledata: any = [];
   public  roledataById: any = [];
-  constructor(private rolservice: RoleService) {
+  constructor(private userservice: Userservice) {
      
   }
 
@@ -108,14 +106,14 @@ onClick(event: Event)
     console.log( this.rolefield.value);
     console.log( this.description.value);
 
-    this.rolservice.addrole(roleObj)
-      .pipe(first())
-      .subscribe(response => {
-        console.log(response);
-        //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
-       //   this.toaster.success("Role privilege has been updated", "Success");
-        //}
-      });
+    // this.rolservice.addrole(roleObj)
+    //   .pipe(first())
+    //   .subscribe(response => {
+    //     console.log(response);
+    //     //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
+    //    //   this.toaster.success("Role privilege has been updated", "Success");
+    //     //}
+    //   });
 
 
 
@@ -123,29 +121,30 @@ onClick(event: Event)
   }
 
     getAllRoles(): void {
-    this.rolservice.getAllRoles()
-      .pipe(first())
-      .subscribe(response => {
+    // this.rolservice.getAllRoles()
+    //   .pipe(first())
+    //   .subscribe(response => {
 
 
       
       
-          this.roledata = response
+    //       this.roledata = response
 
-          console.log(this.roledata);
-          this.dataSource.data =this.roledata;
-          this.dataSource.paginator = this.paginator;
-        // this.dataSource.paginator = this.paginator;
-        // if (response && response.code === WebConstants.STATUS.CODE_SUCCESS) {
-        //   this.parkingSpots = response.data;
-        //   this.dataSource = new MatTableDataSource<unknown>(this.parkingSpots);
-        //   this.dataSource.paginator = this.paginator;
-        //   this.dataSource.sort = this.sort;
-        //   //console.log("response ",response.data);
-        // } else {
-        //   this.toastrService.error(response.value, "Failed To Load Data!")
-        // }
-      });
+    //       console.log(this.roledata);
+    //       this.dataSource.data =this.roledata;
+    //       this.dataSource.paginator = this.paginator;
+    //     // this.dataSource.paginator = this.paginator;
+    //     // if (response && response.code === WebConstants.STATUS.CODE_SUCCESS) {
+    //     //   this.parkingSpots = response.data;
+    //     //   this.dataSource = new MatTableDataSource<unknown>(this.parkingSpots);
+    //     //   this.dataSource.paginator = this.paginator;
+    //     //   this.dataSource.sort = this.sort;
+    //     //   //console.log("response ",response.data);
+    //     // } else {
+    //     //   this.toastrService.error(response.value, "Failed To Load Data!")
+    //     // }
+    //   });
   }
 
 }
+

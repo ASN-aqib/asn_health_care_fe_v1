@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Authservice } from '../../auth/service/authservice';
 import { catchError, throwError } from 'rxjs';
 import { TokenStorage } from '../token.storage';
@@ -9,12 +9,19 @@ import { takeCoverage } from 'v8';
 export const  jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
  
+  const tokenStorage = inject(TokenStorage);
   
+  
+   let token = tokenStorage.getToken();
+  
+   console.log("intercepton token",token);
 
   const clonedRequest = req.clone({
-    setHeaders: {
-      Authorization: `Bearer YOUR_TOKEN_HERE`, // Replace with a dynamic token
-    },
+   setHeaders: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
   });
 
   return next(clonedRequest).pipe(

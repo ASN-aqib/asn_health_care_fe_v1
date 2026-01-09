@@ -31,7 +31,7 @@ export class AjaxHelper {
   }
 
   public get(url: string): Observable<BaseResponse<any>> {
-    //console.log("get.url={}", url);
+    console.log("get.url={}", url);
 
     //url = this.baseUrl + url;
     
@@ -39,7 +39,7 @@ export class AjaxHelper {
   }
 
   public post(url: string, payload: Object): Observable<BaseResponse<any>> {
-    //console.log("post.url={}, payload={}", url, payload);
+    console.log("post.url={}, payload={}", url, payload);
 
     //url = this.baseUrl + url;
 

@@ -407,17 +407,13 @@ export const WebConstants = {
       FIND_REGISTRATION_BY_ID: "/api/registration/findById/"
     },
     ROLE: {
+      ADD_ROLE: "/api/role/create",
       FIND_ALL_PEO_USERS: "/api/lookup/find-all-peo-users",
       FIND_ALL_ROLES: "/api/lookup/find-all-roles",
       FIND_ALL_PRIVILEGES: "/api/lookup/find-all-privileges",
       FIND_ALL: "/api/role/find-all",
-      FIND_ALL_GEOFENCE: "/api/lookup/find-all-geofence",
-      FIND_ALL_SPOTS: "/api/lookup/find-all-spots",
-      FIND_ALL_SPOTS_BY_STATUS: "/api/lookup/find-all-spots-by-status",
-      FIND_ALL_UNASSIGNED_SPOTS: "/api/lookup/find-unassigned-spots",
-      FIND_ALL_OCCUPIED_SPOT: "/api/lookup/find-all-occupied-spot",
-      FIND_ALL_LPN: "/api/lookup/find-all-lpn",
-      FIND_ALL_SENSOR_MANUFACTURER:"/api/lookup/find-all-sensor-manufacturer",
+      FIND_BY_ID: "/api/role/find-by-Id/",
+   
     },
     PREFERENCES: {
       FIND_ALL_PREFERENCES: "/api/preference/find-all",
@@ -440,10 +436,9 @@ export const WebConstants = {
     HOME: "login",
     LOGIN: "login",
     DASHBOARD: "dashboard",
-    ADD_NEW_PASSWORD: "add-new-password",
-    FORGOT_PASSWORD: "forget-password",
-    FORGOT_USERNAME: "forget-username",
+    ROLE: "role",
     USER: "user",
+    FORGOT_USERNAME: "forget-username",
     USER_PROFILE: "user/user-profile",
     CHANGE_PASSWORD: "user/change-password",
     ORGANIZATION: "organization",

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationToken } from '../model/authentication.token';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, first, map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { AjaxHelper } from '../../util/helper/ajaxhelper';
 import { TokenStorage } from '../../util/token.storage';
@@ -29,10 +29,7 @@ export class Authservice {
     // }
   }
 
-   public get currentUserValue(): AuthenticationToken {
-    return this.currentUserSubject.value;
-  }
-
+ 
 
   
   public login(loginObject: any): Observable<BaseResponse<any>> {
@@ -63,6 +60,18 @@ export class Authservice {
       
     
     ));
+  }
+
+   public logout(): void {
+    // let url = this.baseUrl + WebConstants.API_URL.LOGOUT;
+
+    // this.ajaxHelper.get(url)
+    //   .pipe(first())
+    //   .subscribe();
+
+    this.tokenStorage.logOut();
+
+    
   }
 
   

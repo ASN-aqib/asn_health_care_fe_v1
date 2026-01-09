@@ -6,8 +6,7 @@
   display: flex;
   justify-content: center; /* Centers horizontally */
   align-items: center;     /* Centers vertically */
-  height: 30vh; 
-         /* Ensures the container fills the screen height */
+  height: 30vh;           /* Ensures the container fills the screen height */
 }
 
 .centered-div {
