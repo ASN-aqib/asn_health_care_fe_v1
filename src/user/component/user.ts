@@ -12,17 +12,19 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Userservice } from '../service/userservice';
+import { MatSelectModule } from '@angular/material/select';
 
   export interface userElement {
   id: number;
-  role_name: number;
+  user_name: number;
+  email_address:string;
   
 }
 
 @Component({
   selector: 'app-user',
     imports: [MatFormFieldModule,MatTableModule, MatInputModule, FormsModule,
-     ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule,MatPaginator],
+     ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule,MatPaginator,MatSelectModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user.html',
   styleUrl: './user.css',
@@ -32,15 +34,21 @@ export class User implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  readonly rolefield = new FormControl('', [Validators.required]);
-  readonly description = new FormControl('', [Validators.required]);
+  readonly userNameField = new FormControl('', [Validators.required]);
+  readonly passwordField = new FormControl('', [Validators.required]);
+  readonly emailField = new FormControl('', [Validators.required]);
  
+   hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
-  displayedColumns: string[] = ['id', 'role_name','description','created_date' ,'actions' ];
+  displayedColumns: string[] = ['id', 'user_name','email_address','created_date' ,'actions' ];
  
   errorMessage = signal('');
  
- public  roledata: any = [];
+ public  userdata: any = [];
   public  roledataById: any = [];
   constructor(private userservice: Userservice) {
      
@@ -49,7 +57,7 @@ export class User implements OnInit {
     ngOnInit(): void {
    
       
-      this.getAllRoles();
+      this.getAllUsers();
 
   }
 
@@ -67,8 +75,9 @@ export class User implements OnInit {
           
     //   });
 
-    this.rolefield.setValue(element.role_name);
-    this.description.setValue(element.description);
+    this.userNameField.setValue(element.user_name);
+    this.passwordField.setValue(element.password);
+    this.emailField.setValue(element.email_address);
 
 
    }
@@ -82,8 +91,9 @@ export class User implements OnInit {
    clear(event: Event)
  {  
 
-  this.rolefield.setValue("");
- this.description.setValue("");
+  this.userNameField.setValue("");
+ this.passwordField.setValue("");
+  this.emailField.setValue("");
  }
   // updateErrorMessage() {
   //   if (this.email.hasError('required')) {
@@ -99,51 +109,54 @@ onClick(event: Event)
  {  
     
     let roleObj = {
-      rolename: this.rolefield.value,
-      description: this.description.value,
+      username: this.userNameField.value,
+      password: this.passwordField.value,
+      emailaddress: this.emailField.value,
       createdBy : 1
      };
-    console.log( this.rolefield.value);
-    console.log( this.description.value);
+    console.log( this.userNameField.value);
+    console.log( this.passwordField.value);
+    console.log( this.emailField.value);
 
-    // this.rolservice.addrole(roleObj)
-    //   .pipe(first())
-    //   .subscribe(response => {
-    //     console.log(response);
-    //     //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
-    //    //   this.toaster.success("Role privilege has been updated", "Success");
-    //     //}
-    //   });
+    this.userservice.adduser(roleObj)
+      .pipe(first())
+      .subscribe(response => {
+        console.log(response);
+        this.getAllUsers();
+        //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
+       //   this.toaster.success("Role privilege has been updated", "Success");
+        //}
+      });
 
 
 
 
   }
 
-    getAllRoles(): void {
-    // this.rolservice.getAllRoles()
-    //   .pipe(first())
-    //   .subscribe(response => {
+    getAllUsers(): void {
+    this.userservice.getAllUsers()
+      .pipe(first())
+      .subscribe(response => {
 
 
       
       
-    //       this.roledata = response
+          this.userdata = response
 
-    //       console.log(this.roledata);
-    //       this.dataSource.data =this.roledata;
-    //       this.dataSource.paginator = this.paginator;
-    //     // this.dataSource.paginator = this.paginator;
-    //     // if (response && response.code === WebConstants.STATUS.CODE_SUCCESS) {
-    //     //   this.parkingSpots = response.data;
-    //     //   this.dataSource = new MatTableDataSource<unknown>(this.parkingSpots);
-    //     //   this.dataSource.paginator = this.paginator;
-    //     //   this.dataSource.sort = this.sort;
-    //     //   //console.log("response ",response.data);
-    //     // } else {
-    //     //   this.toastrService.error(response.value, "Failed To Load Data!")
-    //     // }
-    //   });
+          console.log(this.userdata);
+          this.dataSource.data =this.userdata;
+          this.dataSource.paginator = this.paginator;
+        // this.dataSource.paginator = this.paginator;
+        // if (response && response.code === WebConstants.STATUS.CODE_SUCCESS) {
+        //   this.parkingSpots = response.data;
+        //   this.dataSource = new MatTableDataSource<unknown>(this.parkingSpots);
+        //   this.dataSource.paginator = this.paginator;
+        //   this.dataSource.sort = this.sort;
+        //   //console.log("response ",response.data);
+        // } else {
+        //   this.toastrService.error(response.value, "Failed To Load Data!")
+        // }
+      });
   }
 
 }

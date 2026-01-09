@@ -2,6 +2,16 @@
   margin-left: 8px;
 }
 
+.flex-container {
+  display: flex; /* Turns on Flexbox layout, automatically places items in a row */
+  gap: 20px; /* Adds space between the columns */
+}
+
+.column {
+  flex: 1; /* Makes each column take up equal available space */
+  padding: 1rem;
+  
+}
 .center-container {
   display: flex;
   justify-content: center; /* Centers horizontally */
@@ -11,8 +21,9 @@
 
 .centered-div {
   /* Optional: Add styling to visualize the div */
-  width: 200px;
+  width: 400px;
   height: 250px;
+  
   }
 
   section {
@@ -20,18 +31,21 @@
   align-items: center;
 }
 
-.example-label {
-  font-size: 14px;
-  margin: 0 16px 0 8px;
-  min-width: 120px;
+
+
+mat-form-field {
+  width: 200px; /* Use pixels for a fixed width */
+  
+  
 }
 
-.example-button-row {
-  max-width: 600px;
-}
-
-.example-button-row .mat-mdc-button-base {
-  margin: 8px 8px 8px 0;
+/* Or use a percentage for a fluid width */
+ 
+.form-container {
+  display: flex;
+  gap: 10px; /* Adds space between the fields */
+  /* Optional: center the group within its parent */
+  justify-content: center;
 }
 
 .example-flex-container {
@@ -47,6 +61,7 @@
   margin-left: 35vh;
   display: flex;
   height: 250px;
+  margin-top: 60px;
   justify-content: center; /* Centers horizontally */
   align-items: center;
   }

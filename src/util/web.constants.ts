@@ -154,8 +154,8 @@ export const WebConstants = {
     LOGIN: "/api/auth/login",
     LOGOUT: "/api/logout",
     USER: {
-      FIND_ALL: "/api/user/find-all-users",
-      ADD_USER: "/api/user/add-user",
+      FIND_ALL: "/api/user/find-all",
+      ADD_USER: "/api/user/create",
       UPDATE_USER: "/api/user/update-user",
       DELETE_USER: "/api/user/delete-user/",
       FIND_USER_BY_ID: "/api/user/find-user-by-id/",

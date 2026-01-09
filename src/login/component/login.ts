@@ -112,13 +112,7 @@ initializeForm() {
     catch(error){
      alert("UnAuthorized!")
     }
-    finally{
-      if(this.isShow)
-      {
-           alert("UnAuthorized!")
-           }
-
-    }
+   
            
   }
 

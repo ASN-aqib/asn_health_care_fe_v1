@@ -4,6 +4,7 @@ import { Dashboard } from '../dashboard/component/dashboard';
 import { Leftmenu } from '../leftmenu/component/leftmenu';
 import { Role } from '../role/component/role';
 import { User } from '../user/component/user';
+import { PermissionComponent } from '../permission/component/permission.component';
 
 export const routes: Routes = [
   //{ path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect from root to home
@@ -11,6 +12,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: Dashboard }, // Define the route for the home page
   { path: 'role', component: Role }, // Define the route for the home page
   { path: 'user', component: User }, // Define the route for the home page
+  { path: 'permission', component: PermissionComponent }, // Define the route for the home page
  
 
 //   { path: 'carts', component: Carts, canActivate: [authguardGuard]  }, // Define the route for the home page

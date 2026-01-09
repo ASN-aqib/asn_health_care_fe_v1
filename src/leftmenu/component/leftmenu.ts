@@ -43,7 +43,7 @@ export class Leftmenu {
     {
       icon:'rule',
       label:'Permissoin',
-      route:'Permission'
+      route:'permission'
     },
     {
       icon:'help',
