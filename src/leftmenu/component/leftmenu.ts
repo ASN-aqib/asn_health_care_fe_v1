@@ -63,10 +63,9 @@ export class Leftmenu {
     console.log(item.label);
     if(item.label == 'logout')
     { 
-       
 
-        this.authservice.logout();
-         this.tokenStorage.clearAll();
+       this.authservice.logout();
+       this.tokenStorage.clearAll();
        this.router.navigate([WebConstants.WEB_URL.HOME]);
 
  

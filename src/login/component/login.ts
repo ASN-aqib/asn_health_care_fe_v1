@@ -49,7 +49,7 @@ export class Login implements OnInit {
   
 initializeForm() {
       this.loginForm = this.formBuilder.group({
-      emailaddress: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
       rememberMe: [false]
     });
@@ -70,9 +70,9 @@ initializeForm() {
 
     let loginObject = new LoginModel();
 
-    console.log(" email", this.loginForm.controls['emailaddress'].value);
+    console.log(" email", this.loginForm.controls['username'].value);
      
-    loginObject.emailaddress = this.loginForm.controls['emailaddress'].value;
+    loginObject.username = this.loginForm.controls['username'].value;
     loginObject.password = this.loginForm.controls['password'].value;
 
     console.log(loginObject);
@@ -90,22 +90,22 @@ initializeForm() {
         this.button = 'Log In';
         this.isShow = false;
          this.router.navigate([WebConstants.WEB_URL.DASHBOARD]);
-        if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
+        // if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
 
-          // =========================426 and 468 Open project id ================//
-          if (this.loginForm.value.rememberMe) {
+        //   // =========================426 and 468 Open project id ================//
+        //   if (this.loginForm.value.rememberMe) {
             
-          //   this.cookieService.set('username', loginObject.username);
-          //   this.cookieService.set('password', loginObject.password);
+        //   //   this.cookieService.set('username', loginObject.username);
+        //   //   this.cookieService.set('password', loginObject.password);
             
-          // } else {
-          //   this.cookieService.delete('username');
-          //   this.cookieService.delete('password');
+        //   // } else {
+        //   //   this.cookieService.delete('username');
+        //   //   this.cookieService.delete('password');
           
-          }
-          // =========================== 426 and 468 End here  open project it =====================//
-          this.router.navigate([WebConstants.WEB_URL.DASHBOARD]);
-        }
+        //   }
+        //   // =========================== 426 and 468 End here  open project it =====================//
+        //   this.router.navigate([WebConstants.WEB_URL.DASHBOARD]);
+        // }
      
       });
     }

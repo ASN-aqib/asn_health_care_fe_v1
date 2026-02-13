@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { Dashboard } from '../dashboard/component/dashboard';
 import { TokenStorage } from '../util/token.storage';
 import { CommonModule } from '@angular/common';
@@ -8,14 +8,14 @@ import { Leftmenu } from '../leftmenu/component/leftmenu';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Leftmenu, CommonModule],
+  imports: [RouterOutlet,RouterModule, Leftmenu, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   constructor(  public tokenStorage: TokenStorage){
 
-    console.log("sotrage ", tokenStorage.getToken());
+   // console.log("sotrage ", tokenStorage.getToken());
 
   }
 

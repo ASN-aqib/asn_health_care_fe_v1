@@ -15,7 +15,9 @@ export class Authservice {
   
   public currentUserSubject!: BehaviorSubject<AuthenticationToken>;
   public currentUser!: Observable<AuthenticationToken>;
-  
+  private isAuthenticated = false;
+    
+
 
   constructor(public tokenStorage: TokenStorage,
     public ajaxHelper: AjaxHelper) {
@@ -29,6 +31,11 @@ export class Authservice {
     // }
   }
 
+  
+  isAuthenticatedUser(): boolean {
+    console.log("this.isAuthenticated",this.isAuthenticated);
+    return this.isAuthenticated;
+  }
  
 
   
@@ -41,7 +48,7 @@ export class Authservice {
          JSON.stringify(response));
          this.tokenStorage.saveTokenObject(response.access_token!);
          this.tokenStorage.saveToken(response.access_token!); 
-  
+          this.isAuthenticated = true;
           
 
         // if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
@@ -68,8 +75,10 @@ export class Authservice {
     // this.ajaxHelper.get(url)
     //   .pipe(first())
     //   .subscribe();
-
+    this.isAuthenticated = false;
     this.tokenStorage.logOut();
+    localStorage.clear();
+
 
     
   }
