@@ -39,6 +39,7 @@ export class Login implements OnInit {
    
   
   ngOnInit(): void {
+    alert('hit it');
     // if (this.tokenStorage.getToken() !== null) {
     //   this.router.navigate([WebConstants.WEB_URL.MAP]);
     // }

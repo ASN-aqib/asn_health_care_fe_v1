@@ -53,7 +53,7 @@ export class Leftmenu {
      {
       icon:'logout',
       label:'logout',
-      route:'login'
+      route:''
     }
   ];
 
@@ -64,13 +64,15 @@ export class Leftmenu {
     if(item.label == 'logout')
     { 
 
-       this.authservice.logout();
-       this.tokenStorage.clearAll();
-       this.router.navigate([WebConstants.WEB_URL.HOME]);
-
- 
+      //this.authservice.logout();
+      this.router.navigate([WebConstants.WEB_URL.HOME]);
       
-     }
+       this.tokenStorage.clearAll();
+      //  this.router.navigate([WebConstants.WEB_URL.HOME]);
+
+      console.log("Logging Out")  
+    }
+
     //  else if(item.label == 'Role')
     // { 
     //           this.router.navigate([WebConstants.WEB_URL.ROLE]);
