@@ -5,11 +5,11 @@ import { TokenStorage } from '../util/token.storage';
 import { CommonModule } from '@angular/common';
 import { tokenToString } from 'typescript';
 import { Leftmenu } from '../leftmenu/component/leftmenu';
-import { Login } from '../login/component/login';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,RouterModule, Leftmenu, Login, CommonModule],
+  imports: [RouterOutlet,RouterModule, Leftmenu,  CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -11,8 +11,8 @@
  <div *ngIf="tokenStorage.getToken() !== null">
 <app-leftmenu></app-leftmenu>
 </div>
- <div *ngIf="tokenStorage.getToken() == null">
+ <!-- <div *ngIf="tokenStorage.getToken() == null">
 <app-login></app-login>
- </div>
+ </div> -->
 
 <router-outlet />
