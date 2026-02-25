@@ -6,12 +6,14 @@ import { Router, RouterModule } from '@angular/router';
 import { LoginModel } from '../../auth/model/login';
 import { finalize, first } from 'rxjs';
 import { Authservice } from '../../auth/service/authservice';
+import { TokenStorage } from '../../util/token.storage';
+import { CommonModule } from '@angular/common';
  
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ ReactiveFormsModule, RouterModule],
+  imports: [ ReactiveFormsModule,  CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
  
@@ -31,7 +33,8 @@ export class Login implements OnInit {
   constructor(  
     public formBuilder: FormBuilder, 
     //public cookieService: CookieService
-    private autherservice :Authservice
+    private autherservice :Authservice,
+     public tokenStorage: TokenStorage
      )
   {}
 
@@ -86,11 +89,13 @@ initializeForm() {
         this.button = 'Log In'; 
       })//========================  457  and  468 Open Project Id   end here==================//
       )
-       .subscribe(response => {
+       .subscribe(       async response => {
         this.isLoading = false;
         this.button = 'Log In';
         this.isShow = false;
-         this.router.navigate([WebConstants.WEB_URL.DASHBOARD]);
+        this.router.navigate([WebConstants.WEB_URL.DASHBOARD]);
+       
+
         // if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
 
         //   // =========================426 and 468 Open project id ================//

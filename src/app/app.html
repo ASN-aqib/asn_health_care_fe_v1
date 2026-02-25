@@ -8,11 +8,10 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
  
- <div *ngIf="tokenStorage.getToken() !== null">
-<app-leftmenu></app-leftmenu>
+<div>
+<app-leftmenu  *ngIf="tokenStorage.getToken() !== null"></app-leftmenu>
 </div>
- <!-- <div *ngIf="tokenStorage.getToken() == null">
-<app-login></app-login>
- </div> -->
+
+<app-login *ngIf="tokenStorage.getToken() === null" ></app-login> 
 
 <router-outlet />

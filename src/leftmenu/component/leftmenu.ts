@@ -65,10 +65,10 @@ export class Leftmenu {
     { 
 
       //this.authservice.logout();
-      this.router.navigate([WebConstants.WEB_URL.HOME]);
-      
-       this.tokenStorage.clearAll();
-      //  this.router.navigate([WebConstants.WEB_URL.HOME]);
+//      this.router.navigate([WebConstants.WEB_URL.HOME]);
+      this.authservice.logout();
+    //   this.tokenStorage.clearAll();
+        this.router.navigateByUrl(WebConstants.WEB_URL.HOME);
 
       console.log("Logging Out")  
     }
