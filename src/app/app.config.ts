@@ -11,10 +11,10 @@ import { jwtInterceptor } from '../util/interceptor/jwt-interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    // provideHttpClient(withFetch()),
-    // provideHttpClient(
-    //   withInterceptors([jwtInterceptor])
-    // ),
+    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withInterceptors([jwtInterceptor])
+    ),
      provideRouter(routes), provideClientHydration(withEventReplay())
   ]
 };

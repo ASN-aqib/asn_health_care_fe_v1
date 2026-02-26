@@ -14,7 +14,7 @@ export const  jwtInterceptor: HttpInterceptorFn = (req, next) => {
   
    let token = tokenStorage.getToken();
   
-   console.log("intercepton token",token);
+   console.log("intercept token",token);
 
   const clonedRequest = req.clone({
    setHeaders: {
