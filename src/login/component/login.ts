@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
  import { WebConstants } from '../../util/web.constants';
 import { LoginModel } from '../../auth/model/login';
 import { finalize, first } from 'rxjs';
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ ReactiveFormsModule,  CommonModule],
+  imports: [ ReactiveFormsModule,RouterOutlet,  CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
  

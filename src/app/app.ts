@@ -10,7 +10,7 @@ import { Login } from '../login/component/login';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,RouterModule,Login, Leftmenu,  CommonModule],
+  imports: [RouterOutlet,RouterModule, Leftmenu,  CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

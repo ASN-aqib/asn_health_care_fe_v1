@@ -57,6 +57,12 @@ export class Leftmenu {
     }
   ];
 
+  Click()
+  {
+  this.authservice.logout();
+    //   this.tokenStorage.clearAll();
+        this.router.navigateByUrl(WebConstants.WEB_URL.HOME);
+  }
 
    onActionClick(item: any): void {
    
