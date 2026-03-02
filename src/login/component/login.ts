@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ ReactiveFormsModule,RouterOutlet,  CommonModule],
+  imports: [ ReactiveFormsModule,  CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
  

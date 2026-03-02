@@ -1,4 +1,18 @@
-   <nav>
+   <!-- <nav>
       <a routerLink="/user-profile">User profile</a>
       <a routerLink="" (click)="Click()">Settings</a>
-    </nav>
+      <a routerLink="/dasboard" >Dashboard</a>
+    </nav> -->
+ <div [style.width]="widthVal + 'px'" id="mySidenav" class="sidenav">
+
+   <div>
+ <!-- <a routerLink="/dashboard/"><img  src="assets/ham.png" style="margin-right: 50px; width: 25px; height: 25px;" alt="Company Logo"></a> -->
+
+   <a   href="javascript:void(0)" class="closebtn"  (click)="closeNav()"><img  src="assets/ham.png" style="margin-right: 50px; width: 25px; height: 25px;" alt="Company Logo"></a>
+
+
+  <a routerLink="/dashboard/">&nbsp;&nbsp;<img src='assets/home-5-32.png' style="margin-left: 0px; width: 25px; height: 25px;"/>Dasboard</a>
+  <a routerLink="/user">User</a>
+  <a routerLink="/logout" (click)="Click()">Login</a>
+  </div>
+</div>

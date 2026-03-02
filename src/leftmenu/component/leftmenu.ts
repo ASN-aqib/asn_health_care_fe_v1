@@ -11,7 +11,7 @@ import { WebConstants } from '../../util/web.constants';
 
 @Component({
   selector: 'app-leftmenu',
-  imports: [RouterOutlet,MatToolbarModule,MatSidenavModule,
+  imports: [MatToolbarModule,MatSidenavModule,
     MatIconModule,MatListModule,MatButtonModule,RouterModule],
 
   templateUrl: './leftmenu.html',
@@ -19,10 +19,18 @@ import { WebConstants } from '../../util/web.constants';
 })
 export class Leftmenu {
 
+   widthVal = 160;
+   opened = true;
 
+  
   constructor(private authservice: Authservice, private tokenStorage:TokenStorage,
      public router: Router,
-  ){}
+  ){
+
+
+
+
+  }
 
    menuItems: any[] =[
     {
@@ -62,6 +70,25 @@ export class Leftmenu {
   this.authservice.logout();
     //   this.tokenStorage.clearAll();
         this.router.navigateByUrl(WebConstants.WEB_URL.HOME);
+  }
+
+
+  closeNav()
+  {
+    if(this.opened)
+    {// alert('10')
+       this.widthVal = 60;
+       this.opened = false;
+    }
+    else
+    {
+      // alert(this.opened);
+      this.widthVal = 160;
+      this.opened = true;
+    }
+    
+
+
   }
 
    onActionClick(item: any): void {
