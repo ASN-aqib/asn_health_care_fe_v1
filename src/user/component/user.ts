@@ -24,7 +24,7 @@ import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-user',
-    imports: [MatFormFieldModule,MatTableModule, MatInputModule, FormsModule,CommonModule,[NgFor],
+    imports: [MatFormFieldModule,MatTableModule, MatInputModule, FormsModule,CommonModule,
      ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule,MatPaginator,MatSelectModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user.html',
@@ -137,7 +137,7 @@ onClick(event: Event)
     getAllUsers(): void {
     this.userservice.getAllUsers()
       .pipe(first())
-      .subscribe(response => {
+      .subscribe((response: any) => {
 
 
       

@@ -28,7 +28,9 @@ import { Stats } from '../model/stats.model';
 })
 export class Dashboard implements OnInit    {
 
-  constructor(private profileService:ProfileService,private changeDetectorRef: ChangeDetectorRef){}
+  public trading: any =[];
+
+  constructor(private profileService:ProfileService,private userservice: Userservice){}
 
   
  
@@ -40,12 +42,14 @@ export class Dashboard implements OnInit    {
   }
     
   public dataSource = new MatTableDataSource<userElement>();
+  
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   public  profiledata: any = [];
   //stats: Stats[] = [];
   filtered!: Object[];
   stats: any =[];
+ 
   myChecked: boolean = true;
 
 
@@ -58,8 +62,7 @@ export class Dashboard implements OnInit    {
   // ];
 
   tradingDisplayedColumns: string[] = [
-    'symbol', 'buyQty', 'buyRate', 'sellRate',
-    'sellQty', 'avg', 'high', 'low'
+    'user_name'
   ];
 
   biddingDisplayedColumns: string[] = [
@@ -67,16 +70,16 @@ export class Dashboard implements OnInit    {
     'current', 'buyer', 'action'
   ];
 
-  trading = Array(8).fill({
-    symbol: 'Egg',
-    buyQty: '13,761',
-    buyRate: '42.67',
-    sellRate: '42.67',
-    sellQty: '15,761',
-    avg: '43.14',
-    high: '43.88',
-    low: '42.45'
-  });
+  // trading = Array(8).fill({
+  //   symbol: 'Egg',
+  //   buyQty: '13,761',
+  //   buyRate: '42.67',
+  //   sellRate: '42.67',
+  //   sellQty: '15,761',
+  //   avg: '43.14',
+  //   high: '43.88',
+  //   low: '42.45'
+  // });
 
   bidding = Array(8).fill({
     lot: 'PL-1023',
@@ -91,11 +94,30 @@ export class Dashboard implements OnInit    {
 
      getAll(): void {
 
+ 
       
-      this.profileService.getAllProfile()
-        .pipe( )
+      
+      this.userservice.getAllUsers()
+        .pipe(first())
         .subscribe(response => {
+
+
+                    this.trading = response
+
   
+this.dataSource.data =this.trading;
+
+//  this.dataSource.data = Array(8).fill({
+//     symbol: 'Egg',
+//     buyQty: '13,761',
+//     buyRate: '42.67',
+//     sellRate: '42.67',
+//     sellQty: '15,761',
+//     avg: '43.14',
+//     high: '43.88',
+//     low: '42.45'
+//   });
+          
   //               this.stats = [
   //   { title: 'Buyers', value: 533, change: 7.5, icon: 'fas fa-users' },
   //   { title: 'Sellers', value: 340, change: -24.5, icon: 'fas fa-user-tie' },
@@ -147,7 +169,7 @@ export class Dashboard implements OnInit    {
                this.stats.push(tradevol);
 
            
-           
+        
 
 
           //   // for (let item of this.filtered) {
@@ -177,7 +199,7 @@ export class Dashboard implements OnInit    {
           // } else {
           //   this.toastrService.error(response.value, "Failed To Load Data!")
           // }
-        });
+     });
     }
 
  
