@@ -171,8 +171,8 @@ export const WebConstants = {
       ADD_USER_PRIVILEGE: "/api/userprivilege/add",
       DELETE_USER_PRIVILEGE: "/api/userprivilege/deleteUserPrivilegeByUserIdAndPrivId/",
     },
-    PRIVILEGE: {
-      FIND_ALL_PRIVILEGE: "/api/privilege/find-all",
+    PROFILE: {
+      FIND_ALL: "/api/profile/find-all",
       FIND_ALL_PRIVILEGE_BY_USER: "/api/privilege/find-privilege-by-user/",
     },
     ROLE_PRIVILEGE_MENU: {

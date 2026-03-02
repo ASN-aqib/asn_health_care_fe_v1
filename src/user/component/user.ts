@@ -13,6 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Userservice } from '../service/userservice';
 import { MatSelectModule } from '@angular/material/select';
+import { CommonModule, NgFor } from '@angular/common';
 
   export interface userElement {
   id: number;
@@ -23,7 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-user',
-    imports: [MatFormFieldModule,MatTableModule, MatInputModule, FormsModule,
+    imports: [MatFormFieldModule,MatTableModule, MatInputModule, FormsModule,CommonModule,[NgFor],
      ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule,MatPaginator,MatSelectModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user.html',

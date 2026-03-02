@@ -1,10 +1,20 @@
 <!-- <div class="container-fluid mt-4"> -->
 <div class="form-container mt-5" style="margin-left: 200px;">
 <h1>Dashboard</h1>
+ 
+<div  *ngFor="let stat of stats"> {{ stat.title}}</div>
+
+@for (item of stats; track item.id) {
+  <li>{{ item.title }}</li>
+}
+ 
+ 
+
 
     <!-- STAT CARDS -->
     <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let stat of stats">
+        <!-- <div class="col-md-3 mb-3"  *ngFor="let stat of stats" > -->
+    <div class="col-md-3"  *ngFor="let stat of stats" > 
             <div class="card stat-card">
                 <div class="card-body d-flex ">
 
