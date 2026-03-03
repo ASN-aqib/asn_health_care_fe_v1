@@ -421,8 +421,8 @@ export const WebConstants = {
       UPDATE_PREFERENCES: "/api/preference/update",
       DELETE_PREFERENCES: "/api/preference/delete/",
     },
-    PAYMENT_DETAIL: {
-      SEARCH: "/api/spot/payment/search"
+    BIDDING: {
+      LIIV_BIDDING: "/api/seller/find-all"
     },
     USER_GUIDANCE_ALERT: {
       SMS_ALERTS_FIND_ALL: "/api/sms/find-all",

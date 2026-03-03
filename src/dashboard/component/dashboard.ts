@@ -10,6 +10,7 @@ import { Userservice } from '../../user/service/userservice';
 import { ProfileService } from '../../profile/service/profile';
 import { first } from 'rxjs';
 import { Stats } from '../model/stats.model';
+import { Sellerservice } from '../../services/sellerservice';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class Dashboard implements OnInit    {
 
   public trading: any =[];
 
-  constructor(private profileService:ProfileService,private userservice: Userservice){}
+  constructor(private profileService:ProfileService,private sellerService: Sellerservice){}
 
   
  
@@ -97,12 +98,11 @@ export class Dashboard implements OnInit    {
  
       
       
-      this.userservice.getAllUsers()
+      this.profileService.getAllProfile()
         .pipe(first())
         .subscribe(response => {
 
-
-                    this.trading = response
+      this.trading = response
 
   
 this.dataSource.data =this.trading;
