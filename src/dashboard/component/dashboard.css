@@ -28,3 +28,24 @@
   display: flex; /* Turns on Flexbox layout, automatically places items in a row */
   gap: 20px; /* Adds space between the columns */
 }
+
+
+ /* .mat-mdc-card-header {
+  background-color: #076D70;
+  padding: 16px;
+}
+
+.mat-mdc-card-title
+{
+        color: white;
+}  */
+
+.mat-mdc-header-row 
+{
+    background-color:  #076D70;
+    
+}
+.mat-mdc-header-cell
+{
+    color:aliceblue;
+}

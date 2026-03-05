@@ -66,7 +66,7 @@
 
                 <mat-card class="mb-4">
                     <mat-card-header>
-                        <mat-card-title>Live Trading</mat-card-title>
+                        <mat-card-title>Live Bidding</mat-card-title>
                         <button mat-stroked-button color="primary" class="ml-auto">
                             See More
                         </button>
@@ -76,27 +76,27 @@
 
                         <!-- Symbol -->
                      <!-- Name Column -->
-  <ng-container matColumnDef="user_name">
-    <th mat-header-cell *matHeaderCellDef> User Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.user_name}} </td>
-  </ng-container>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> User Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
  
-<!-- 
-                        <ng-container matColumnDef="buyQty">
-                            <th mat-header-cell *matHeaderCellDef> Buying Qty </th>
+
+                        <ng-container matColumnDef="quantity">
+                            <th mat-header-cell *matHeaderCellDef>  Quantity </th>
                             <td mat-cell *matCellDef="let element" class="text-success">
-                                {{element.buyQty}}
+                                {{element.quantity}}
                             </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="buyRate">
-                            <th mat-header-cell *matHeaderCellDef> Buying Rate </th>
+                      <ng-container matColumnDef="buyRate">
+                            <th mat-header-cell *matHeaderCellDef>   Price </th>
                             <td mat-cell *matCellDef="let element" class="text-success">
                                 {{element.buyRate}}
                             </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="sellRate">
+         <!--                  <ng-container matColumnDef="sellRate">
                             <th mat-header-cell *matHeaderCellDef> Selling Rate </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.sellRate}}
@@ -147,7 +147,7 @@
                 <div class="table-responsive">
                     <mat-card>
                         <mat-card-header>
-                            <mat-card-title>Live Bidding</mat-card-title>
+                            <mat-card-title>Live Trading</mat-card-title>
                             <button mat-stroked-button color="primary" class="ml-auto">
                                 See More
                             </button>

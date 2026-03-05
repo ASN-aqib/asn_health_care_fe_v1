@@ -11,6 +11,7 @@ import { ProfileService } from '../../profile/service/profile';
 import { first } from 'rxjs';
 import { Stats } from '../model/stats.model';
 import { Sellerservice } from '../../services/sellerservice';
+import { Dashboardservice } from '../../services/dashboardservice';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class Dashboard implements OnInit    {
 
   public trading: any =[];
 
-  constructor(private profileService:ProfileService,private sellerService: Sellerservice){}
+  constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice){}
 
   
  
@@ -63,7 +64,7 @@ export class Dashboard implements OnInit    {
   // ];
 
   tradingDisplayedColumns: string[] = [
-    'user_name'
+    'name' ,'quantity'
   ];
 
   biddingDisplayedColumns: string[] = [
@@ -98,7 +99,7 @@ export class Dashboard implements OnInit    {
  
       
       
-      this.profileService.getAllProfile()
+      this.dashboarsService.getAllLiveBidding()
         .pipe(first())
         .subscribe(response => {
 

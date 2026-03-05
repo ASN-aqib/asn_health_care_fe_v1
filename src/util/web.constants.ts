@@ -226,7 +226,9 @@ export const WebConstants = {
       FIND_ALL: "/api/parkingzone/find",
     },
     DASHBOARD:{
-      PARKING_UTILIZATION_COUNT: "/api/dashboard/find-utilization-day-count",
+      
+      
+      LIVE_BIDDING: "/api/dashboard/find-all",
       PARKING_UTILIZATION_COUNT_ALL_ZONES: "/api/dashboard/find-utilization-count-by-All-Zones",
       PARKING_UTILIZATION_COUNT_AVAILABLE: "/api/dashboard/find-utilization-count-available",
       PEAK_OCCUPIED_TIME: "/api/dashboard/find-utilization-count-by-Zones-for-Graph/",
