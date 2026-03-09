@@ -22,5 +22,11 @@ export class Dashboardservice {
           
               return this.ajaxHelper.get(url);
      }
+
+     getAllLiveTrading(): Observable<BaseResponse<any>> {
+         let url = this.baseUrl + WebConstants.API_URL.DASHBOARD.LIVE_TRADING;
+          
+              return this.ajaxHelper.get(url);
+     }
   
 }

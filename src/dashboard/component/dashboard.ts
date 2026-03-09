@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { userElement } from '../../user/component/user';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Userservice } from '../../user/service/userservice';
 import { ProfileService } from '../../profile/service/profile';
 import { first } from 'rxjs';
@@ -14,11 +14,17 @@ import { Sellerservice } from '../../services/sellerservice';
 import { Dashboardservice } from '../../services/dashboardservice';
 
 
+export interface tradingelements {
+  
+  transactionId:string;
+  
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    CommonModule,
+    CommonModule,MatPaginator,MatPaginatorModule,
     MatTableModule,
     MatButtonModule,
     MatCardModule
@@ -28,9 +34,16 @@ import { Dashboardservice } from '../../services/dashboardservice';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit    {
 
+
+export class Dashboard implements OnInit    {
+ 
+  
   public trading: any =[];
+
+  public bidding: any =[];
+
+  
 
   constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice){}
 
@@ -39,19 +52,26 @@ export class Dashboard implements OnInit    {
  
   ngOnInit(): void {
  
+    this.getprofiles();
     this.getAll();
+    this.getLiveTrading();
+   
     
   }
     
-  public dataSource = new MatTableDataSource<userElement>();
+    
+
+  public dataSource = new MatTableDataSource<tradingelements>();
   
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   public  profiledata: any = [];
   //stats: Stats[] = [];
   filtered!: Object[];
   stats: any =[];
- 
+   pageSize = 10;
+  pageIndex = 0;
   myChecked: boolean = true;
 
 
@@ -64,89 +84,53 @@ export class Dashboard implements OnInit    {
   // ];
 
   tradingDisplayedColumns: string[] = [
-    'name' ,'quantity'
+    'transactionId'  
   ];
 
   biddingDisplayedColumns: string[] = [
-    'lot', 'type', 'qty', 'base',
-    'current', 'buyer', 'action'
+      'categoryname', 'buyingQuantity', 'buyingRate' ,'sellerQuantity', 'sellerRate',
+      'high', 'low', 'createdDate', 'action'
   ];
-
-  // trading = Array(8).fill({
-  //   symbol: 'Egg',
-  //   buyQty: '13,761',
-  //   buyRate: '42.67',
-  //   sellRate: '42.67',
-  //   sellQty: '15,761',
-  //   avg: '43.14',
-  //   high: '43.88',
-  //   low: '42.45'
-  // });
-
-  bidding = Array(8).fill({
-    lot: 'PL-1023',
-    type: 'Egg (40gm–46gm)',
-    qty: '250g',
-    base: 'Rs.49,900',
-    current: 'Rs.42,800',
-    buyer: 'ABC Eggs'
-  });
-
  
-
-     getAll(): void {
-
- 
-      
-      
-      this.dashboarsService.getAllLiveBidding()
-        .pipe(first())
-        .subscribe(response => {
-
-      this.trading = response
 
   
-this.dataSource.data =this.trading;
+ 
+  
 
-//  this.dataSource.data = Array(8).fill({
-//     symbol: 'Egg',
-//     buyQty: '13,761',
-//     buyRate: '42.67',
-//     sellRate: '42.67',
-//     sellQty: '15,761',
-//     avg: '43.14',
-//     high: '43.88',
-//     low: '42.45'
-//   });
-          
-  //               this.stats = [
-  //   { title: 'Buyers', value: 533, change: 7.5, icon: 'fas fa-users' },
-  //   { title: 'Sellers', value: 340, change: -24.5, icon: 'fas fa-user-tie' },
-  //   { title: 'Traders', value: 560, change: 3.5, icon: 'fas fa-chart-line' },
-  //   { title: 'Trade Volume', value: '45.6743', change: 53.5, icon: 'fas fa-layer-group' }
-  // ];
-        
+  getprofiles()
+  {
+    
+   this.profileService.getAllProfile()
+        .pipe(first())
+        .subscribe(response => {
+    
+            this.profiledata = response
 
-   
-        
-           this.profiledata = response
-           //= this.profiledata.filter((profile: any) => profile.profile_type_id == 1);
-           this.filtered = this.profiledata.filter((profile: any) => profile.profile_type_id == 1);
+         console.log("==== profile Data ==========");
+          console.log(this.profiledata);
+          console.log("==============");
+
+
+           var buyer = this.profiledata.filter((profile: any) => profile.profile_type_id == 1);
            var seller = this.profiledata.filter((profile: any) => profile.profile_type_id == 2);
            var trader = this.profiledata.filter((profile: any) => profile.profile_type_id == 3);
          
 
-            
+             console.log("==== buyer Data ==========");
+          console.log(buyer);
+          console.log("==============");
+
   
-            console.log(this.profiledata);
             
 
              let stat = new Stats();
                stat.title = "Buyer";
-               stat.value = this.filtered.length;
+               stat.value = buyer.length;
                stat.change = 2.5;
                stat.icon = "fas fa-users";
                this.stats.push(stat);
+
+                console.log(stat);
 
              let statsell = new Stats();
                statsell.title = "Seller";
@@ -169,6 +153,35 @@ this.dataSource.data =this.trading;
                tradevol.icon = "fas fa-chart-line";
                this.stats.push(tradevol);
 
+               
+
+         });
+  }
+
+
+     ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+
+    this.dataSource.paginator = this.paginator;
+
+  }  
+
+
+     getAll(): void {
+    
+      this.dashboarsService.getAllLiveBidding()
+        .pipe(first())
+        .subscribe(response => {
+
+      this.bidding = response
+      this.dataSource =this.bidding;
+
+
+
+        
+         
+      //   this.dataSource = new MatTableDataSource(this.reponsedata);
+//   this.dataSource.paginator = this.paginator;
            
         
 
@@ -203,6 +216,11 @@ this.dataSource.data =this.trading;
      });
     }
 
+      onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    //this.loadUsers();
+  }
  
   //     ngAfterViewInit(): void {
   //      this.changeDetectorRef.detectChanges();
@@ -217,4 +235,24 @@ this.dataSource.data =this.trading;
       //   }
 
       // }
+
+
+      getLiveTrading()
+      {
+    
+       this.dashboarsService.getAllLiveTrading()
+        .pipe(first())
+        .subscribe(response => {
+
+
+         this.trading = response
+     
+
+               this.dataSource = new MatTableDataSource(this.trading);
+
+      this.dataSource.paginator = this.paginator;
+       
+
+        });
+      }
 }

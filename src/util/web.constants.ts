@@ -229,6 +229,8 @@ export const WebConstants = {
       
       
       LIVE_BIDDING: "/api/dashboard/find-all",
+      LIVE_TRADING: "/api/dashboard/find-all-live-trans",
+
       PARKING_UTILIZATION_COUNT_ALL_ZONES: "/api/dashboard/find-utilization-count-by-All-Zones",
       PARKING_UTILIZATION_COUNT_AVAILABLE: "/api/dashboard/find-utilization-count-available",
       PEAK_OCCUPIED_TIME: "/api/dashboard/find-utilization-count-by-Zones-for-Graph/",

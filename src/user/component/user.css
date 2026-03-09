@@ -42,7 +42,7 @@ mat-form-field {
 /* Or use a percentage for a fluid width */
  
 .form-container {
-  display: flex;
+  display: fixed;
   gap: 10px; /* Adds space between the fields */
   /* Optional: center the group within its parent */
   justify-content: center;
@@ -57,11 +57,11 @@ mat-form-field {
 .table-div {
   /* Optional: Add styling to visualize the div */
   
-  width: 100vh;
-  margin-left: 35vh;
+  width: 120vh;
+  margin-left: 55vh;
   display: flex;
   height: 250px;
-  margin-top: 60px;
+  margin-top: 200px;
   justify-content: center; /* Centers horizontally */
   align-items: center;
   }
@@ -72,7 +72,8 @@ mat-form-field {
   
   width: 100vh;
   margin-left: 25vh;
-  display: flex;
+  margin-top: 20vh;
+  display: fixed;
   height: 80px;
   justify-content: center; /* Centers horizontally */
   align-items: center;

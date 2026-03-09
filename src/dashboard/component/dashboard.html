@@ -2,9 +2,9 @@
 <div class="form-container mt-5" style="margin-left: 200px;">
 <h1>Dashboard</h1>
  
-<div  *ngFor="let stat of stats"> {{ stat.title}}</div>
+<!-- <div  *ngFor="let stat of stats"> {{ stat.title}}</div>
 
- 
+  -->
  
 
 
@@ -20,8 +20,8 @@
 
                     </div>
                     <div>
-                        <small class="text-muted text-uppercase">{{ stat.title }}</small>
-                        <h3 class="mb-0">{{ stat.value }}</h3>
+                        <h4 class="text-uppercase">{{ stat.title }}</h4>
+                        <h1 class="mb-0">{{ stat.value }}</h1>
 
                     </div>
                     <div class="ml-auto" style="position:relative;">
@@ -59,44 +59,39 @@
         <!-- LIVE TRADING -->
         <div class="col-lg-6 mb-4">
             <div class="card">
-                <!-- <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Live Trading</h5>
                     <button class="btn btn-outline-success btn-sm">See More</button>
-                </div> -->
+                </div> 
 
                 <mat-card class="mb-4">
-                    <mat-card-header>
-                        <mat-card-title>Live Bidding</mat-card-title>
-                        <button mat-stroked-button color="primary" class="ml-auto">
-                            See More
-                        </button>
-                    </mat-card-header>
+                  
 
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 w-100">
 
                         <!-- Symbol -->
                      <!-- Name Column -->
-                    <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef> User Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    <ng-container matColumnDef="transactionId">
+                        <th mat-header-cell *matHeaderCellDef> transactionId </th>
+                        <td mat-cell *matCellDef="let element"> {{element.transactionId}} </td>
                     </ng-container>
  
 
-                        <ng-container matColumnDef="quantity">
+                   <!--        <ng-container matColumnDef="quantity">
                             <th mat-header-cell *matHeaderCellDef>  Quantity </th>
                             <td mat-cell *matCellDef="let element" class="text-success">
                                 {{element.quantity}}
                             </td>
                         </ng-container>
 
-                      <ng-container matColumnDef="buyRate">
+                        <ng-container matColumnDef="buyRate">
                             <th mat-header-cell *matHeaderCellDef>   Price </th>
                             <td mat-cell *matCellDef="let element" class="text-success">
                                 {{element.buyRate}}
                             </td>
                         </ng-container>
 
-         <!--                  <ng-container matColumnDef="sellRate">
+                      <ng-container matColumnDef="sellRate">
                             <th mat-header-cell *matHeaderCellDef> Selling Rate </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.sellRate}}
@@ -135,68 +130,94 @@
                         <tr mat-row *matRowDef="let row; columns: tradingDisplayedColumns;"></tr>
 
                     </table>
+                            <mat-paginator
+                                [pageSizeOptions]="[10, 20]"
+                                showFirstLastButtons
+                                 aria-label="Select page of trading">
+                            </mat-paginator>
                 </mat-card>
             </div>
         </div>
 
-        <!-- LIVE BIDDING -->
-        <div class="col-lg-6 mb-4">
+        <!--    ING -->
+        <div class="col-lg-6 mb-3">
             <div class="card">
 
+                 <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Live Bidding</h5>
+                    <button class="btn btn-outline-success btn-sm">See More</button>
+                </div> 
 
                 <div class="table-responsive">
                     <mat-card>
-                        <mat-card-header>
-                            <mat-card-title>Live Trading</mat-card-title>
-                            <button mat-stroked-button color="primary" class="ml-auto">
-                                See More
-                            </button>
-                        </mat-card-header>
+                   
 
                         <table mat-table [dataSource]="bidding" class="mat-elevation-z2 w-100">
 
-                            <ng-container matColumnDef="lot">
-                                <th mat-header-cell *matHeaderCellDef> Lot ID </th>
+                            <!-- <ng-container matColumnDef="productname">
+                                <th mat-header-cell *matHeaderCellDef> Product</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.lot}}
+                                    {{element.productname}}
+                                </td>
+                            </ng-container> -->
+
+                            <ng-container matColumnDef="categoryname">
+                                <th mat-header-cell *matHeaderCellDef> Category </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.categoryname}}
                                 </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="type">
-                                <th mat-header-cell *matHeaderCellDef> Poultry Type </th>
+                            <ng-container matColumnDef="buyingQuantity">
+                                <th mat-header-cell *matHeaderCellDef> Buying Qty </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.type}}
+                                    {{element.buyingQuantity}}
+                                </td>
+                            </ng-container>
+ 
+                            <ng-container matColumnDef="buyingRate">
+                                <th mat-header-cell *matHeaderCellDef> Buying Rate </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.buyingRate}}
                                 </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="qty">
-                                <th mat-header-cell *matHeaderCellDef> Quantity </th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.qty}}
-                                </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="base">
-                                <th mat-header-cell *matHeaderCellDef> Base Price </th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.base}}
-                                </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="current">
-                                <th mat-header-cell *matHeaderCellDef> Current Bid </th>
+                            <ng-container matColumnDef="sellerQuantity">
+                                <th mat-header-cell *matHeaderCellDef> Seller Qty </th>
                                 <td mat-cell *matCellDef="let element" class="text-success">
-                                    {{element.current}}
+                                    {{element.sellerQuantity}}
                                 </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="buyer">
-                                <th mat-header-cell *matHeaderCellDef> Top Buyer </th>
+                            <ng-container matColumnDef="sellerRate">
+                                <th mat-header-cell *matHeaderCellDef> Seller Rate </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.buyer}}
+                                    {{element.sellerRate}}
                                 </td>
                             </ng-container>
 
+                               <ng-container matColumnDef="high">
+                                <th mat-header-cell *matHeaderCellDef> High </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.high}}
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="low">
+                                <th mat-header-cell *matHeaderCellDef> Low </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.low}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="createdDate">
+                                <th mat-header-cell *matHeaderCellDef> Date </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.createdDate}}
+                                </td>
+                            </ng-container>
+ 
                             <ng-container matColumnDef="action">
                                 <th mat-header-cell *matHeaderCellDef> Action </th>
                                 <td mat-cell *matCellDef="let element">
@@ -210,6 +231,9 @@
                             <tr mat-row *matRowDef="let row; columns: biddingDisplayedColumns;"></tr>
 
                         </table>
+                 
+                     <mat-paginator matPaginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+
                     </mat-card>
                 </div>
 
