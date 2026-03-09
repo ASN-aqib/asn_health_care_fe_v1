@@ -8,10 +8,11 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { Authservice } from '../../auth/service/authservice';
 import { TokenStorage } from '../../util/token.storage';
 import { WebConstants } from '../../util/web.constants';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-leftmenu',
-  imports: [MatToolbarModule,MatSidenavModule,
+  imports: [MatToolbarModule,MatSidenavModule, CommonModule,
     MatIconModule,MatListModule,MatButtonModule,RouterModule],
 
   templateUrl: './leftmenu.html',
@@ -21,7 +22,7 @@ export class Leftmenu {
 
    widthVal = 160;
    opened = true;
-
+  isVisible = true;
   
   constructor(private authservice: Authservice, private tokenStorage:TokenStorage,
      public router: Router,
@@ -29,6 +30,7 @@ export class Leftmenu {
 
 
 
+    this.isVisible = true;
 
   }
 

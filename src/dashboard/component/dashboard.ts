@@ -12,20 +12,44 @@ import { first } from 'rxjs';
 import { Stats } from '../model/stats.model';
 import { Sellerservice } from '../../services/sellerservice';
 import { Dashboardservice } from '../../services/dashboardservice';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 
 export interface tradingelements {
   
   transactionId:string;
+  quantity:number;
+  price:number;
+  buyername:string;
+  sellername:string;
+  categoryname:string;
+
+}
+
+export interface biddingelements {
+  
+  categoryname:string;
+  buyingQuantity:number;
+  buyingRate:number;
+  sellerQuantity:number;
+  sellerRate:number;
+  high:number;
+  low:number;
+  createdDate:string
+
   
 }
+
+
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     CommonModule,MatPaginator,MatPaginatorModule,
-    MatTableModule,
+    MatTableModule,MatFormFieldModule,MatInputModule,
     MatButtonModule,
     MatCardModule
   ],
@@ -54,7 +78,7 @@ export class Dashboard implements OnInit    {
  
     this.getprofiles();
     this.getAll();
-    this.getLiveTrading();
+    
    
     
   }
@@ -62,10 +86,12 @@ export class Dashboard implements OnInit    {
     
 
   public dataSource = new MatTableDataSource<tradingelements>();
-  
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  public dataSource1 = new MatTableDataSource<biddingelements>();
 
+
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild("paginator") paginator!: MatPaginator;
+  @ViewChild("paginator1") paginator1!: MatPaginator;
   public  profiledata: any = [];
   //stats: Stats[] = [];
   filtered!: Object[];
@@ -74,17 +100,10 @@ export class Dashboard implements OnInit    {
   pageIndex = 0;
   myChecked: boolean = true;
 
-
-
-  // stats = [
-  //   { title: 'Buyers', value: 533, change: 7.5, icon: 'fas fa-users' },
-  //   { title: 'Sellers', value: 340, change: -24.5, icon: 'fas fa-user-tie' },
-  //   { title: 'Traders', value: 560, change: 3.5, icon: 'fas fa-chart-line' },
-  //   { title: 'Trade Volume', value: '45.6743', change: 53.5, icon: 'fas fa-layer-group' }
-  // ];
+ 
 
   tradingDisplayedColumns: string[] = [
-    'transactionId'  
+    'transactionId' ,'categoryname', 'quantity' ,'price' ,'buyername' ,'sellername' , 'commission'
   ];
 
   biddingDisplayedColumns: string[] = [
@@ -94,7 +113,10 @@ export class Dashboard implements OnInit    {
  
 
   
- 
+ applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource1.filter = filterValue.trim().toLowerCase();
+  }
   
 
   getprofiles()
@@ -116,7 +138,7 @@ export class Dashboard implements OnInit    {
            var trader = this.profiledata.filter((profile: any) => profile.profile_type_id == 3);
          
 
-             console.log("==== buyer Data ==========");
+          console.log("==== buyer Data ==========");
           console.log(buyer);
           console.log("==============");
 
@@ -159,12 +181,7 @@ export class Dashboard implements OnInit    {
   }
 
 
-     ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-
-    this.dataSource.paginator = this.paginator;
-
-  }  
+ 
 
 
      getAll(): void {
@@ -174,10 +191,12 @@ export class Dashboard implements OnInit    {
         .subscribe(response => {
 
       this.bidding = response
-      this.dataSource =this.bidding;
+      //this.dataSource1 =this.bidding;
+      console.log("buyer",this.bidding);
 
-
-
+       this.dataSource1 = new MatTableDataSource(this.bidding);
+       this.dataSource1.paginator = this.paginator1;
+       this.getLiveTrading();  
         
          
       //   this.dataSource = new MatTableDataSource(this.reponsedata);
@@ -216,29 +235,18 @@ export class Dashboard implements OnInit    {
      });
     }
 
-      onPageChange(event: PageEvent): void {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    //this.loadUsers();
-  }
  
-  //     ngAfterViewInit(): void {
-  //      this.changeDetectorRef.detectChanges();
-  //  }
+ 
+ 
 
-      // ngAfterViewChecked(): void {
-      //    if (this.stats) {
-      //     setTimeout(() => {
-          
-      //     }, 0);
-      //     this.changeDetectorRef.detectChanges();
-      //   }
+    ngAfterViewInit() {
+      // Assign paginators to their respective data sources
+      this.dataSource.paginator = this.paginator;
+      this.dataSource1.paginator = this.paginator1;
+    }
 
-      // }
-
-
-      getLiveTrading()
-      {
+    getLiveTrading()
+    {
     
        this.dashboarsService.getAllLiveTrading()
         .pipe(first())
@@ -246,13 +254,12 @@ export class Dashboard implements OnInit    {
 
 
          this.trading = response
-     
 
-               this.dataSource = new MatTableDataSource(this.trading);
-
-      this.dataSource.paginator = this.paginator;
+         console.log(this.trading);
+         this.dataSource = new MatTableDataSource(this.trading);
+         this.dataSource.paginator = this.paginator;
        
 
-        });
-      }
+       });
+   }
 }
