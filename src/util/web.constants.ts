@@ -428,8 +428,8 @@ export const WebConstants = {
     BIDDING: {
       LIIV_BIDDING: "/api/seller/find-all"
     },
-    USER_GUIDANCE_ALERT: {
-      SMS_ALERTS_FIND_ALL: "/api/sms/find-all",
+    USER_ACTIVITY: {
+      FIND_ALL: "/api/useractivity/find-all",
       SMS_ALERTS_DELETE: "/api/sms/delete"
     },
     USER_GUIDANCE: {

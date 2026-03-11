@@ -14,6 +14,8 @@ import { Sellerservice } from '../../services/sellerservice';
 import { Dashboardservice } from '../../services/dashboardservice';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { Onlineusers } from '../onlinedialog/onlineusers/onlineusers';
 
 
 export interface tradingelements {
@@ -69,7 +71,9 @@ export class Dashboard implements OnInit    {
 
   
 
-  constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice){}
+  constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice,
+              private dialog: MatDialog
+  ){}
 
   
  
@@ -116,6 +120,21 @@ export class Dashboard implements OnInit    {
  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource1.filter = filterValue.trim().toLowerCase();
+  }
+
+
+   openDialog(): void {
+    const dialogRef = this.dialog.open(Onlineusers, {
+      width: '850px',
+      height: '550px',// Optional: set width, height, or other config options
+      //data: { name: 'John', animal: 'Dog' }, // Optional: pass data to the dialog
+    });
+
+    // Optional: Subscribe to the afterClosed() observable to get data back when the dialog closes
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      // Handle data returned from the dialog here
+    });
   }
   
 

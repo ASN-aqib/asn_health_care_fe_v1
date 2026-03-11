@@ -1,0 +1,51 @@
+.stat-card {
+    border-radius: 12px;
+}
+
+.icon-box {
+    width: 55px;
+    height: 55px;
+    background: #f5a623;
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.table thead th {
+    background-color: #0f6d6f;
+    color: #fff;
+    font-weight: 500;
+}
+
+.card {
+    border-radius: 14px;
+}
+
+.flex-container {
+  display: flex; /* Turns on Flexbox layout, automatically places items in a row */
+  gap: 20px; /* Adds space between the columns */
+}
+
+
+ /* .mat-mdc-card-header {
+  background-color: #076D70;
+  padding: 16px;
+}
+
+.mat-mdc-card-title
+{
+        color: white;
+}  */
+
+.mat-mdc-header-row 
+{
+    background-color:  #076D70;
+    
+}
+.mat-mdc-header-cell
+{
+    color:aliceblue;
+}
