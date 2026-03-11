@@ -14,8 +14,9 @@ import { Sellerservice } from '../../services/sellerservice';
 import { Dashboardservice } from '../../services/dashboardservice';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Onlineusers } from '../onlinedialog/onlineusers/onlineusers';
+import { Useractivityservice } from '../../services/useractivityservice';
 
 
 export interface tradingelements {
@@ -72,7 +73,7 @@ export class Dashboard implements OnInit    {
   
 
   constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice,
-              private dialog: MatDialog
+              private dialog: MatDialog ,private userActivityService:Useractivityservice
   ){}
 
   
@@ -82,6 +83,7 @@ export class Dashboard implements OnInit    {
  
     this.getprofiles();
     this.getAll();
+    this.getAllOnlineUsers();
     
    
     
@@ -100,7 +102,8 @@ export class Dashboard implements OnInit    {
   //stats: Stats[] = [];
   filtered!: Object[];
   stats: any =[];
-   pageSize = 10;
+  online: any =[];
+  pageSize = 10;
   pageIndex = 0;
   myChecked: boolean = true;
 
@@ -123,11 +126,34 @@ export class Dashboard implements OnInit    {
   }
 
 
+    getAllOnlineUsers()
+    {
+      
+     this.userActivityService.getAll()
+          .pipe(first())
+          .subscribe(response => {
+
+         this.online = response
+
+         console.log("online" ,this.online)
+
+         
+         });
+  }
+
+
    openDialog(): void {
+      const dialogConfig = new MatDialogConfig();
+
+      dialogConfig.data = {
+      tableDataSource: this.online
+    };
+
     const dialogRef = this.dialog.open(Onlineusers, {
-      width: '850px',
-      height: '550px',// Optional: set width, height, or other config options
-      //data: { name: 'John', animal: 'Dog' }, // Optional: pass data to the dialog
+      width: '900px',
+      height: '600px',// Optional: set width, height, or other config options
+     // data: { this.bidding }, // Optional: pass data to the dialog
+     data: this.online
     });
 
     // Optional: Subscribe to the afterClosed() observable to get data back when the dialog closes

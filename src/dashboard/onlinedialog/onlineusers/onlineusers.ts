@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,AfterViewInit, Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,6 +9,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Useractivityservice } from '../../../services/useractivityservice';
 import { first } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-onlineusers',
@@ -34,7 +35,10 @@ export class Onlineusers implements OnInit {
   @ViewChild("paginator") paginator!: MatPaginator;
    
   
-  constructor(private userActivityService:Useractivityservice){}
+  constructor(    public dialogRef: MatDialogRef<Onlineusers>,private userActivityService:Useractivityservice,
+    // Inject the data using MAT_DIALOG_DATA
+    @Inject(MAT_DIALOG_DATA) public data: any){}
+
  
 
 
@@ -50,8 +54,11 @@ export class Onlineusers implements OnInit {
   
     ngOnInit(): void {
     
-        this.getAll();
-  
+        //this.getAll();
+      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.paginator = this.paginator;
+
+
     }
 
 
@@ -60,23 +67,23 @@ export class Onlineusers implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-    getAll()
-    {
+  //   getAll()
+  //   {
       
-     this.userActivityService.getAll()
-          .pipe(first())
-          .subscribe(response => {
+  //    this.userActivityService.getAll()
+  //         .pipe(first())
+  //         .subscribe(response => {
 
-         this.online = response
+  //        this.online = response
 
-         console.log(this.online);
-         this.dataSource = new MatTableDataSource(this.online);
-         this.dataSource.paginator = this.paginator;
+  //        console.log(this.online);
+  //        this.dataSource = new MatTableDataSource(this.online);
+  //        this.dataSource.paginator = this.paginator;
 
 
          
-         });
-  }
+  //        });
+  // }
 
 
 }
