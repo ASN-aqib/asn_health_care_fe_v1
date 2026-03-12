@@ -225,6 +225,14 @@ export const WebConstants = {
       FIND_BY_ID: "/api/parkingzone/find",
       FIND_ALL: "/api/parkingzone/find",
     },
+
+     TRANSACTION: {
+      ADD: "/api/parkingzone/add",
+      UPDATE: "/api/parkingzone/update",
+      DELETE: "/api/parkingzone/delete",
+      FIND_BY_ID: "/api/parkingzone/find",
+      FIND_ALL: "/api/transaction/find",
+    },
     DASHBOARD:{
       
       
