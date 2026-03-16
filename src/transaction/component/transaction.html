@@ -1,72 +1,95 @@
-
-   <div class="row mt-4" style="margin-left: 230px;">
-      <div class="col-lg-6 mb-4">
+ 
+    
+   <div  style="margin-left: 230px;margin-top: 20px;">
+    <h1>Order Management</h1>
+     <br/><br/>
+      <div class="col-lg  ">
             <div class="card">
 
                  <!-- <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">User Log Activity</h5>
                      
                 </div>  -->
-
+               <mat-form-field  class="custom-height-field">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+                </mat-form-field>
+                
                 <div class="table-responsive">
-                    
                     <mat-card>
-
-                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 w-100">
- 
-                            
-
-                            <ng-container matColumnDef="id">
-                                <th mat-header-cell *matHeaderCellDef> Id</th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.id}}
-                                </td>
-                            </ng-container>
-                            
         
-                            <!-- <ng-container matColumnDef="firstName">
-                                <th mat-header-cell *matHeaderCellDef> First Name </th>
+                         <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 w-100">
+                   
+                   <ng-container matColumnDef="createdDate">
+                                <th mat-header-cell *matHeaderCellDef> Date </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.firstName}}
+                                    {{element.createdDate}}
                                 </td>
                             </ng-container>
 
-                            
-                            <ng-container matColumnDef="lastName">
-                                <th mat-header-cell *matHeaderCellDef> Last Name </th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.lastName}}
-                                </td>
-                            </ng-container> -->
 
-                             <!-- <ng-container matColumnDef="email_address">
-                                <th mat-header-cell *matHeaderCellDef> Email Address </th>
+                            <ng-container matColumnDef="categoryName">
+                                <th mat-header-cell *matHeaderCellDef>Category</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.email_address}}
+                                    {{element.categoryName}}
+                                </td>
+                            </ng-container>
+
+                
+                            <ng-container matColumnDef="quantity">
+                                <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.quantity}}
+                                </td>
+                            </ng-container>  
+
+                             <ng-container matColumnDef="price">
+                                <th mat-header-cell *matHeaderCellDef> Total Price</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.price}}
                                 </td>
                             </ng-container>
  
-                            <ng-container matColumnDef="profile_type">
-                                <th mat-header-cell *matHeaderCellDef> Profile Type</th>
+                         <ng-container matColumnDef="buyerName">
+                                <th mat-header-cell *matHeaderCellDef> Buyer</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.profile_type}}
+                                    {{element.buyerName}}
                                 </td>
                             </ng-container>
 
-             
-
-                            <ng-container matColumnDef="created_date">
-                                <th mat-header-cell *matHeaderCellDef> Last Login </th>
+                       
+ 
+                         <ng-container matColumnDef="sellerName">
+                                <th mat-header-cell *matHeaderCellDef> Seller</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.created_date}}
+                                    {{element.sellerName}}
                                 </td>
-                            </ng-container>   -->
+                            </ng-container>
+  
+                            <ng-container matColumnDef="commissionAmount">
+                                <th mat-header-cell *matHeaderCellDef> Commission </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.commissionAmount}}
+                                </td>
+                            </ng-container>    
+
+
+                            <ng-container matColumnDef="commissionPercentage">
+                                <th mat-header-cell *matHeaderCellDef>Percentage</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.commissionPercentage}}
+                                </td>
+                            </ng-container>    
+ 
  
                             <ng-container matColumnDef="action">
                                 <th mat-header-cell *matHeaderCellDef> Action </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <button mat-stroked-button color="primary">
-                                        View
+                                    <button matIconButton >
+                                          <mat-icon>cancel</mat-icon>
+                                    </button>
+                                    <button matIconButton >
+                                           <mat-icon>edit</mat-icon>
                                     </button>
                                 </td>
                             </ng-container>  
@@ -76,7 +99,7 @@
 
                         </table>
 
-                        <mat-paginator [length]="profiledata.length"
+                        <mat-paginator [length]="transactiondata.length"
                          #paginator
                             [pageSize]="10"
                             [pageSizeOptions]="[10, 20, 30, 100]"
@@ -91,3 +114,5 @@
             </div>
         </div>  
 </div>
+
+ 

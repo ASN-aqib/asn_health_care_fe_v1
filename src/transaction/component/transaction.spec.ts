@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Transaction } from './transaction/transaction';
+import { Transaction } from './transaction';
 
 describe('Transaction', () => {
   let component: Transaction;

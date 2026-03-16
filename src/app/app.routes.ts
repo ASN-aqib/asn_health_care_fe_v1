@@ -7,6 +7,7 @@ import { User } from '../user/component/user';
 import { PermissionComponent } from '../permission/component/permission.component';
 import { AuthGuard } from './auth-guard';
 import { Profile } from '../profile/component/profile';
+import { Transaction } from '../transaction/component/transaction';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect from root to home
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'profile', component: Profile, canActivate: [AuthGuard] }, // Define the route for the home page
   { path: 'role', component: Role ,canActivate: [AuthGuard]}, // Define the route for the home page
   { path: 'user', component: User ,canActivate: [AuthGuard]}, // Define the route for the home page
+  { path: 'transaction', component: Transaction ,canActivate: [AuthGuard]}, // Define the route for the home page
   { path: 'permission', component: PermissionComponent ,canActivate: [AuthGuard]}, // Define the route for the home page
  
 

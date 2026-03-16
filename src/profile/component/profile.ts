@@ -45,7 +45,8 @@ export class Profile implements OnInit {
 
   public  profiledata: any = [];
   DisplayedColumns: string[] = [
-    'id', 'firstName','lastName', 
+    'id', 'firstName','lastName' ,'email_address','mobile_no','exposure','created_date',
+    'action'
   ];
 
   constructor( private profileService:ProfileService) {}

@@ -231,7 +231,7 @@ export const WebConstants = {
       UPDATE: "/api/parkingzone/update",
       DELETE: "/api/parkingzone/delete",
       FIND_BY_ID: "/api/parkingzone/find",
-      FIND_ALL: "/api/transaction/find",
+      FIND_ALL: "/api/transaction/find-all",
     },
     DASHBOARD:{
       
