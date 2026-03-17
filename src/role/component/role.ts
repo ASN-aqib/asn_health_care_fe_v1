@@ -6,12 +6,12 @@ import {MatInputModule} from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
  import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { RoleService } from '../service/roleservice';
-import { first } from 'rxjs';
+ import { first } from 'rxjs';
 import {MatButtonModule} from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { validate } from '@angular/forms/signals';
+import { Roleservice } from '../../services/roleservice';
 
 
 
@@ -48,7 +48,7 @@ export class Role implements OnInit {
  
   public  roledata: any = [];
   public  roledataById: any = [];
-  constructor(private rolservice: RoleService) {
+  constructor(private rolservice: Roleservice) {
      
   }
   durationInSeconds = 5;
@@ -138,7 +138,7 @@ onClick(event: Event)
   }
 
     getAllRoles(): void {
-    this.rolservice.getAllRoles()
+    this.rolservice.getAll()
       .pipe(first())
       .subscribe(response => {
 

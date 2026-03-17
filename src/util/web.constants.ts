@@ -175,14 +175,14 @@ export const WebConstants = {
       FIND_ALL: "/api/profile/find-all",
       FIND_ALL_PRIVILEGE_BY_USER: "/api/privilege/find-privilege-by-user/",
     },
-    ROLE_PRIVILEGE_MENU: {
-      FIND_ALL_ROLES: "/api/role/find-all-roles",
+    ROLE: {
+      FIND_ALL_ROLES: "/api/role/find-all",
       FIND_ALL_PRIVILEGES: "/api/privilege/find-all-privileges",
-      FIND_PRIVILEGE_BY_ID: "/api/privilege/find-privilege-by-role",
+      FIND_BY_ID: "/api/role/find-by-Id",
       FIND_MENU_BY_PRIVILEGE_ID: "/api/menu/privilege/find-by-privilege-id",
       ADD_MENU: "/api/menu/privilege/add",
       UPDATE_MENU: "/api/menu/privilege/update",
-      ADD_ROLE_PRIVILEGE: "/api/role/privilege/add",
+      ADD_ROLE: "/api/role/create",
       UPDATE_PRIVILEGE: "/api/privilege/update"
     },
     DESIGNATION: {
@@ -418,15 +418,7 @@ export const WebConstants = {
       DELETE_REGISTRATION: "/api/registration/deletebyId/",
       FIND_REGISTRATION_BY_ID: "/api/registration/findById/"
     },
-    ROLE: {
-      ADD_ROLE: "/api/role/create",
-      FIND_ALL_PEO_USERS: "/api/lookup/find-all-peo-users",
-      FIND_ALL_ROLES: "/api/lookup/find-all-roles",
-      FIND_ALL_PRIVILEGES: "/api/lookup/find-all-privileges",
-      FIND_ALL: "/api/role/find-all",
-      FIND_BY_ID: "/api/role/find-by-Id/",
-   
-    },
+    
     PREFERENCES: {
       FIND_ALL_PREFERENCES: "/api/preference/find-all",
       ADD_PREFERENCES: "/api/preference/add",

@@ -3,7 +3,7 @@
   <div class="centered-div">
 <h2>Profile </h2> 
  <br/><br/>
-    
+    <div>
 
   <mat-form-field appearance="outline" class="custom-height-field" >
     <mat-label>Enter First Name</mat-label>
@@ -101,31 +101,37 @@
   </mat-form-field>
 
   &nbsp;   &nbsp;   &nbsp;
-   <mat-form-field appearance="outline"  class="custom-height-field" >
+   <mat-form-field appearance ="outline"  class="custom-height-field" >
   <mat-label>Select</mat-label>
-  <mat-select>
-    <mat-option value="one">Buyer</mat-option>
-    <mat-option value="two">Seller</mat-option>
-    <mat-option value="two">Trader</mat-option>
+  <mat-select  [(ngModel)]="option" >
+    <mat-option value="1">Buyer</mat-option>
+    <mat-option value="2">Seller</mat-option>
+    <mat-option value="3">Trader</mat-option>
   </mat-select>
 </mat-form-field>
 
 
 
-<mat-form-field>
+<button mat-flat-button  (click)="changeIcon()" style="background-color: rgb(255, 147, 5); width: 10pc;      color: white;">
+<mat-icon [svgIcon]="iconName"></mat-icon>
+  active
+</button>
+
+</div>
+<br/>
+ <!-- <mat-form-field appearance="outline"  class="custom-height-field" >
   <mat-select placeholder="Select">
-    <mat-option *ngFor="let education of educationList" [value]="education.educationLevelName" >{{ education.educationLevelName }}</mat-option>
+    <mat-option *ngFor="let role of roles" [value]="role.id" >{{ role.role_name }}</mat-option>
   </mat-select>
-</mat-form-field>
+</mat-form-field> -->
 
     <br/>
-<button class="mat-button" mat-raised-button  style="background-color: rgb(246, 169, 75); width: 10pc;      color: white;">Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
-<button class="mat-button" mat-raised-button  style="background-color: rgb(246, 169, 75); width: 10pc;    color: white;">Clear</button>
+<button class="mat-button" mat-raised-button  style="background-color: rgb(255, 147, 5); width: 10pc;      color: white;" (click)="submit($event)" >Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
+<button class="mat-button" mat-raised-button  style="background-color: rgb(255, 147, 5); width: 10pc;    color: white;">Clear</button>
 
 
 </div></div>
-
-
+  
     &nbsp;   &nbsp;   &nbsp;
     &nbsp;   &nbsp;   &nbsp;
     &nbsp;   &nbsp;   &nbsp;

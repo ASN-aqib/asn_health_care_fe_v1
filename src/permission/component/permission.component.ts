@@ -14,9 +14,9 @@ import { validate } from '@angular/forms/signals';
 import { PermissionService } from '../service/permission.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
-import { RoleService } from '../../role/service/roleservice';
 import { MatDialog } from '@angular/material/dialog';
 import { Resourcelist } from './modal/resourcelist';
+import { Roleservice } from '../../services/roleservice';
 
   export interface permissionElement {
   id: number;
@@ -56,7 +56,7 @@ export class PermissionComponent  implements OnInit {
  
   public  roledata: any = [];
   public  roledataById: any = [];
-  constructor(private permissionservice: PermissionService, private roleservice: RoleService) {
+  constructor(private permissionservice: PermissionService, private roleservice: Roleservice) {
      
   }
   durationInSeconds = 5;
@@ -153,7 +153,7 @@ onClick(event: Event)
   }
 
     getAllRoles(): void {
-    this.roleservice.getAllRoles()
+    this.roleservice.getAll()
       .pipe(first())
       .subscribe(response => {
 
