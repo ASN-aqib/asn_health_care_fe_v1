@@ -57,6 +57,11 @@ export class Leftmenu {
     },
     {
       icon:'help',
+      label:'Statement',
+      route:'statement'
+    },
+    {
+      icon:'help',
       label:'Support',
       route:'support'
     },
@@ -67,9 +72,9 @@ export class Leftmenu {
     }
   ];
 
-  Click()
+   Click()
   {
-  this.authservice.logout();
+        this.authservice.logout();
     //   this.tokenStorage.clearAll();
         this.router.navigateByUrl(WebConstants.WEB_URL.HOME);
   }
@@ -103,8 +108,7 @@ export class Leftmenu {
 //      this.router.navigate([WebConstants.WEB_URL.HOME]);
       this.authservice.logout();
     //   this.tokenStorage.clearAll();
-        this.router.navigateByUrl(WebConstants.WEB_URL.HOME);
-
+      this.router.navigateByUrl(WebConstants.WEB_URL.HOME);
       console.log("Logging Out")  
     }
 

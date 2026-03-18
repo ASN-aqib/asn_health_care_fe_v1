@@ -8,6 +8,7 @@ import { PermissionComponent } from '../permission/component/permission.componen
 import { AuthGuard } from './auth-guard';
 import { Profile } from '../profile/component/profile';
 import { Transaction } from '../transaction/component/transaction';
+import { Statement } from '../statement/component/statement';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect from root to home
@@ -18,7 +19,8 @@ export const routes: Routes = [
   { path: 'user', component: User ,canActivate: [AuthGuard]}, // Define the route for the home page
   { path: 'transaction', component: Transaction ,canActivate: [AuthGuard]}, // Define the route for the home page
   { path: 'permission', component: PermissionComponent ,canActivate: [AuthGuard]}, // Define the route for the home page
- 
+  { path: 'statment', component: Statement ,canActivate: [AuthGuard]}, // Define the route for the home page
+
 
 //   { path: 'carts', component: Carts, canActivate: [authguardGuard]  }, // Define the route for the home page
 //   { path: 'cartdetail', component: Checkoutcart, canActivate: [authguardGuard]  }, // Define the route for the home page
