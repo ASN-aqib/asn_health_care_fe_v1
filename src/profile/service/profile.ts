@@ -20,4 +20,12 @@ export class ProfileService {
            
                return this.ajaxHelper.get(url);
       }
+
+
+     addProfile(payload: any): Observable<BaseResponse<any>> {
+   
+          console.log("add role",payload);
+
+         return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.ROLE.ADD_ROLE, payload);
+      }
 }

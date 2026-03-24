@@ -86,12 +86,16 @@ export class Leftmenu {
     {// alert('10')
        this.widthVal = 60;
        this.opened = false;
+       //this.isVisible = false;
+       
+
     }
     else
     {
       // alert(this.opened);
       this.widthVal = 160;
       this.opened = true;
+     // this.isVisible = true;
     }
     
 
