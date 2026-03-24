@@ -1,5 +1,5 @@
 .example-container mat-form-field + mat-form-field {
-  margin-left: 8px;
+  margin-left: 10px;
 }
 
 .flex-container {
@@ -7,23 +7,40 @@
   gap: 20px; /* Adds space between the columns */
 }
 
+.framed-div {
+  border: 2px solid black; /* Width, style, and color */
+  padding: 10px;          /* Optional: Adds space between content and border */
+}
+
 .column {
   flex: 1; /* Makes each column take up equal available space */
   padding: 1rem;
   
 }
+  ::ng-deep .mdc-label {
+      font-size: 16px;
+      font-family: Montserrat, sans-serif;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: .5px;
+   }
 .center-container {
   display: flex;
   justify-content: center; /* Centers horizontally */
   align-items: center;     /* Centers vertically */
-  height: 30vh;           /* Ensures the container fills the screen height */
+  /* width: 00vh; */
+  height: 30vh;   
+ 
 }
 
 .centered-div {
   /* Optional: Add styling to visualize the div */
-  width: 400px;
-  height: 250px;
-  
+  width: 600px;
+  height: 450px;
+  /* border: 1px solid black; 
+  border-radius: 15px; */
+  padding: 10px; 
+  margin-top: 250px;
   }
 
   section {
@@ -46,6 +63,8 @@ mat-form-field {
   gap: 10px; /* Adds space between the fields */
   /* Optional: center the group within its parent */
   justify-content: center;
+  /* border: 2px solid black; 
+  padding: 10px;    */
 }
 
 .example-flex-container {

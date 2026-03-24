@@ -30,4 +30,11 @@ export class Userservice {
           return this.ajaxHelper.get(url);
         }
   
+         
+     deleteById(id: number): Observable<BaseResponse<any>> {
+          let url = this.baseUrl + WebConstants.API_URL.USER.DELETE_USER + id;
+      
+          return this.ajaxHelper.get(url);
+        }
+  
 }

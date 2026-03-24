@@ -157,7 +157,7 @@ export const WebConstants = {
       FIND_ALL: "/api/user/find-all",
       ADD_USER: "/api/user/create",
       UPDATE_USER: "/api/user/update-user",
-      DELETE_USER: "/api/user/delete-user/",
+      DELETE_USER: "/api/user/delete/",
       FIND_USER_BY_ID: "/api/user/find-user-by-id/",
       FIND_ALL_USER_BY_ORGANIZATION: "/api/user/find-by-organizaton/",
       FORGOT_PASSWORD: "/api/user/forgot",

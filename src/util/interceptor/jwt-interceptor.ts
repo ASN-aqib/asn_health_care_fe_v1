@@ -27,6 +27,7 @@ export const  jwtInterceptor: HttpInterceptorFn = (req, next) => {
   return next(clonedRequest).pipe(
     catchError((error: HttpErrorResponse) => {
       console.error('HTTP Error:', error.message);
+      //alert('bad request');
       return throwError(() => new Error(error.message));
     })
   );

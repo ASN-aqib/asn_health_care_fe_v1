@@ -21,8 +21,11 @@ body {
 .login-container {
     width: 100%;
     max-width: 400px;
+   
+ 
 }
 
+ 
 .login-card {
     background: #ffffff;
     border-radius: 8px;
@@ -79,6 +82,8 @@ body {
     background: #2196f3;
     box-shadow: 0 1px 3px rgba(33, 150, 243, 0.3);
 }
+ 
+ 
 
 .layer-3 {
     width: 24px;

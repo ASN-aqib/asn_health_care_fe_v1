@@ -46,7 +46,7 @@ export class PermissionComponent  implements OnInit {
 
   readonly userField = new FormControl('', [Validators.required]);
   readonly description = new FormControl('', [Validators.required]);
- education_level:any;
+  education_level:any;
   
  
 
