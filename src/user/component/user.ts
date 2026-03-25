@@ -47,7 +47,7 @@ export class User implements OnInit {
     event.stopPropagation();
   }
   
-  displayedColumns: string[] = ['id', 'user_name','email_address','created_date' ,'actions' ];
+  displayedColumns: string[] = ['id', 'username','emailaddress','rolename','createdDate' ,'actions' ];
   
    isChecked: any;
 
@@ -107,17 +107,24 @@ export class User implements OnInit {
     // this.emailField.setValue(element.email_address);
 
     
-    this.userForm.patchValue({
-  userNameField: element.user_name, 
+  this.userForm.patchValue({
+  userNameField: element.username, 
   passwordField: element.password,
-  emailField : element.email_address
+  emailField : element.emailaddress,
+  isactive : element.isactive,
+ 
+  });
+     
+
+      this.userForm.get('meyveMatSelect')?.setValue('1');
+
   
-});
 
+ 
 
-   }
+}
 
-   delete(element:any) {
+ delete(element:any) {
 
     console.log(element.id);
 

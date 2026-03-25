@@ -27,7 +27,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 export class Login implements OnInit {
   public loginForm!: FormGroup;
   button = 'Log In'
-  isLoading = true;
+  isLoading = false;
   typeSelected!: string;
 
    isShow = true;
@@ -97,9 +97,10 @@ initializeForm() {
 
     //==== ============457  and  468 Open Project Id i fixed the issue in this code =============//
       .pipe(first(),
-     
-           catchError(this.handleError.bind(this))
 
+           catchError(this.handleError.bind(this))
+           
+           
       )
        .subscribe(response => {
         this.isLoading = false;
@@ -149,8 +150,7 @@ initializeForm() {
 
     private handleError(error: HttpErrorResponse) {
 
-       
-      
+      this.isLoading = false;
     if (error.status === 0) {
       console.error('Network error:', error.error)
     } else {

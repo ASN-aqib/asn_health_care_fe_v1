@@ -11,6 +11,8 @@
 <div>
 <app-leftmenu  *ngIf="tokenStorage.getToken() !== null"></app-leftmenu>
 </div>
-
+<ngx-spinner type="ball-scale-ripple">
+    <p class="text-white">Processing.....</p>
+</ngx-spinner>
  
 <router-outlet />

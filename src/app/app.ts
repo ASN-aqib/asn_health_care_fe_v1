@@ -1,16 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { Dashboard } from '../dashboard/component/dashboard';
 import { TokenStorage } from '../util/token.storage';
 import { CommonModule } from '@angular/common';
-import { tokenToString } from 'typescript';
 import { Leftmenu } from '../leftmenu/component/leftmenu';
-import { Login } from '../login/component/login';
+ import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,RouterModule, Leftmenu,  CommonModule],
+  imports: [RouterOutlet,RouterModule, Leftmenu, CommonModule,NgxSpinnerModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
