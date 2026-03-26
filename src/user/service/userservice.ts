@@ -23,6 +23,13 @@ export class Userservice {
   }
 
 
+  updateuser(payload: any): Observable<BaseResponse<any>> {
+   
+    return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.USER.UPDATE_USER, payload);
+  
+  }
+
+
  
       getAllUsers(): Observable<BaseResponse<any>> {
           let url = this.baseUrl + WebConstants.API_URL.USER.FIND_ALL;

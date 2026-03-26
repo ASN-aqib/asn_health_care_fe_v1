@@ -40,6 +40,8 @@ export class User implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   public userForm!: FormGroup;
 
+  private update:any;
+
    public  roledata: any = [];
    hide = signal(true);
   clickEvent(event: MouseEvent) {
@@ -50,6 +52,7 @@ export class User implements OnInit {
   displayedColumns: string[] = ['id', 'username','emailaddress','rolename','createdDate' ,'actions' ];
   
    isChecked: any;
+   id:number=0;
 
   errorMessage = signal('');
   option: any;
@@ -68,6 +71,7 @@ export class User implements OnInit {
 
     ngOnInit(): void {
    
+      this.update = 0;
       
       this.getAllUsers();
       this.getAllRoles();
@@ -90,39 +94,28 @@ export class User implements OnInit {
    
   
    edit(element:any) {
-    // console.log(element.id);
-    // this.roledataById = [];
     
-    //  this.rolservice.findById(element.id)
-    //   .pipe(first())
-    //   .subscribe(response => {
-    //    this.roledataById = response
-    //     console.log(this.roledataById);
-    //     this.rolefield.setValue(this.roledataById.role_name);
-          
-    //   });
-
-    // this.userNameField.setValue(element.user_name);
-    // this.passwordField.setValue(element.password);
-    // this.emailField.setValue(element.email_address);
-
-    
-  this.userForm.patchValue({
-  userNameField: element.username, 
-  passwordField: element.password,
-  emailField : element.emailaddress,
-  isactive : element.isactive,
- 
-  });
-     
-
-      this.userForm.get('meyveMatSelect')?.setValue('1');
-
-  
+    this.update = 1;
+        this.userForm.patchValue({
+        userNameField: element.username, 
+        passwordField: element.password,
+        emailField : element.emailaddress,
+        isactive : element.isactive,
+      
+        });
+      
+      console.log(element);
+      
+       this.userForm.get('education_level')?.setValue(element.roleid.toString());
+       this.userForm.get('isChecked')?.setValue(element.isactive.toString());
+       this.id = element.id;
 
  
 
 }
+
+
+
 
  delete(element:any) {
 
@@ -147,12 +140,15 @@ export class User implements OnInit {
 
  clear()
  {  
+  this.update = 0;
+  this.userForm.reset();
+ 
+  
+ 
+  //this.userForm.setErrors(null); // could be removed
 
-  // this.userNameField.setValue("");
-  // this.passwordField.setValue("");
-  // this.emailField.setValue("");
-  // this.isChecked = false;
- }
+
+}
 
 
  toggle(event: MatCheckboxChange) {
@@ -185,6 +181,60 @@ export class User implements OnInit {
         // }
       });
   }
+
+
+  updateuser()
+  {
+
+    alert('update');
+
+      if (this.userForm.invalid) {
+      return;
+      }
+  
+
+  var check:any;
+  if(this.isChecked)
+  {
+      check = 1;
+  }
+  else
+  {
+       check = 0;
+  }
+
+    //alert(check)
+    
+    let roleObj = {
+      id: this.id,
+      username: this.userForm.controls['userNameField'].value,
+      password: this.userForm.controls['passwordField'].value,
+      emailaddress: this.userForm.controls['emailField'].value, 
+      isactive : check,
+      roleid:   this.userForm.controls['education_level'].value,
+     };
+    // console.log( this.userNameField.value);
+    // console.log( this.passwordField.value);
+    // console.log( this.emailField.value);
+
+    this.userservice.updateuser(roleObj)
+      .pipe(first())
+      .subscribe(response => {
+        console.log(response);
+
+             this.snackBar.open(' Record has been updated successfully! ','Close', {    
+              duration: 4000,    
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: 'custom-style',
+            });
+
+      this.update = 0;
+      this.clear();
+      this.getAllUsers();
+    
+    });
+
   // updateErrorMessage() {
   //   if (this.email.hasError('required')) {
   //     this.errorMessage.set('You must enter a value');
@@ -194,11 +244,32 @@ export class User implements OnInit {
   //     this.errorMessage.set('');
   //   }
   // }
+      
+    }
+
 
 onClick(event: Event)
  {  
 
-  if (this.userForm.invalid) {
+
+  if(this.update == 0)
+  {
+    this.addUser()
+  }
+  else
+  {
+    this.updateuser();
+
+  }
+
+  
+
+ }
+
+ addUser()
+ {
+
+   if (this.userForm.invalid) {
       return;
   }
   
@@ -222,7 +293,7 @@ onClick(event: Event)
        emailaddress: this.userForm.controls['emailField'].value, 
       isactive : check,
       createdBy : 1,
-      roleid: this.education_level
+      roleid:   this.userForm.controls['education_level'].value,
      };
     // console.log( this.userNameField.value);
     // console.log( this.passwordField.value);
@@ -248,9 +319,7 @@ onClick(event: Event)
         //}
       });
 
- 
-
-  }
+ }
 
     getAllUsers(): void {
     this.userservice.getAllUsers()
