@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -7,7 +7,7 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import {MatSelectModule} from '@angular/material/select';
+import {MatSelectChange, MatSelectModule} from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -36,7 +36,7 @@ export class Profile implements OnInit {
   pageIndex = 0;
   private update:any;
   isChecked: any;
-
+  optiontext: any;
 
   public dataSource = new MatTableDataSource<profileelements>();
  
@@ -50,7 +50,13 @@ export class Profile implements OnInit {
   public  roles: roleitem [] = [];
   option: any;
   iconName:any; // Default icon name
+   hide = signal(true);
 
+     clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
+  
   public profileForm!: FormGroup;
 
 
@@ -101,7 +107,21 @@ export class Profile implements OnInit {
 
   }
 
-  changeIcon() {
+  selectedValue(event: MatSelectChange) {
+ 
+ 
+    alert(event.source.triggerValue);
+    this.optiontext  = event.source.triggerValue;
+  
+  
+}
+ 
+edit(element:any) {
+
+  alert('edit');
+
+   }
+changeIcon() {
     // Toggle between 'more_horiz' and 'more_vert' for example
     this.iconName = "locked"
 
@@ -124,22 +144,12 @@ export class Profile implements OnInit {
 
   submit(event: Event)
   {
-  //     readonly emailaddress = new FormControl('', [Validators.required]);
-  // readonly mobile = new FormControl('',);
-  // readonly city = new FormControl('',);
-  // readonly address = new FormControl('',);
-  // readonly exposure = new FormControl('',);
+  
+    this.addUser();
+ 
 
-
-    console.log(this.option);
-    //   let profile = {
-    //   firstName: this.first.value,
-    //   lastName: this.last.value,
-    //   mobile_no: this.mobile.value,
-       
-    //   createdBy : 1
-    //  };
-
+ 
+ 
   }
 
 
@@ -177,9 +187,11 @@ export class Profile implements OnInit {
       exposure: this.profileForm.controls['exposure'].value, 
       username: this.profileForm.controls['username'].value,
       password: this.profileForm.controls['password'].value,
+      emailaddress: this.profileForm.controls['emailaddress'].value,
       isactive : check,
       createdBy : 1,
-      roleid:   this.profileForm.controls['options'].value,
+      profile_type_id:   this.profileForm.controls['options'].value,
+      profile_type:  this.optiontext
      };
     // console.log( this.userNameField.value);
     // console.log( this.passwordField.value);

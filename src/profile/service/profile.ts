@@ -26,6 +26,6 @@ export class ProfileService {
    
           console.log("add role",payload);
 
-         return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.ROLE.ADD_ROLE, payload);
+         return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.PROFILE.ADD, payload);
       }
 }
