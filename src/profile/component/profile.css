@@ -51,7 +51,7 @@
   
   width: 100vh;
   margin-left: 35vh;
-  display: flex;
+  display: fixed;
   height: 250px;
   margin-top: 5px;
   justify-content: center; /* Centers horizontally */

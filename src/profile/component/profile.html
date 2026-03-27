@@ -5,12 +5,15 @@
  <br/><br/>
     <div>
 
-  <mat-form-field appearance="outline" class="custom-height-field" >
+
+  <form class="login-form" id="profileForm"  [formGroup]="profileForm"  >
+
+      <mat-form-field appearance="outline" class="custom-height-field" >
     <mat-label>Enter First Name</mat-label>
     <input
       matInput
    
-      [formControl]="first"
+     formControlName="first"
      
       required
     />
@@ -26,7 +29,7 @@
     <input
       matInput
     
-      [formControl]="last"
+      formControlName="last"
      
       required
     />
@@ -38,7 +41,7 @@
     <input
       matInput
      
-      [formControl]="emailaddress"
+      formControlName="emailaddress"
      
       required
     />
@@ -51,7 +54,7 @@
     <input
       matInput
       
-      [formControl]="mobile"
+      formControlName="mobile"
      
      
     />
@@ -64,7 +67,7 @@
     <input
       matInput
       
-      [formControl]="city"
+      formControlName="city"
      
      
     />
@@ -79,7 +82,7 @@
     <input
       matInput
       
-      [formControl]="address"
+     formControlName="address"
      
      
     />
@@ -93,31 +96,61 @@
     <input
       matInput
       
-      [formControl]="exposure"
-     
+      formControlName="exposure"
+      required
      
     />
    
   </mat-form-field>
 
-  &nbsp;   &nbsp;   &nbsp;
-   <mat-form-field appearance ="outline"  class="custom-height-field" >
+    &nbsp;   &nbsp;   &nbsp;
+  <mat-form-field appearance="outline"  class="custom-height-field">
   <mat-label>Select</mat-label>
-  <mat-select  [(ngModel)]="option" >
-    <mat-option value="1">Buyer</mat-option>
-    <mat-option value="2">Seller</mat-option>
-    <mat-option value="3">Trader</mat-option>
+  <mat-select placeholder="Select Role" name="options"  formControlName="options" >
+   <mat-option *ngFor="let role of roles" [value]="role.id" >{{ role.value}}</mat-option>
   </mat-select>
-</mat-form-field>
+  </mat-form-field>
+     &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;
 
+  
+     <mat-checkbox class="example-margin"  style="font-size: large;"  formControlName="isChecked" (change)="toggle($event)"> Active </mat-checkbox>
+       <div *ngIf="profileForm.get('isChecked')?.invalid && (profileForm.get('isChecked')?.dirty || profileForm.get('isChecked')?.touched)">
+       accepted.
+  </div>
+   
+  &nbsp;&nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;  
+    <mat-form-field appearance="outline"  class="custom-height-field" >
+    <mat-label>Enter Username</mat-label>
+    <input
+      matInput
+      
+      formControlName="username"
+      required
+     
+    />
+   
+  </mat-form-field>
 
+     &nbsp;  &nbsp;   &nbsp;   
+    <mat-form-field appearance="outline"  class="custom-height-field" >
+    <mat-label>Enter Password</mat-label>
+    <input
+      matInput
+      
+      formControlName="password"
+      required
+     
+    />
+   
+  </mat-form-field>
 
-<button mat-flat-button  (click)="changeIcon()" style="background-color: rgb(255, 147, 5); width: 10pc;      color: white;">
+<!-- <button mat-flat-button  (click)="changeIcon()" style="background-color: rgb(255, 147, 5); width: 10pc;      color: white;">
 <mat-icon [svgIcon]="iconName"></mat-icon>
   active
-</button>
+</button> -->
 
-</div>
+
+
 <br/>
  <!-- <mat-form-field appearance="outline"  class="custom-height-field" >
   <mat-select placeholder="Select">
@@ -125,19 +158,16 @@
   </mat-select>
 </mat-form-field> -->
 
-    <br/>
+    
 <button class="mat-button" mat-raised-button  style="background-color: rgb(255, 147, 5); width: 10pc;      color: white;" (click)="submit($event)" >Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
 <button class="mat-button" mat-raised-button  style="background-color: rgb(255, 147, 5); width: 10pc;    color: white;">Clear</button>
+</form>
 
+
+</div>
 
 </div></div>
-  
-    &nbsp;   &nbsp;   &nbsp;
-    &nbsp;   &nbsp;   &nbsp;
-    &nbsp;   &nbsp;   &nbsp;
-    &nbsp;   &nbsp;   &nbsp; 
-
-  
+ <br/><br/><br/><br/>
 
    <div class=" mb-3" style="margin-left: 230px;">
       <div class="col-lg-11 mb-4">
@@ -148,7 +178,7 @@
                      
                 </div>  -->
 
-                <div class="table-responsive">
+                <div  >
                     
                     <mat-card>
 

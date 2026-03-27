@@ -84,7 +84,7 @@ export class User implements OnInit {
       passwordField: ['', Validators.required],
       emailField: ['', Validators.required],
       education_level:['', Validators.required],
-      isChecked:['', Validators.required],
+      isChecked:['', Validators.required],  
 
     });
 
