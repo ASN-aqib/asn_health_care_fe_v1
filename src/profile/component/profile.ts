@@ -18,6 +18,7 @@ import { Roleservice } from '../../services/roleservice';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { disabled } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-profile',
@@ -97,10 +98,12 @@ export class Profile implements OnInit {
       exposure : new FormControl('',[Validators.required]),   
       username : new FormControl('',[Validators.required]),      
       password : new FormControl('',[Validators.required]),      
-      isChecked: new FormControl('',[Validators.required]),      
+      isChecked: new FormControl('',[Validators.required]),  
+      capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),      
       options:['', Validators.required],
+      licenseno :  new FormControl({ value: "", disabled: true }),      
 
-
+      
       
 
     });
@@ -110,9 +113,31 @@ export class Profile implements OnInit {
   selectedValue(event: MatSelectChange) {
  
  
-    alert(event.source.triggerValue);
+   
     this.optiontext  = event.source.triggerValue;
+
+    if(this.optiontext=='Transporter')
+    { 
+      this.profileForm.controls['capacity'].enable();
+      this.profileForm.controls['licenseno'].enable();
+
+     
+    }
+    else
+    {
+      this.profileForm.controls['capacity'].disable();
+      this.profileForm.controls['licenseno'].disable();
+
+    }
   
+  
+}
+
+
+onEscape() {
+  alert('deselect');
+  // Deselect all options by setting the control value to empty array
+ // this.profileForm.controls['options'].setValue([]);
   
 }
  
@@ -145,7 +170,8 @@ changeIcon() {
   submit(event: Event)
   {
   
-    this.addUser();
+    alert(this.optiontext);
+    //this.addUser();
  
 
  
@@ -259,10 +285,15 @@ changeIcon() {
       id: 3,
       value: "Trader"
        };
+         const newItem3: roleitem = {
+      id: 3,
+      value: "Transporter"
+       };
 
       this.roles.push(newItem);
       this.roles.push(newItem1);
       this.roles.push(newItem2);
+      this.roles.push(newItem3);
 
       console.log(this.roles);
   }

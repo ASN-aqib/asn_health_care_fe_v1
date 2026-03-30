@@ -75,7 +75,7 @@
   </mat-form-field>
 
 
-       &nbsp;   &nbsp;   &nbsp;
+    
 
    <mat-form-field appearance="outline"  class="custom-height-field" >
     <mat-label>Enter Address</mat-label>
@@ -105,8 +105,8 @@
 
     &nbsp;   &nbsp;   &nbsp;
   <mat-form-field appearance="outline"  class="custom-height-field">
-  <mat-label>Select</mat-label>
-  <mat-select placeholder="Select Role" name="options"  formControlName="options" >
+  <mat-label >Select</mat-label>
+  <mat-select  (selectionChange)="selectedValue($event)"   placeholder="Select Role" name="options"  formControlName="options" >
    <mat-option *ngFor="let role of roles" [value]="role.id" >{{ role.value}}</mat-option>
   </mat-select>
   </mat-form-field>
@@ -132,7 +132,7 @@
   </mat-form-field>
 
      &nbsp;  &nbsp;   &nbsp;   
-    <mat-form-field appearance="outline" class="custom-height-field">
+    <mat-form-field appearance="outline" class="hf">
     <mat-label>Enter password</mat-label>
     <input matInput [type]="hide() ? 'password' : 'text'"    formControlName="password" required  />
     <button 
@@ -145,12 +145,35 @@
       <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
   </mat-form-field>
+    
+  &nbsp;  &nbsp;   &nbsp;   
 
-<!-- <button mat-flat-button  (click)="changeIcon()" style="background-color: rgb(255, 147, 5); width: 10pc;      color: white;">
-<mat-icon [svgIcon]="iconName"></mat-icon>
-  active
-</button> -->
+    <mat-form-field appearance="outline"  class="custom-height-field" >
+    <mat-label>Enter Capacity</mat-label>
+    <input  
+      matInput
+      
+      formControlName="capacity"
+      required
+     
+    />
+   
+  </mat-form-field>
 
+
+  &nbsp;  &nbsp;   &nbsp;   
+
+    <mat-form-field appearance="outline"  class="custom-height-field" >
+    <mat-label>Enter License no</mat-label>
+    <input  
+      matInput
+      
+      formControlName="licenseno"
+      required
+     
+    />
+   
+  </mat-form-field>
 
 
 <br/>
