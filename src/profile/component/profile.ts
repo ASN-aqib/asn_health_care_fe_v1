@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,7 +18,7 @@ import { Roleservice } from '../../services/roleservice';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { disabled } from '@angular/forms/signals';
+import { disabled, validate } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-profile',
@@ -39,11 +39,12 @@ export class Profile implements OnInit {
   isChecked: any;
   optiontext: any;
 
-  public dataSource = new MatTableDataSource<profileelements>();
+public dataSource = new MatTableDataSource<profileelements>();
  
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild("paginator") paginator!: MatPaginator;
-
+@ViewChild(MatSort) sort!: MatSort;
+@ViewChild("paginator") paginator!: MatPaginator;
+@ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
+ 
   
 
 
@@ -99,9 +100,9 @@ export class Profile implements OnInit {
       username : new FormControl('',[Validators.required]),      
       password : new FormControl('',[Validators.required]),      
       isChecked: new FormControl('',[Validators.required]),  
-      capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),      
+      // capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),      
       options:['', Validators.required],
-      licenseno :  new FormControl({ value: "", disabled: true }),      
+      // licenseno :  new FormControl({ value: "", disabled: true }),      
 
       
       
@@ -116,19 +117,19 @@ export class Profile implements OnInit {
    
     this.optiontext  = event.source.triggerValue;
 
-    if(this.optiontext=='Transporter')
-    { 
-      this.profileForm.controls['capacity'].enable();
-      this.profileForm.controls['licenseno'].enable();
+    // if(this.optiontext=='Transporter')
+    // { 
+    //   this.profileForm.controls['capacity'].enable();
+    //   this.profileForm.controls['licenseno'].enable();
 
      
-    }
-    else
-    {
-      this.profileForm.controls['capacity'].disable();
-      this.profileForm.controls['licenseno'].disable();
+    // }
+    // else
+    // {
+    //   this.profileForm.controls['capacity'].disable();
+    //   this.profileForm.controls['licenseno'].disable();
 
-    }
+    // }
   
   
 }
@@ -143,9 +144,22 @@ onEscape() {
  
 edit(element:any) {
 
-  alert('edit');
+console.log(element);
+ 
+  this.profileForm.controls['first'].setValue(element.firstName);
+  this.profileForm.controls['last'].setValue(element.lastName);
+  this.profileForm.controls['emailaddress'].setValue(element.email_address);
 
-   }
+  this.profileForm.controls['mobile'].setValue(element.mobile_no);
+  this.profileForm.controls['city'].setValue(element.city);
+  this.profileForm.controls['address'].setValue(element.address);
+  this.profileForm.controls['exposure'].setValue(element.exposure);
+
+}
+
+
+
+
 changeIcon() {
     // Toggle between 'more_horiz' and 'more_vert' for example
     this.iconName = "locked"
@@ -166,12 +180,38 @@ changeIcon() {
 }
  
 
+ SetValidation()
+ {
+    this.profileForm.controls['first'].setValidators([Validators.required]);
+    this.profileForm.controls['first'].updateValueAndValidity();
+   
+    this.profileForm.controls['last'].setValidators([Validators.required]);
+    this.profileForm.controls['last'].updateValueAndValidity();
+   
+    this.profileForm.controls['mobile'].setValidators([Validators.required]);
+    this.profileForm.controls['mobile'].updateValueAndValidity();
+  
+    this.profileForm.controls['exposure'].setValidators([Validators.required]);
+    this.profileForm.controls['exposure'].updateValueAndValidity();
+  
+    this.profileForm.controls['option'].setValidators([Validators.required]);
+    this.profileForm.controls['option'].updateValueAndValidity();
+
+    this.profileForm.controls['username'].setValidators([Validators.required]);
+    this.profileForm.controls['username'].updateValueAndValidity();
+
+    this.profileForm.controls['password'].setValidators([Validators.required]);
+    this.profileForm.controls['password'].updateValueAndValidity();
+  
+  
+  
+  }
 
   submit(event: Event)
   {
-  
-    alert(this.optiontext);
-    //this.addUser();
+ 
+     this.SetValidation();
+     this.addUser();
  
 
  
@@ -248,9 +288,29 @@ changeIcon() {
     clear()
     {  
       this.update = 0;
-      this.profileForm.reset();
-      //this.userForm.setErrors(null); // could be removed
+     
+    //  this.profileForm.controls['first'].setValidators(null);
+    //  this.profileForm.controls['first'].setValue("");
+     
+     Object.keys(this.profileForm!.controls).forEach(key => {
+         this.profileForm.get(key)!.setValidators(null);
+         this.profileForm.get(key)!.setValue("");
+     });
 
+
+      // // this.profileForm.controls['first'].setValidators(null);
+      // this.profileForm.controls['last'].setValue("");
+      // this.profileForm.controls['mobile'].setValue("");
+      // this.profileForm.controls['city'].setValue("");
+      // this.profileForm.controls['address'].setValue("");
+      // this.profileForm.controls['exposure'].setValue("");
+      // this.profileForm.controls['username'].setValue("");
+      // this.profileForm.controls['password'].setValue("");
+      // this.profileForm.controls['emailaddress'].setValue("");
+      // this.profileForm.controls['options'].setValue("");
+
+
+ 
 
     }
 
@@ -285,15 +345,12 @@ changeIcon() {
       id: 3,
       value: "Trader"
        };
-         const newItem3: roleitem = {
-      id: 3,
-      value: "Transporter"
-       };
+      
 
       this.roles.push(newItem);
       this.roles.push(newItem1);
       this.roles.push(newItem2);
-      this.roles.push(newItem3);
+      
 
       console.log(this.roles);
   }

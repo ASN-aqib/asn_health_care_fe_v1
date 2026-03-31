@@ -110,15 +110,11 @@
    <mat-option *ngFor="let role of roles" [value]="role.id" >{{ role.value}}</mat-option>
   </mat-select>
   </mat-form-field>
-     &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;
-
-  
-     <mat-checkbox class="example-margin"  style="font-size: large;"  formControlName="isChecked" (change)="toggle($event)"> Active </mat-checkbox>
-       <div *ngIf="profileForm.get('isChecked')?.invalid && (profileForm.get('isChecked')?.dirty || profileForm.get('isChecked')?.touched)">
-       accepted.
-  </div>
    
-  &nbsp;&nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;   &nbsp;  &nbsp;   &nbsp;  
+  
+  
+   
+        &nbsp;  &nbsp;   &nbsp;  
     <mat-form-field appearance="outline"  class="custom-height-field" >
     <mat-label>Enter Username</mat-label>
     <input
@@ -145,47 +141,24 @@
       <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
   </mat-form-field>
-    
-  &nbsp;  &nbsp;   &nbsp;   
-
-    <mat-form-field appearance="outline"  class="custom-height-field" >
-    <mat-label>Enter Capacity</mat-label>
-    <input  
-      matInput
-      
-      formControlName="capacity"
-      required
-     
-    />
-   
-  </mat-form-field>
+  
 
 
-  &nbsp;  &nbsp;   &nbsp;   
+ &nbsp;  &nbsp;   &nbsp;  
 
-    <mat-form-field appearance="outline"  class="custom-height-field" >
-    <mat-label>Enter License no</mat-label>
-    <input  
-      matInput
-      
-      formControlName="licenseno"
-      required
-     
-    />
-   
-  </mat-form-field>
-
-
-<br/>
+   <mat-checkbox class="example-margin"  style="font-size: large;"  formControlName="isChecked" (change)="toggle($event)"> Active </mat-checkbox>
+       <div *ngIf="profileForm.get('isChecked')?.invalid && (profileForm.get('isChecked')?.dirty || profileForm.get('isChecked')?.touched)">
+       accepted.
+  </div>
  <!-- <mat-form-field appearance="outline"  class="custom-height-field" >
   <mat-select placeholder="Select">
     <mat-option *ngFor="let role of roles" [value]="role.id" >{{ role.role_name }}</mat-option>
   </mat-select>
 </mat-form-field> -->
 
-    
+    <br/>   <br/>
 <button class="mat-button" mat-raised-button  style="background-color: rgb(255, 147, 5); width: 10pc;      color: white;" (click)="submit($event)" >Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
-<button class="mat-button" mat-raised-button  style="background-color: rgb(255, 147, 5); width: 10pc;    color: white;">Clear</button>
+<button class="mat-button" mat-raised-button  style="background-color: rgb(255, 147, 5); width: 10pc;    color: white;" (click)="clear()">Clear</button>
 </form>
 
 

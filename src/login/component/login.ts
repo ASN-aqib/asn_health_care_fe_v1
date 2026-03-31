@@ -91,6 +91,7 @@ initializeForm() {
      
     loginObject.username = this.loginForm.controls['username'].value;
     loginObject.password = this.loginForm.controls['password'].value;
+    loginObject.domain = "Web";
 
     console.log(loginObject);
     this.autherservice.login(loginObject)
