@@ -19,6 +19,12 @@
     display: block;
     transition: 0.3s;
 }
+.submenu { margin-left: 15px;   }  
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
 
 .sidenav a:hover {
     color: #fddb01;

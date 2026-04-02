@@ -37,13 +37,17 @@ export class Leftmenu {
    menuItems: any[] =[
     {
       icon:'home',
-      label:'Home',
-      //route:'dasboard'
+      label:'Dashboard',
+      route:'dasboard'
     },
     {
       icon:'User',
       label:'User',
-      route:'user'
+      route:'user',
+        subMenu: [
+      { name: 'Web Apps', link: '/web' },
+      { name: 'Mobile', link: '/mobile' }
+    ]
     },
     {
       icon:'book',
@@ -102,6 +106,15 @@ export class Leftmenu {
 
   }
 
+  handleClick(item:any, i:number)
+  {
+
+      alert(item.subMenu?.length);
+      
+
+
+
+  }
    onActionClick(item: any): void {
    
     console.log(item.label);
@@ -109,7 +122,7 @@ export class Leftmenu {
     { 
 
       //this.authservice.logout();
-//      this.router.navigate([WebConstants.WEB_URL.HOME]);
+  //    this.router.navigate([WebConstants.WEB_URL.HOME]);
       this.authservice.logout();
     //   this.tokenStorage.clearAll();
       this.router.navigateByUrl(WebConstants.WEB_URL.HOME);

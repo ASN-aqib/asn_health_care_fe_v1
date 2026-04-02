@@ -7,20 +7,36 @@
 
   <img  src="assets/eggexlogo.png"  style="margin-top: -40px; width: 120px; height: 40px;" alt="Company Logo">
 
-   <div>
+     <!-- <div class="col-md-3 mb-3"  *ngFor="let stat of stats" > -->
+
+
+
  <!-- <a routerLink="/dashboard/"><img  src="assets/ham.png" style="margin-right: 50px; width: 25px; height: 25px;" alt="Company Logo"></a> -->
+  <div >
 
-   <a   href="javascript:void(0)" class="closebtn"  (click)="closeNav()"><img  src="assets/ham.png" style="margin-right: 50px; width: 25px; height: 25px;" alt="Company Logo"></a>
-
-
+  <a  href="javascript:void(0)" class="closebtn"  (click)="closeNav()"><img  src="assets/ham.png" style="margin-right: 50px; width: 25px; height: 25px;" alt="Company Logo"></a>
   <a  style="font-size: medium;" *ngIf="isVisible" routerLink="/dashboard/"><img src='assets/home-5-32.png' style="margin-left: 0px; width: 20px; height: 20px;"/>Dasboard</a>   
-  <a style="font-size: medium;" routerLink="/user">User</a>
+  <a  style="font-size: medium;" routerLink="/user">User</a>
   <a  style="font-size: medium;" routerLink="/profile">Profile </a>
-
   <a  style="font-size: medium;"routerLink="/role">Role</a>
   <a  style="font-size: medium;"routerLink="/Permission">Permission</a>
   <a  style="font-size: medium;"routerLink="/rolepermission">Role Permission</a>
   <a  style="font-size: medium;"routerLink="/statment">Statement</a>
   <a  style="font-size: medium;"routerLink="/logout" (click)="Click()">Logout</a>
-  </div>
+  </div>  
+
+    <!-- <li *ngFor="let item of items; let i = index" (click)="handleClick(item, i)"> -->
+  <div class="down">  Hello <p><i class="arrow right"></i></p></div>
+
+ <a href="javascript:void(0)" class="closebtn"  (click)="closeNav()"><img  src="assets/ham.png" style="margin-right: 50px; width: 25px; height: 25px;" alt="Company Logo"></a>
+
+ <div *ngFor="let item of menuItems;let i = index" (click)="handleClick(item, i)" >
+  <a   style="font-size: medium;" routerLink={{item.route}}>{{item.label}}
+      <ul  *ngIf="item.subMenu?.length > 0"  >
+      <li *ngFor="let sub of item.subMenu"  >
+        <a [routerLink]="sub.link">{{ sub.name }}</a>
+      </li>
+    </ul>  
+  </a>
+</div>
 </div>
