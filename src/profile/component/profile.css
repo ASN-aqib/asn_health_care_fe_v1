@@ -15,10 +15,11 @@
   /* Optional: Add styling to visualize the div */
   width: 1200px;
   height: 250px;
+    display: fixed;
   }
 
   section {
-  display: flex;
+  display: fixed;
   align-items: center;
 }
 

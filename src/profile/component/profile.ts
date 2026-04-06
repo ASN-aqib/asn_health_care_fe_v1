@@ -19,6 +19,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { disabled, validate } from '@angular/forms/signals';
+import { ZoneService } from '../../services/zone.service';
 
 @Component({
   selector: 'app-profile',
@@ -45,8 +46,7 @@ public dataSource = new MatTableDataSource<profileelements>();
 @ViewChild("paginator") paginator!: MatPaginator;
 @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
  
-  
-
+   
 
   public  profiledata: any = [];
   public  roles: roleitem [] = [];
@@ -60,7 +60,7 @@ public dataSource = new MatTableDataSource<profileelements>();
   }
   
   public profileForm!: FormGroup;
-
+  public  zones: any = [];
 
   DisplayedColumns: string[] = [
     'id', 'firstName','lastName' ,'email_address','mobile_no','exposure','created_date',
@@ -70,6 +70,7 @@ public dataSource = new MatTableDataSource<profileelements>();
   constructor( private profileService:ProfileService, private roleService:Roleservice,
         private matIconRegistry: MatIconRegistry,     public formBuilder: FormBuilder, 
     private domSanitizer: DomSanitizer ,     private snackBar: MatSnackBar,
+       private zoneService:ZoneService 
 
   ) {
 
@@ -85,6 +86,7 @@ public dataSource = new MatTableDataSource<profileelements>();
     this.update = 0;
     this.initializeForm();
     this.getroles();
+    this.getZones();
    }
 
 
@@ -102,6 +104,7 @@ public dataSource = new MatTableDataSource<profileelements>();
       isChecked: new FormControl('',[Validators.required]),  
       // capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),      
       options:['', Validators.required],
+      zonelist:['', Validators.required],
       // licenseno :  new FormControl({ value: "", disabled: true }),      
 
       
@@ -353,6 +356,19 @@ changeIcon() {
       
 
       console.log(this.roles);
+  }
+
+
+    getZones(){
+ 
+      this.zoneService.getAllZones()
+          .pipe(first())
+          .subscribe(response => {
+      
+           this.zones = response
+ 
+           });
+ 
   }
 
 }
