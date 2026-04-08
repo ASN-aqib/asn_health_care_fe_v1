@@ -95,7 +95,7 @@ public dataSource = new MatTableDataSource<profileelements>();
       this.profileForm = this.formBuilder.group({
       first : new FormControl('', [Validators.required]),
       last :  new FormControl('', [Validators.required]),
-      emailaddress : new FormControl('', [Validators.required]),
+      emailaddress : new FormControl('', [Validators.required, Validators.email],),
       mobile : new FormControl('',),
       city : new FormControl('',),
       address : new FormControl('',),
@@ -113,6 +113,26 @@ public dataSource = new MatTableDataSource<profileelements>();
 
     });
 
+  }
+
+
+  handleKeyDown(e:any) {
+    const typedValue = e.keyCode;
+    if (typedValue < 48 && typedValue > 57) {
+      // If the value is not a number, we skip the min/max comparison 
+      return;
+    }
+
+    const typedNumber = parseInt(e.key);
+    const min = parseInt(e.target.min);
+    const max = parseInt(e.target.max);
+    const currentVal = parseInt(e.target.value) || '';
+    const newVal = parseInt(typedNumber.toString() + currentVal.toString());
+
+    if (newVal < min || newVal > max) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   }
 
   selectedValue(event: MatSelectChange) {
