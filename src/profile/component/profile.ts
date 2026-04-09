@@ -20,6 +20,9 @@ import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { disabled, validate } from '@angular/forms/signals';
 import { ZoneService } from '../../services/zone.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialog } from './dialog/confirmation-dialog';
+import e from 'express';
 
 @Component({
   selector: 'app-profile',
@@ -64,14 +67,14 @@ public dataSource = new MatTableDataSource<profileelements>();
   public  zones: any = [];
 
   DisplayedColumns: string[] = [
-    'id', 'firstName','lastName' ,'email_address','mobile_no','exposure','created_date',
+      'firstName','lastName' ,'email_address','mobile_no','exposure','profile_type','zoneName','created_date',
     'action'
   ];
 
   constructor( private profileService:ProfileService, private roleService:Roleservice,
-        private matIconRegistry: MatIconRegistry,     public formBuilder: FormBuilder, 
+    private matIconRegistry: MatIconRegistry,     public formBuilder: FormBuilder, 
     private domSanitizer: DomSanitizer ,     private snackBar: MatSnackBar,
-       private zoneService:ZoneService 
+    private zoneService:ZoneService ,  private dialog: MatDialog 
 
   ) {
 
@@ -135,26 +138,19 @@ public dataSource = new MatTableDataSource<profileelements>();
     }
   }
 
+  selectedZone(event: MatSelectChange) {
+  
+    console.log(event.source.triggerValue);
+    console.log(this.optiontext);
+  }
   selectedValue(event: MatSelectChange) {
  
  
    
     this.optiontext  = event.source.triggerValue;
+    console.log(event.source.triggerValue);
 
-    // if(this.optiontext=='Transporter')
-    // { 
-    //   this.profileForm.controls['capacity'].enable();
-    //   this.profileForm.controls['licenseno'].enable();
-
-     
-    // }
-    // else
-    // {
-    //   this.profileForm.controls['capacity'].disable();
-    //   this.profileForm.controls['licenseno'].disable();
-
-    // }
-  
+   
   
 }
 
@@ -179,9 +175,36 @@ console.log(element);
   this.profileForm.controls['address'].setValue(element.address);
   this.profileForm.controls['exposure'].setValue(element.exposure);
 
+  this.profileForm.controls['options'].setValue(element.profile_type_id);
+  this.profileForm.controls['zonelist'].setValue(element.zoneid);
+
+  if(element.is_active == 1)
+  {this.profileForm.controls['isChecked'].setValue(true);}
+  else{this.profileForm.controls['isChecked'].setValue(false);}
+  
+  this.profileForm.controls['username'].setValue(element.user_name);
+
+  this.update = 1;
 }
 
+ 
 
+
+ delete(element:any) {
+ 
+console.log(element);
+       const confirmDialog = this.dialog.open(ConfirmationDialog, {
+      data: {
+        title: 'Confirm Remove Profile',
+        message: 'Are you sure, you want to remove the profile of : ' + element.user_name,
+        userid:element.user_id
+      }
+    });
+    confirmDialog.afterClosed().subscribe(result => {
+        this.getprofiles();
+    });
+    
+   }
 
 
 changeIcon() {
@@ -226,16 +249,33 @@ changeIcon() {
 
     this.profileForm.controls['password'].setValidators([Validators.required]);
     this.profileForm.controls['password'].updateValueAndValidity();
-  
+
+    this.profileForm.controls['zonelist'].setValidators([Validators.required]);
+    this.profileForm.controls['zonelist'].updateValueAndValidity();
+
+    this.profileForm.controls['isChecked'].setValidators([Validators.required]);
+    this.profileForm.controls['isChecked'].updateValueAndValidity();
+
+
+ 
   
   
   }
 
   submit(event: Event)
   {
+    console.log("update ",this.update);
+    if(this.update ==0)
+    {this.SetValidation();
+     this.addProfile();}
+
+     else
+     {
+      this.SetValidation();
+      this.upateProfile();
+     }
  
-     this.SetValidation();
-     this.addUser();
+     
  
 
  
@@ -243,7 +283,7 @@ changeIcon() {
   }
 
 
-  addUser()
+  addProfile()
  {
 
    if (this.profileForm.invalid) {
@@ -284,7 +324,8 @@ changeIcon() {
       isactive : check,
       createdBy : 1,
       profile_type_id:   this.profileForm.controls['options'].value,
-      profile_type:  this.optiontext
+      profile_type:  this.optiontext,
+      zoneId:   this.profileForm.controls['zonelist'].value,
      };
     // console.log( this.userNameField.value);
     // console.log( this.passwordField.value);
@@ -297,7 +338,7 @@ changeIcon() {
 
              this.snackBar.open(' Record has been added successfully! ','Close', {    
               duration: 4000,    
-              horizontalPosition: 'right',
+              horizontalPosition: 'center',
               verticalPosition: 'top',
               panelClass: 'custom-style',
             });
@@ -312,7 +353,83 @@ changeIcon() {
 
  }
 
-    clear()
+
+
+  upateProfile()
+ {
+
+   if (this.profileForm.invalid) {
+     this.profileForm.controls['isChecked'].markAsDirty();
+   
+
+       return;
+  }
+  
+
+  var check:any;
+  var password: any;
+  if(this.isChecked)
+  {
+      check = 1;
+  }
+  else
+  {
+       check = 0;
+  }
+
+  if(this.profileForm.controls['password'].value != "")
+  {
+    password =  this.profileForm.controls['password'].value;
+  }
+
+
+    
+    let roleObj = {
+      firstName: this.profileForm.controls['first'].value,
+      lastName: this.profileForm.controls['last'].value,
+      mobile_no: this.profileForm.controls['mobile'].value, 
+      city: this.profileForm.controls['city'].value, 
+      address: this.profileForm.controls['address'].value, 
+      exposure: this.profileForm.controls['exposure'].value, 
+      username: this.profileForm.controls['username'].value,
+      password:password,
+      emailaddress: this.profileForm.controls['emailaddress'].value,
+      isactive : check,
+      updatedBy : 1,
+      profile_type_id:   this.profileForm.controls['options'].value,
+      profile_type:  this.optiontext,
+      zoneId:   this.profileForm.controls['zonelist'].value,
+     };
+    // console.log( this.userNameField.value);
+    // console.log( this.passwordField.value);
+    // console.log( this.emailField.value);
+
+    this.profileService.addProfile(roleObj)
+      .pipe(first())
+      .subscribe(response => {
+        console.log(response);
+
+             this.snackBar.open(' Record has been added successfully! ','Close', {    
+              duration: 4000,    
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'custom-style',
+            });
+
+
+        this.clear();
+        this.getprofiles();
+        //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
+       //   this.toaster.success("Role privilege has been updated", "Success");
+        //}
+      });
+
+ }
+
+
+
+
+  clear()
     {  
       this.update = 0;
      
@@ -323,23 +440,7 @@ changeIcon() {
          this.profileForm.get(key)!.setValidators(null);
          this.profileForm.get(key)!.setValue("");
      });
-
-
-      // // this.profileForm.controls['first'].setValidators(null);
-      // this.profileForm.controls['last'].setValue("");
-      // this.profileForm.controls['mobile'].setValue("");
-      // this.profileForm.controls['city'].setValue("");
-      // this.profileForm.controls['address'].setValue("");
-      // this.profileForm.controls['exposure'].setValue("");
-      // this.profileForm.controls['username'].setValue("");
-      // this.profileForm.controls['password'].setValue("");
-      // this.profileForm.controls['emailaddress'].setValue("");
-      // this.profileForm.controls['options'].setValue("");
-
-
- 
-
-    }
+   }
 
   getprofiles(){
       

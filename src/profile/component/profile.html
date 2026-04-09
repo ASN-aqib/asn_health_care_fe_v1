@@ -99,7 +99,7 @@
     <input
       matInput
     
-       min="1"
+       min="0"
        max="9999999"
 
       formControlName="exposure"
@@ -155,8 +155,8 @@
 
   <mat-form-field appearance="outline"  class="custom-height-field">
   <mat-label >Select</mat-label>
-  <mat-select  (selectionChange)="selectedValue($event)"   placeholder="Select zones" name="options"  formControlName="zonelist" >
-   <mat-option *ngFor="let zone of zones" [value]="zone.id" >{{ zone                                                                            .zone_name}}</mat-option>
+  <mat-select  (selectionChange)="selectedZone($event)"   placeholder="Select zones" name="options"  formControlName="zonelist" >
+   <mat-option *ngFor="let zone of zones" [value]="zone.id" >{{ zone.zone_name}}</mat-option>
   </mat-select>
   </mat-form-field>
   
@@ -207,13 +207,13 @@
  
                             
 
-                            <ng-container matColumnDef="id">
+                            <!-- <ng-container matColumnDef="id">
                                 <th mat-header-cell *matHeaderCellDef> Id</th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.id}}
                                 </td>
                             </ng-container>
-                            
+                             -->
         
                             <ng-container matColumnDef="firstName">
                                 <th mat-header-cell *matHeaderCellDef> First Name </th>
@@ -262,19 +262,27 @@
                                 </td>
                             </ng-container>
 
-                           <!-- <ng-container matC  olumnDef="profile_type">
+
+                            <ng-container matColumnDef="zoneName">
+                                <th mat-header-cell *matHeaderCellDef>Zone</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.zoneName}}
+                                </td>
+                            </ng-container>
+
+                           <ng-container matColumnDef="profile_type">
                                 <th mat-header-cell *matHeaderCellDef> Profile Type</th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.profile_type}}
                                 </td>
-                            </ng-container> -->
+                            </ng-container>
 
              
 
                             <ng-container matColumnDef="created_date">
                                 <th mat-header-cell *matHeaderCellDef>Created Date</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.created_date}}
+                                   {{ element.created_date | date: 'dd/MM/yyyy, h:mm a ' }}
                                 </td>
                             </ng-container>   
  
@@ -284,7 +292,7 @@
                                     <button matIconButton  (click)="edit(element)">
                                           <mat-icon >edit</mat-icon>
                                     </button>
-                                    <button matIconButton >
+                                    <button matIconButton (click)="delete(element)">
                                            <mat-icon>delete</mat-icon>
                                     </button>
                                 </td>

@@ -173,6 +173,7 @@ export const WebConstants = {
     },
     PROFILE: {
       ADD: "/api/profile/create",
+      DELETE: "/api/profile/delete/",
       FIND_ALL: "/api/profile/find-all",
       FIND_ALL_PRIVILEGE_BY_USER: "/api/privilege/find-privilege-by-user/",
     },
