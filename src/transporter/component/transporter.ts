@@ -215,7 +215,7 @@ changeIcon() {
   {
  
      this.SetValidation();
-     this.addUser();
+     this.addTransporter();
  
 
  
@@ -223,7 +223,7 @@ changeIcon() {
   }
 
 
-  addUser()
+  addTransporter()
  {
 
    if (this.transporterForm.invalid) {

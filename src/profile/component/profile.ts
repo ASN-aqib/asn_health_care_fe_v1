@@ -194,8 +194,8 @@ changeIcon() {
     this.profileForm.controls['exposure'].setValidators([Validators.required]);
     this.profileForm.controls['exposure'].updateValueAndValidity();
   
-    this.profileForm.controls['option'].setValidators([Validators.required]);
-    this.profileForm.controls['option'].updateValueAndValidity();
+    this.profileForm.controls['options'].setValidators([Validators.required]);
+    this.profileForm.controls['options'].updateValueAndValidity();
 
     this.profileForm.controls['username'].setValidators([Validators.required]);
     this.profileForm.controls['username'].updateValueAndValidity();
