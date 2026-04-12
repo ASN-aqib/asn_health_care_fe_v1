@@ -28,4 +28,20 @@ export class ProfileService {
 
          return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.PROFILE.ADD, payload);
       }
+
+      updateProfile(payload: any): Observable<BaseResponse<any>> {
+   
+          console.log("add role",payload);
+
+         return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.PROFILE.ADD, payload);
+      }
+
+      delete(userid: any ): Observable<BaseResponse<any>> {
+
+                  console.log("user id",userid);
+
+               let url = this.baseUrl + WebConstants.API_URL.PROFILE.DELETE+userid;
+              console.log(url);
+               return this.ajaxHelper.get(url);
+      }
 }

@@ -15,7 +15,7 @@ export class TransporterService {
        constructor(public ajaxHelper: AjaxHelper) { }
 
       getAllTransporters(): Observable<BaseResponse<any>> {
-         let url = this.baseUrl + WebConstants.API_URL.PROFILE.FIND_ALL;
+         let url = this.baseUrl + WebConstants.API_URL.TRANSPORTER.FIND_ALL;
                   
         return this.ajaxHelper.get(url);
         }
@@ -25,6 +25,6 @@ export class TransporterService {
        
          console.log("add role",payload);
        
-              return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.PROFILE.ADD, payload);
+              return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.TRANSPORTER.ADD, payload);
         }
 }

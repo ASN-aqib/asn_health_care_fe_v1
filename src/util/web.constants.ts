@@ -173,8 +173,14 @@ export const WebConstants = {
     },
     PROFILE: {
       ADD: "/api/profile/create",
+      DELETE: "/api/profile/delete/",
       FIND_ALL: "/api/profile/find-all",
       FIND_ALL_PRIVILEGE_BY_USER: "/api/privilege/find-privilege-by-user/",
+    },
+    TRANSPORTER: {
+      ADD: "/api/transporter/create",
+      FIND_ALL: "/api/transporter/find-all",
+      
     },
     ROLE: {
       FIND_ALL_ROLES: "/api/role/find-all",
@@ -219,12 +225,12 @@ export const WebConstants = {
       FILE_UPLOADER_PARKING_SPOT: "/api/user-parkingspot/upload",
       FIND_LOGS_BY_PARKING_SPOT: "/api/parkingspotlogs/find-by-parkingspotId/"
     },
-    PARKING_ZONE: {
-      ADD: "/api/parkingzone/add",
+    ZONE: {
+      ADD: "/api/zone/add",
       UPDATE: "/api/parkingzone/update",
       DELETE: "/api/parkingzone/delete",
       FIND_BY_ID: "/api/parkingzone/find",
-      FIND_ALL: "/api/parkingzone/find",
+      FIND_ALL: "/api/zone/find-all",
     },
 
      TRANSACTION: {

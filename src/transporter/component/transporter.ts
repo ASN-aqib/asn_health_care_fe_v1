@@ -19,6 +19,7 @@ import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { disabled, validate } from '@angular/forms/signals';
 import { TransporterService } from '../../services/transporter.service';
+import { ZoneService } from '../../services/zone.service';
 
 @Component({
   selector: 'app-transporter',
@@ -49,8 +50,8 @@ public dataSource = new MatTableDataSource<profileelements>();
 
 
   public  profiledata: any = [];
-  public  roles: roleitem [] = [];
-  option: any;
+  public  zones: any = [];
+  options: any;
   iconName:any; // Default icon name
    hide = signal(true);
 
@@ -63,13 +64,15 @@ public dataSource = new MatTableDataSource<profileelements>();
 
 
   DisplayedColumns: string[] = [
-     'companyname','owner','vehicletype','capacity','email_address','mobile_no', 'address','created_date',
+     'companyname','owner','vehicle_type','loading_capacity','emailaddress','mobile_no', 'address','created_date',
     'action'
   ];
 
   constructor( private transporterService:TransporterService,
-        private matIconRegistry: MatIconRegistry,     public formBuilder: FormBuilder, 
-    private domSanitizer: DomSanitizer ,     private snackBar: MatSnackBar,
+       private matIconRegistry: MatIconRegistry,     public formBuilder: FormBuilder, 
+       private domSanitizer: DomSanitizer ,     private snackBar: MatSnackBar,
+       private zoneService:ZoneService 
+
 
   ) {
 
@@ -81,10 +84,10 @@ public dataSource = new MatTableDataSource<profileelements>();
   }
  
    ngOnInit(): void {
-    //this.getprofiles();
+    this.getprofiles();
     this.update = 0;
     this.initializeForm();
-    this.getroles();
+    this.getZones();
    }
 
 
@@ -152,7 +155,7 @@ console.log(element);
  
   this.transporterForm.controls['first'].setValue(element.firstName);
   this.transporterForm.controls['last'].setValue(element.lastName);
-  this.transporterForm.controls['emailaddress'].setValue(element.email_address);
+  this.transporterForm.controls['emailaddress'].setValue(element.emailaddress);
 
   this.transporterForm.controls['mobile'].setValue(element.mobile_no);
   this.transporterForm.controls['city'].setValue(element.city);
@@ -186,20 +189,31 @@ changeIcon() {
 
  SetValidation()
  {
-    this.transporterForm.controls['first'].setValidators([Validators.required]);
-    this.transporterForm.controls['first'].updateValueAndValidity();
+    this.transporterForm.controls['companyname'].setValidators([Validators.required]);
+    this.transporterForm.controls['companyname'].updateValueAndValidity();
    
-    this.transporterForm.controls['last'].setValidators([Validators.required]);
-    this.transporterForm.controls['last'].updateValueAndValidity();
+    this.transporterForm.controls['owner'].setValidators([Validators.required]);
+    this.transporterForm.controls['owner'].updateValueAndValidity();
    
     this.transporterForm.controls['mobile'].setValidators([Validators.required]);
     this.transporterForm.controls['mobile'].updateValueAndValidity();
   
-    this.transporterForm.controls['exposure'].setValidators([Validators.required]);
-    this.transporterForm.controls['exposure'].updateValueAndValidity();
+    this.transporterForm.controls['address'].setValidators([Validators.required]);
+    this.transporterForm.controls['address'].updateValueAndValidity();
   
-    this.transporterForm.controls['option'].setValidators([Validators.required]);
-    this.transporterForm.controls['option'].updateValueAndValidity();
+    this.transporterForm.controls['vehicletype'].setValidators([Validators.required]);
+    this.transporterForm.controls['vehicletype'].updateValueAndValidity();
+  
+    this.transporterForm.controls['capacity'].setValidators([Validators.required]);
+    this.transporterForm.controls['capacity'].updateValueAndValidity();
+  
+
+    this.transporterForm.controls['registrationno'].setValidators([Validators.required]);
+    this.transporterForm.controls['registrationno'].updateValueAndValidity();
+ 
+  
+    this.transporterForm.controls['options'].setValidators([Validators.required]);
+    this.transporterForm.controls['options'].updateValueAndValidity();
 
     this.transporterForm.controls['username'].setValidators([Validators.required]);
     this.transporterForm.controls['username'].updateValueAndValidity();
@@ -248,20 +262,23 @@ changeIcon() {
     //alert(check)
     
     let roleObj = {
-      firstName: this.transporterForm.controls['first'].value,
-      lastName: this.transporterForm.controls['last'].value,
+      companyname: this.transporterForm.controls['companyname'].value,
+      owner: this.transporterForm.controls['owner'].value,
       domain : "Mobile",
-      mobile_no: this.transporterForm.controls['mobile'].value, 
+      mobile: this.transporterForm.controls['mobile'].value, 
       city: this.transporterForm.controls['city'].value, 
       address: this.transporterForm.controls['address'].value, 
-      exposure: this.transporterForm.controls['exposure'].value, 
+      vehicle_type: this.transporterForm.controls['vehicletype'].value, 
+      loading_capacity:this.transporterForm.controls['capacity'].value, 
+      vehicle_registration_no:this.transporterForm.controls['registrationno'].value,
+      registration_city :this.transporterForm.controls['registrationcity'].value,
       username: this.transporterForm.controls['username'].value,
       password: this.transporterForm.controls['password'].value,
       emailaddress: this.transporterForm.controls['emailaddress'].value,
       isactive : check,
       createdBy : 1,
-      profile_type_id:   this.transporterForm.controls['options'].value,
-      profile_type:  this.optiontext
+      zoneid:   this.transporterForm.controls['options'].value,
+     
      };
     // console.log( this.userNameField.value);
     // console.log( this.passwordField.value);
@@ -335,28 +352,20 @@ changeIcon() {
            });
     }
 
-  getroles(){
+  getZones(){
  
-      const newItem: roleitem = {
-      id: 1,
-      value: "Buyer"
-       };
-      const newItem1: roleitem = {
-      id: 2,
-      value: "Seller"
-       };
-       const newItem2: roleitem = {
-      id: 3,
-      value: "Trader"
-       };
+      this.zoneService.getAllZones()
+          .pipe(first())
+          .subscribe(response => {
       
-
-      this.roles.push(newItem);
-      this.roles.push(newItem1);
-      this.roles.push(newItem2);
+              this.zones = response
+   
+           
+                 
+  
+           });
       
-
-      console.log(this.roles);
+ ;
   }
 
 }
