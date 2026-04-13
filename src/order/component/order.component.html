@@ -1,0 +1,130 @@
+
+   <div class=" mb-3" style="margin-left: 230px;">
+    <br><br><br><br>
+      <div class="col-lg-11 mb-4">
+            <div class="card">
+
+                 <!-- <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">User Log Activity</h5>
+                     
+                </div>  -->
+
+                <div  >
+                    
+                    <mat-card>
+
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 w-100">
+ 
+                            
+
+                            <!-- <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef> Id</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.id}}
+                                </td>
+                            </ng-container>
+                             -->
+        
+                            <ng-container matColumnDef="Order Id">
+                                <th mat-header-cell *matHeaderCellDef> First Name </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.firstName}}
+                                </td>
+                            </ng-container>
+
+                            
+                            <ng-container matColumnDef="lastName">
+                                <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.lastName}}
+                                </td>
+                            </ng-container>
+
+
+                            <!-- <ng-container matColumnDef="password">
+                                <th mat-header-cell *matHeaderCellDef>Password </th>
+                                  <td mat-cell *matCellDef="let element">
+                                      {{element.password}}  
+                                <input type="password" [value]="element.password" readonly style="border:none; background:transparent;">
+                                </td>  
+                            </ng-container> -->
+
+
+                             <ng-container matColumnDef="email_address">
+                                <th mat-header-cell *matHeaderCellDef> Email Address </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.email_address}}
+                                </td>
+                            </ng-container>
+
+                           <ng-container matColumnDef="mobile_no">
+                                <th mat-header-cell *matHeaderCellDef> Contact Info</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.mobile_no}}
+                                </td>
+                            </ng-container>
+
+                                
+                            <ng-container matColumnDef="exposure">
+                                <th mat-header-cell *matHeaderCellDef>Exposure</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.exposure}}
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="zoneName">
+                                <th mat-header-cell *matHeaderCellDef>Zone</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.zoneName}}
+                                </td>
+                            </ng-container>
+
+                           <ng-container matColumnDef="profile_type">
+                                <th mat-header-cell *matHeaderCellDef> Profile Type</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.profile_type}}
+                                </td>
+                            </ng-container>
+
+             
+
+                            <ng-container matColumnDef="created_date">
+                                <th mat-header-cell *matHeaderCellDef>Created Date</th>
+                                <td mat-cell *matCellDef="let element">
+                                   {{ element.created_date | date: 'dd/MM/yyyy, h:mm a ' }}
+                                </td>
+                            </ng-container>   
+ 
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button matIconButton  (click)="edit(element)">
+                                          <mat-icon >edit</mat-icon>
+                                    </button>
+                                    <button matIconButton (click)="delete(element)">
+                                           <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>  
+
+                            <tr mat-header-row *matHeaderRowDef="DisplayedColumns"></tr>
+                            <tr mat-    row *matRowDef="let row; columns: DisplayedColumns;"></tr>
+
+                        </table>
+
+                        <mat-paginator [length]="oderData.length"
+                         #paginator
+                            [pageSize]="10"
+                            [pageSizeOptions]="[10, 20, 30, 100]"
+                            aria-label="Select page">
+                        </mat-paginator>
+                 
+                
+
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>  
+</div>  
