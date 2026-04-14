@@ -1,11 +1,12 @@
  
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
  
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule, MapDirectionsService } from '@angular/google-maps';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-map',
@@ -15,32 +16,16 @@ import { GoogleMapsModule } from '@angular/google-maps';
 })
 export class Map {
 
-    display: any;
-  
-  // initial center position for the map
-  lat: number = 51.673858;
-  lng: number = 7.815982;
- mapOptions: google.maps.MapOptions = {
-    center: { lat: 40, lng: -20 },
-    zoom: 4,
-    mapTypeId: 'hybrid',
-    disableDefaultUI: true,
-    scrollwheel: false
-  };
-  center: google.maps.LatLngLiteral = { lat: 40.73061, lng: -73.935242 };
-  
-  markers = [
-    { lat: 40.73061, lng: -73.935242 },
-    { lat: 40.74988, lng: -73.968285 }
-  ];
+    center: google.maps.LatLngLiteral = {lat: 24.86103, lng: 24.86103};
+  zoom = 4;
 
-     move(event: google.maps.MapMouseEvent) {
-        if (event.latLng != null) this.display = event.latLng.toJSON();
-    }
+  private mapDirectionsService = inject(MapDirectionsService);
 
-     moveMap(event: google.maps.MapMouseEvent) {
-        if (event.latLng != null) this.center = (event.latLng.toJSON());
-    }
+  readonly directionsResults$ = this.mapDirectionsService.route({
+    destination: {lat: 24.88588, lng: 67.15022},
+    origin: {lat: 24.86103, lng: 67.06954},
+    travelMode: google.maps.TravelMode.DRIVING,
+  }).pipe(map(response => response.result));
     
 }
 

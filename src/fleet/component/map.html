@@ -1,11 +1,10 @@
-   
-<google-map height="500px"
-            width="900px"
-            [center]="center"
-            [options]="mapOptions"
-            (mapClick)="moveMap($event)"
-            (mapMousemove)="move($event)">
+ 
+<div class="center-container">  
+
+    <!-- google-maps-demo.component.html -->
+<google-map height="400px" width="750px" [center]="center" [zoom]="zoom">
+  @if (directionsResults$ | async; as directionsResults) {
+    <map-directions-renderer [directions]="directionsResults" />
+  }
 </google-map>
-  
-<div>Latitude: {{display?.lat}}</div>
-<div>Longitude: {{display?.lng}}</div>
+</div>

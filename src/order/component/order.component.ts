@@ -14,6 +14,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { Orderservice } from '../../services/orderservice';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-order.component',
@@ -33,27 +35,70 @@ export class OrderComponent implements OnInit {
   optiontext: any;
   ngcolor: any;
 
-public dataSource = new MatTableDataSource<profileelements>();
+public dataSource = new MatTableDataSource<orderelements>();
  
 @ViewChild(MatSort) sort!: MatSort;
 @ViewChild("paginator") paginator!: MatPaginator;
 @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
 
-  DisplayedColumns: string[] = [
-      'firstName','lastName' ,'email_address','mobile_no','exposure','profile_type','zoneName','created_date',
-    'action'
+  DisplayedColumns: string[] = [ 'BuyerName', 
+      'pickupZone','SellerName' ,'price','pickupcontactNo','pickupLocation','dropOffZone',
+       'dropContactNo', 'order_status','createdDate',
+       'action'
   ];
 
- public  oderData: any = [];
+ public  orderData: any = [];
   
+ constructor(private orderService: Orderservice ){}
 
 
       ngOnInit(): void {
+       
+        this.getAll()
+      }
+
+
+      getAll()
+      {
+          this.orderService.getAll()
+                  .pipe(first())
+                  .subscribe(response => {
+              
+                      this.orderData = response
         
+                      console.log(this.orderData)
+
+                      for (const order of this.orderData) {
+
+                        if(order.order_status == "Pending")
+                        {order.color = "FFBF00";}
+                        else if(order.order_status == "Delivery")
+                        {order.color = "90ee90";}
+                        else if(order.order_status == "Delivered")
+                        {order.color = "2E8B57";}
+
+                        
+
+                      }
+
+          
+                   this.dataSource = new MatTableDataSource(this.orderData);
+                   this.dataSource.paginator = this.paginator;
+                         
+          
+           });
+
+
       }
     
     
+     applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
     
     
     delete(element:any) {
@@ -98,4 +143,9 @@ public dataSource = new MatTableDataSource<profileelements>();
 
 }
 
+}
+export interface orderelements {
+  
+  id:number;
+ 
 }

@@ -8,35 +8,39 @@
                     <h5 class="mb-0">User Log Activity</h5>
                      
                 </div>  -->
+                <mat-form-field  class="custom-height-field">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+                </mat-form-field>
+            <div class="table-responsive">
 
-                <div  >
                     
                     <mat-card>
 
                         <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 w-100">
  
                             
-
-                            <!-- <ng-container matColumnDef="id">
+<!--  
+                           <ng-container matColumnDef="id">
                                 <th mat-header-cell *matHeaderCellDef> Id</th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.id}}
                                 </td>
-                            </ng-container>
-                             -->
+                            </ng-container> -->
+                             
         
-                            <ng-container matColumnDef="Order Id">
-                                <th mat-header-cell *matHeaderCellDef> First Name </th>
+                            <ng-container matColumnDef="pickupZone">
+                                <th mat-header-cell *matHeaderCellDef>Pickup Zone</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.firstName}}
+                                    {{element.pickupZone}}
                                 </td>
                             </ng-container>
 
                             
-                            <ng-container matColumnDef="lastName">
-                                <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                            <ng-container matColumnDef="SellerName">
+                                <th mat-header-cell *matHeaderCellDef> Seller </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.lastName}}
+                                    {{element.SellerName}}
                                 </td>
                             </ng-container>
 
@@ -50,55 +54,78 @@
                             </ng-container> -->
 
 
-                             <ng-container matColumnDef="email_address">
-                                <th mat-header-cell *matHeaderCellDef> Email Address </th>
+                             <ng-container matColumnDef="price">
+                                <th mat-header-cell *matHeaderCellDef>price</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.email_address}}
+                                    {{element.price}}
                                 </td>
                             </ng-container>
 
-                           <ng-container matColumnDef="mobile_no">
-                                <th mat-header-cell *matHeaderCellDef> Contact Info</th>
+                           <ng-container matColumnDef="pickupcontactNo">
+                                <th mat-header-cell *matHeaderCellDef>Seller Contact</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.mobile_no}}
+                                    {{element.pickupcontactNo}}
                                 </td>
                             </ng-container>
 
                                 
-                            <ng-container matColumnDef="exposure">
-                                <th mat-header-cell *matHeaderCellDef>Exposure</th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.exposure}}
+                            <ng-container matColumnDef="pickupLocation">
+                                <th mat-header-cell *matHeaderCellDef>Pickup Address</th>
+                                <td mat-cell  *matCellDef="let element">
+                                    {{element.pickupLocation}}
                                 </td>
                             </ng-container>
 
 
-                            <ng-container matColumnDef="zoneName">
-                                <th mat-header-cell *matHeaderCellDef>Zone</th>
+                            <ng-container matColumnDef="dropOffZone">
+                                <th mat-header-cell  *matHeaderCellDef>Dropoff Zone</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.zoneName}}
+                                    {{element.dropOffZone}}
                                 </td>
                             </ng-container>
 
-                           <ng-container matColumnDef="profile_type">
-                                <th mat-header-cell *matHeaderCellDef> Profile Type</th>
+                           <ng-container matColumnDef="BuyerName">
+                                <th mat-header-cell *matHeaderCellDef>Buyer</th>
+                                <td mat-cell   *matCellDef="let element">
+                                    {{element.BuyerName}}
+                                </td>
+                            </ng-container>
+
+                            
+                           <ng-container matColumnDef="dropContactNo">
+                                <th mat-header-cell *matHeaderCellDef>Buyer Contact</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.profile_type}}
+                                    {{element.dropContactNo}}
+                                </td>
+                            </ng-container>
+
+                            //#FFBF00  for delivery
+                            //#90ee90 for pending
+                            //#2E8B57 for deliverd
+                            <!-- [style.background-color]="'#' + item.color" -->
+
+                           <ng-container matColumnDef="order_status">
+                                
+                                <th mat-header-cell *matHeaderCellDef>Order Status</th>
+
+                                <!-- <td mat-cell style="background-color: #FFBF00; color:aliceblue;" *matCellDef="let element"> -->
+                             <td mat-cell  [style.background-color]="'#' + element.color" *matCellDef="let element">
+                                    {{element.order_status}}
                                 </td>
                             </ng-container>
 
              
 
-                            <ng-container matColumnDef="created_date">
+                            <ng-container matColumnDef="createdDate">
                                 <th mat-header-cell *matHeaderCellDef>Created Date</th>
-                                <td mat-cell *matCellDef="let element">
-                                   {{ element.created_date | date: 'dd/MM/yyyy, h:mm a ' }}
+                                <td mat-cell [style.width.px]="180" *matCellDef="let element">
+                                   {{ element.createdDate | date: 'dd/MM/yyyy, h:mm a ' }}
                                 </td>
                             </ng-container>   
  
                             <ng-container matColumnDef="action">
-                                <th mat-header-cell *matHeaderCellDef> Action </th>
-                                <td mat-cell *matCellDef="let element">
+                                <th mat-header-cell *matHeaderCellDef > Action </th>
+                                <td mat-cell [style.width.px]="140" *matCellDef="let element">
                                     <button matIconButton  (click)="edit(element)">
                                           <mat-icon >edit</mat-icon>
                                     </button>
@@ -109,11 +136,11 @@
                             </ng-container>  
 
                             <tr mat-header-row *matHeaderRowDef="DisplayedColumns"></tr>
-                            <tr mat-    row *matRowDef="let row; columns: DisplayedColumns;"></tr>
+                            <tr mat-row *matRowDef="let row; columns: DisplayedColumns;"></tr>
 
                         </table>
 
-                        <mat-paginator [length]="oderData.length"
+                        <mat-paginator [length]="orderData.length"
                          #paginator
                             [pageSize]="10"
                             [pageSizeOptions]="[10, 20, 30, 100]"

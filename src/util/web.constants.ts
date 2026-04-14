@@ -405,8 +405,8 @@ export const WebConstants = {
         FIND_TOTAL_SESSIONS: "/api/monthly/report/find-app-metrics"
       }
     },
-    EXCEL: {
-      FIND_EXPIRED_SESSION_COUNT: "/api/excel/find-expired-session-count",
+    ORDER: {
+      FIND_ALL: "/api/order/find-all",
       FIND_OCCUPANCY_COUNT: "/api/excel/find-occupancy-count",
       FIND_OCCUPANCY_HOUR: "/api/excel/find-occupancy-hour",
       FIND_OCCUPANCY_TIME_COUNT: "/api/excel/find-occupancy-time-count",
