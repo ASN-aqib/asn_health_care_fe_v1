@@ -1,1 +1,10 @@
-<p>ordermap works!</p>
+ 
+<div class="center-container">  
+
+    <!-- google-maps-demo.component.html -->
+<google-map height="550px" width="890px" [center]="center" [zoom]="zoom">
+  @if (directionsResults$ | async; as directionsResults) {
+    <map-directions-renderer [directions]="directionsResults" />
+  }
+</google-map>
+</div>

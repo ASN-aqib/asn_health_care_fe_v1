@@ -1,0 +1,14 @@
+.map-container {
+  height: 500px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.center-container {
+  display: fixed;
+  margin-left: 10px;
+  justify-content: left; /* Centers horizontally */
+  align-items: last baseline;     /* Centers vertically */
+  height: 35vh; 
+         /* Ensures the container fills the screen height */
+}

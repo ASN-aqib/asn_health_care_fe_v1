@@ -16,6 +16,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { Orderservice } from '../../services/orderservice';
 import { first } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Ordermap } from '../ordermap/ordermap';
 
 @Component({
   selector: 'app-order.component',
@@ -50,7 +52,7 @@ public dataSource = new MatTableDataSource<orderelements>();
 
  public  orderData: any = [];
   
- constructor(private orderService: Orderservice ){}
+ constructor(private orderService: Orderservice, private dialog: MatDialog  ){}
 
 
       ngOnInit(): void {
@@ -58,6 +60,43 @@ public dataSource = new MatTableDataSource<orderelements>();
         this.getAll()
       }
 
+
+  //     openDialog(element:any) {
+  //     const dialogConfig = new MatDialogConfig();
+
+  //     console.log(element);
+
+  //     dialogConfig.data = {
+  //      element
+  //   };
+  // }
+
+
+
+ 
+        openDialog(element:any) {
+        const dialogConfig = new MatDialogConfig();
+
+        
+  
+        dialogConfig.data = {
+        element
+      };
+  
+      const dialogRef = this.dialog.open(Ordermap, {
+        width: '900px',
+        height: '600px',// Optional: set width, height, or other config options
+       // data: { this.bidding }, // Optional: pass data to the dialog
+       data: element
+      });
+  
+      // Optional: Subscribe to the afterClosed() observable to get data back when the dialog closes
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed', result);
+        // Handle data returned from the dialog here
+      });
+    }
+    
 
       getAll()
       {
