@@ -85,7 +85,7 @@
  
 
 .table thead th {
-    background-color: #0f6d6f;
+    background-color: #2E2EFF;
     color: #fff;
     font-weight: 500;
 }
@@ -112,7 +112,7 @@
 
 .mat-mdc-header-row 
 {
-    background-color:  #076D70;
+    background-color:  #2E2EFF;
     
 }
 .mat-mdc-header-cell
