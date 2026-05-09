@@ -123,20 +123,7 @@ public dataSource = new MatTableDataSource<profileelements>();
  
    
     this.optiontext  = event.source.triggerValue;
-
-    // if(this.optiontext=='Transporter')
-    // { 
-    //   this.profileForm.controls['capacity'].enable();
-    //   this.profileForm.controls['licenseno'].enable();
-
-     
-    // }
-    // else
-    // {
-    //   this.profileForm.controls['capacity'].disable();
-    //   this.profileForm.controls['licenseno'].disable();
-
-    // }
+ 
   
   
 }
@@ -152,15 +139,25 @@ onEscape() {
 edit(element:any) {
 
 console.log(element);
- 
-  this.transporterForm.controls['first'].setValue(element.firstName);
-  this.transporterForm.controls['last'].setValue(element.lastName);
-  this.transporterForm.controls['emailaddress'].setValue(element.emailaddress);
 
-  this.transporterForm.controls['mobile'].setValue(element.mobile_no);
+ console.log(element);
+ 
+  this.transporterForm.controls['owner'].setValue(element.owner);
+  this.transporterForm.controls['emailaddress'].setValue(element.emailaddress);
+  this.transporterForm.controls['mobile'].setValue(element.mobile);
+
   this.transporterForm.controls['city'].setValue(element.city);
   this.transporterForm.controls['address'].setValue(element.address);
-  this.transporterForm.controls['exposure'].setValue(element.exposure);
+  this.transporterForm.controls['vehicletype'].setValue(element.vehicle_type);
+  this.transporterForm.controls['capacity'].setValue(element.loading_capacity);
+  this.transporterForm.controls['registrationno'].setValue(element.vehicle_registration_no);
+  this.transporterForm.controls['registrationcity'].setValue(element.registration_city);
+  this.transporterForm.controls['username'].setValue(element.username);
+  this.transporterForm.controls['zonelist'].setValue(element.zoneid);
+
+  if(element.is_active == 1)
+  {this.transporterForm.controls['isChecked'].setValue(true);}
+  else{this.transporterForm.controls['isChecked'].setValue(false);}
 
 }
 

@@ -95,7 +95,7 @@ export class User implements OnInit {
   
    edit(element:any) {
     
-    this.update = 1;
+       this.update = 1;
         this.userForm.patchValue({
         userNameField: element.username, 
         passwordField: element.password,

@@ -65,7 +65,7 @@ public dataSource = new MatTableDataSource<profileelements>();
   public profileForm!: FormGroup;
   public  zones: any = [];
 
-  DisplayedColumns: string[] = [
+  DisplayedColumns: string[] = [ 
       'firstName','lastName' ,'email_address','mobile_no','exposure','profile_type','zoneName','created_date',
     'action'
   ];
@@ -95,6 +95,7 @@ public dataSource = new MatTableDataSource<profileelements>();
 
    initializeForm() {
       this.profileForm = this.formBuilder.group({
+      id : new FormControl('', ),
       first : new FormControl('', [Validators.required]),
       last :  new FormControl('', [Validators.required]),
       emailaddress : new FormControl('', [Validators.required, Validators.email],),
@@ -163,7 +164,9 @@ onEscape() {
 edit(element:any) {
 
 console.log(element);
- 
+
+this.profileForm.controls['id'].setValue(element.id);
+  
   this.profileForm.controls['first'].setValue(element.firstName);
   this.profileForm.controls['last'].setValue(element.lastName);
   this.profileForm.controls['emailaddress'].setValue(element.email_address);
@@ -383,6 +386,8 @@ changeIcon() {
 
     
     let roleObj = {
+      
+      id: this.profileForm.controls['id'].value,
       firstName: this.profileForm.controls['first'].value,
       lastName: this.profileForm.controls['last'].value,
       mobile_no: this.profileForm.controls['mobile'].value, 
@@ -402,12 +407,12 @@ changeIcon() {
     // console.log( this.passwordField.value);
     // console.log( this.emailField.value);
 
-    this.profileService.addProfile(roleObj)
+    this.profileService.updateProfile(roleObj)
       .pipe(first())
       .subscribe(response => {
         console.log(response);
 
-             this.snackBar.open(' Record has been added successfully! ','Close', {    
+             this.snackBar.open(' Record has been updated successfully! ','Close', {    
               duration: 4000,    
               horizontalPosition: 'center',
               verticalPosition: 'top',

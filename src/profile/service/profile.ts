@@ -24,7 +24,7 @@ export class ProfileService {
 
      addProfile(payload: any): Observable<BaseResponse<any>> {
    
-          console.log("add role",payload);
+          console.log("add profile",payload);
 
          return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.PROFILE.ADD, payload);
       }
@@ -33,7 +33,7 @@ export class ProfileService {
    
           console.log("add role",payload);
 
-         return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.PROFILE.ADD, payload);
+         return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.PROFILE.UPDATE, payload);
       }
 
       delete(userid: any ): Observable<BaseResponse<any>> {
