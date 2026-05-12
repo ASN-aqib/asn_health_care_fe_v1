@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -12,12 +12,13 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
  
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ ReactiveFormsModule,  CommonModule,MatProgressSpinnerModule],
+  imports: [ ReactiveFormsModule,  CommonModule,MatProgressSpinnerModule  , MatIconModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
  
@@ -29,11 +30,20 @@ export class Login implements OnInit {
   button = 'Log In'
   isLoading = false;
   typeSelected!: string;
-
+   
    isShow = true;
  // authService = inject(Authservice);
   router = inject(Router);
   
+
+    hide = signal(true);
+
+     clickEvent(event: MouseEvent) {
+
+      console.log("hhhh");
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
  
   constructor(  
     public formBuilder: FormBuilder, 
