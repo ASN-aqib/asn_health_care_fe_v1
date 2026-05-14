@@ -493,7 +493,9 @@ changeIcon() {
           .pipe(first())
           .subscribe(response => {
       
+            
            this.zones = response
+
  
            });
  

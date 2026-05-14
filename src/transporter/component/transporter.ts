@@ -64,7 +64,7 @@ public dataSource = new MatTableDataSource<profileelements>();
 
 
   DisplayedColumns: string[] = [
-     'companyname','owner','vehicle_type','loading_capacity','emailaddress','mobile_no', 'address','created_date',
+     'owner','vehicle_type','loading_capacity','emailaddress','mobile', 'created_date',
     'action'
   ];
 
@@ -82,12 +82,15 @@ public dataSource = new MatTableDataSource<profileelements>();
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/lock.svg")
     );
   }
- 
+   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage'];
+
    ngOnInit(): void {
+    
     this.getprofiles();
     this.update = 0;
     this.initializeForm();
     this.getZones();
+    
    }
 
 
@@ -103,22 +106,25 @@ public dataSource = new MatTableDataSource<profileelements>();
       capacity : new FormControl('',[Validators.required]),   
       registrationno: new FormControl('',[Validators.required]), 
       registrationcity: new FormControl('', ),   
-  
+   
       username : new FormControl('',[Validators.required]),      
       password : new FormControl('',[Validators.required]),      
       isChecked: new FormControl('',[Validators.required]),  
-      // capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),      
-      options:['', Validators.required],
+      // capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),   
+      options: ['', Validators.required],   
+      zonelist:['', Validators.required],
+    
+      
       // licenseno :  new FormControl({ value: "", disabled: true }),      
 
       
-      
+       
 
     });
 
   }
 
-  selectedValue(event: MatSelectChange) {
+  selectedZone(event: MatSelectChange) {
  
  
    
@@ -140,12 +146,12 @@ edit(element:any) {
 
 console.log(element);
 
- console.log(element);
+ 
  
   this.transporterForm.controls['owner'].setValue(element.owner);
   this.transporterForm.controls['emailaddress'].setValue(element.emailaddress);
   this.transporterForm.controls['mobile'].setValue(element.mobile);
-
+  this.transporterForm.controls['companyname'].setValue(element.company_name);
   this.transporterForm.controls['city'].setValue(element.city);
   this.transporterForm.controls['address'].setValue(element.address);
   this.transporterForm.controls['vehicletype'].setValue(element.vehicle_type);
@@ -153,13 +159,19 @@ console.log(element);
   this.transporterForm.controls['registrationno'].setValue(element.vehicle_registration_no);
   this.transporterForm.controls['registrationcity'].setValue(element.registration_city);
   this.transporterForm.controls['username'].setValue(element.username);
-  this.transporterForm.controls['zonelist'].setValue(element.zoneid);
+  this.transporterForm.controls['zonelist'].setValue(element.zone_id);
+ 
+  
+
+  //this.transporterForm.get('zonelist')?.setValue(element.zone_id);
+
+  
 
   if(element.is_active == 1)
   {this.transporterForm.controls['isChecked'].setValue(true);}
-  else{this.transporterForm.controls['isChecked'].setValue(false);}
+    else{this.transporterForm.controls['isChecked'].setValue(false);}
 
-}
+  }
 
 
 
@@ -209,8 +221,8 @@ changeIcon() {
     this.transporterForm.controls['registrationno'].updateValueAndValidity();
  
   
-    this.transporterForm.controls['options'].setValidators([Validators.required]);
-    this.transporterForm.controls['options'].updateValueAndValidity();
+    this.transporterForm.controls['zonelist'].setValidators([Validators.required]);
+    this.transporterForm.controls['zonelist'].updateValueAndValidity();
 
     this.transporterForm.controls['username'].setValidators([Validators.required]);
     this.transporterForm.controls['username'].updateValueAndValidity();
@@ -274,7 +286,7 @@ changeIcon() {
       emailaddress: this.transporterForm.controls['emailaddress'].value,
       isactive : check,
       createdBy : 1,
-      zoneid:   this.transporterForm.controls['options'].value,
+      zoneid:   this.transporterForm.controls['zonelist'].value,
      
      };
     // console.log( this.userNameField.value);
@@ -356,7 +368,7 @@ changeIcon() {
           .subscribe(response => {
       
               this.zones = response
-   
+              console.log(this.zones)
            
                  
   
