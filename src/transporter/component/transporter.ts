@@ -85,7 +85,6 @@ public dataSource = new MatTableDataSource<profileelements>();
    toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage'];
 
    ngOnInit(): void {
-    
     this.getprofiles();
     this.update = 0;
     this.initializeForm();
@@ -111,7 +110,7 @@ public dataSource = new MatTableDataSource<profileelements>();
       password : new FormControl('',[Validators.required]),      
       isChecked: new FormControl('',[Validators.required]),  
       // capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),   
-      options: ['', Validators.required],   
+      
       zonelist:['', Validators.required],
     
       
@@ -159,11 +158,14 @@ console.log(element);
   this.transporterForm.controls['registrationno'].setValue(element.vehicle_registration_no);
   this.transporterForm.controls['registrationcity'].setValue(element.registration_city);
   this.transporterForm.controls['username'].setValue(element.username);
-  this.transporterForm.controls['zonelist'].setValue(element.zone_id);
+  this.transporterForm.get('zonelist')?.setValue(element.zone_id.toString());
+ // this.transporterForm.get('zonelist')?.setValue(element.zone_id.toString());
+
+  //this.transporterForm.controls['zonelist'].setValue(element.zone_id.toString());
  
   
 
-  //this.transporterForm.get('zonelist')?.setValue(element.zone_id);
+ // this.transporterForm.get('zonelist')?.setValue(element.zone_id);
 
   
 
@@ -361,20 +363,19 @@ changeIcon() {
            });
     }
 
-  getZones(){
+
+    getZones(){
  
       this.zoneService.getAllZones()
           .pipe(first())
           .subscribe(response => {
       
-              this.zones = response
-              console.log(this.zones)
-           
-                 
-  
+            
+           this.zones = response
+
+ 
            });
-      
- ;
+ 
   }
 
 }
