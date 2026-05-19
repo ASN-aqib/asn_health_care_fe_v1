@@ -110,12 +110,13 @@ export class Dashboard implements OnInit    {
  
 
   tradingDisplayedColumns: string[] = [
-    'transactionId' ,'categoryname', 'quantity' ,'price' ,'buyername' ,'sellername' , 'commission'
+    'transactionId' ,'categoryname', 'quantity' ,'price' ,'buyername' ,'sellername' , 
   ];
 
   biddingDisplayedColumns: string[] = [
       'categoryname', 'buyingQuantity', 'buyingRate' ,'sellerQuantity', 'sellerRate',
-      'high', 'low', 'createdDate', 'action'
+      'high', 'low', 'createdDate',
+      // 'action'
   ];
  
 

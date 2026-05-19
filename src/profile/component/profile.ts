@@ -272,6 +272,7 @@ changeIcon() {
 
      else
      {
+       console.log("update");
       this.SetValidation();
       this.upateProfile();
      }

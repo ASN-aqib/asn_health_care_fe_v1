@@ -436,6 +436,9 @@ export const WebConstants = {
     BIDDING: {
       LIIV_BIDDING: "/api/seller/find-all"
     },
+    DELIVERY_NOTE: {
+      FIND_ALL: "/api/deliverable/find-all-delivery-notes"
+    },
     USER_ACTIVITY: {
       FIND_ALL: "/api/useractivity/find-all",
       SMS_ALERTS_DELETE: "/api/sms/delete"
