@@ -16,6 +16,12 @@ export class Dashboardservice {
           constructor(public ajaxHelper: AjaxHelper) { }
       
 
+       getAllLiveBuyer(): Observable<BaseResponse<any>> {
+         let url = this.baseUrl + WebConstants.API_URL.BUYER.FIND_ALL;
+          
+              return this.ajaxHelper.get(url);
+     }
+
 
       getAllLiveSeller(): Observable<BaseResponse<any>> {
          let url = this.baseUrl + WebConstants.API_URL.SELLER.FIND_ALL;

@@ -436,6 +436,9 @@ export const WebConstants = {
     SELLER: {
       FIND_ALL: "/api/seller/find-all"
     },
+    BUYER: {
+      FIND_ALL: "/api/buyer/find-all-buyer"
+    },
     DELIVERY_NOTE: {
       FIND_ALL: "/api/deliverable/find-all-delivery-notes"
     },

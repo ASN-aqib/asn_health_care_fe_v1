@@ -69,7 +69,7 @@ export class Dashboard implements OnInit    {
   public trading: any =[];
 
   public bidding: any =[];
-
+  public selling: any =[];
    users = [
     { id: 1, name: 'Ali', role: 'Admin', status: 'Active' },
     { id: 2, name: 'Ahmed', role: 'User', status: 'Inactive' },
@@ -86,8 +86,9 @@ export class Dashboard implements OnInit    {
   ngOnInit(): void {
  
     this.getprofiles();
-    this.getAll();
+    this.getAllSellers();
     this.getAllOnlineUsers();
+    this.getAllBuyer();
     
    
     
@@ -97,11 +98,14 @@ export class Dashboard implements OnInit    {
 
   public dataSource = new MatTableDataSource<tradingelements>();
   public dataSource1 = new MatTableDataSource<biddingelements>();
+  public dataSource2 = new MatTableDataSource<biddingelements>();
 
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild("paginator") paginator!: MatPaginator;
   @ViewChild("paginator1") paginator1!: MatPaginator;
+  @ViewChild("paginator1") paginator2!: MatPaginator;
+
   public  profiledata: any = [];
   //stats: Stats[] = [];
   filtered!: Object[];
@@ -118,9 +122,16 @@ export class Dashboard implements OnInit    {
   ];
 
   biddingDisplayedColumns: string[] = [
-      'categoryname', 'buyingQuantity', 'buyingRate' ,
+      'category_name', 'quantity', 'price' ,
       //'sellerQuantity', 'sellerRate',
-      'createdDate',
+      'created_date',
+      // 'action'
+  ];
+ 
+    sellerDisplayedColumns: string[] = [
+      'category_name', 'quantity', 'sell_price' ,
+      //'sellerQuantity', 'sellerRate',
+      'created_date',
       // 'action'
   ];
  
@@ -231,22 +242,37 @@ export class Dashboard implements OnInit    {
          });
   }
 
-
- 
-
-
-     getAll(): void {
+ getAllBuyer(): void {
     
-      this.dashboarsService.getAllLiveSeller()
+      this.dashboarsService.getAllLiveBuyer()
         .pipe(first())
         .subscribe(response => {
 
       this.bidding = response
       //this.dataSource1 =this.bidding;
-      console.log("buyer",this.bidding);
+      console.log("Buyer",this.bidding);
 
        this.dataSource1 = new MatTableDataSource(this.bidding);
        this.dataSource1.paginator = this.paginator1;
+    
+        
+        });
+    }
+ 
+
+
+     getAllSellers(): void {
+    
+      this.dashboarsService.getAllLiveSeller()
+        .pipe(first())
+        .subscribe(response => {
+
+      this.selling = response
+      //this.dataSource1 =this.bidding;
+      console.log("Seller",this.selling);
+
+       this.dataSource2 = new MatTableDataSource(this.selling);
+       this.dataSource2.paginator = this.paginator2;
        this.getLiveTrading();  
         
          

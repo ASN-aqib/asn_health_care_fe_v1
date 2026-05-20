@@ -161,24 +161,24 @@
                         <table mat-table [dataSource]="dataSource1" class="mat-elevation-z2 w-100">
 
                       
-                            <ng-container matColumnDef="categoryname">
+                            <ng-container matColumnDef="category_name">
                                 <th mat-header-cell *matHeaderCellDef> Category </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.categoryname}}
+                                    {{element.category_name}}
                                 </td>
                             </ng-container>
 
-                             <ng-container matColumnDef="buyingQuantity">
+                             <ng-container matColumnDef="quantity">
                                 <th mat-header-cell *matHeaderCellDef> Buying Qty </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.buyingQuantity}}
+                                    {{element.quantity}}
                                 </td>
                             </ng-container>
  
-                            <ng-container matColumnDef="buyingRate">
+                            <ng-container matColumnDef="price">
                                 <th mat-header-cell *matHeaderCellDef> Buying Rate </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.buyingRate}}
+                                    {{element.price}}
                                 </td>
                             </ng-container>
 
@@ -200,10 +200,10 @@
 
                           
 
-                            <ng-container matColumnDef="createdDate">
+                            <ng-container matColumnDef="created_date">
                                 <th mat-header-cell *matHeaderCellDef> Date </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.createdDate}}
+                                    {{element.created_date}}
                                 </td>
                             </ng-container>
  
@@ -235,7 +235,7 @@
             <div class="card">
 
                  <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Live Bidding</h5>
+                    <h5 class="mb-0">Live Seller</h5>
                     <!-- <button class="btn btn-outline-success btn-sm">See More</button> -->
                 </div> 
 
@@ -244,27 +244,27 @@
                     <mat-card>
  
 
-                        <table mat-table [dataSource]="dataSource1" class="mat-elevation-z2 w-100">
+                        <table mat-table [dataSource]="dataSource2" class="mat-elevation-z2 w-100">
 
                       
-                            <ng-container matColumnDef="categoryname">
+                            <ng-container matColumnDef="category_name">
                                 <th mat-header-cell *matHeaderCellDef> Category </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.categoryname}}
+                                    {{element.category_name}}
                                 </td>
                             </ng-container>
 
-                             <ng-container matColumnDef="buyingQuantity">
-                                <th mat-header-cell *matHeaderCellDef> Buying Qty </th>
+                             <ng-container matColumnDef="quantity">
+                                <th mat-header-cell *matHeaderCellDef> Selling Qty </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.buyingQuantity}}
+                                    {{element.quantity}}
                                 </td>
                             </ng-container>
  
-                            <ng-container matColumnDef="buyingRate">
-                                <th mat-header-cell *matHeaderCellDef> Buying Rate </th>
+                            <ng-container matColumnDef="sell_price">
+                                <th mat-header-cell *matHeaderCellDef> Selling Rate </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.buyingRate}}
+                                    {{element.sell_price}}
                                 </td>
                             </ng-container>
 
@@ -286,21 +286,21 @@
 
                           
 
-                            <ng-container matColumnDef="createdDate">
+                            <ng-container matColumnDef="created_date">
                                 <th mat-header-cell *matHeaderCellDef> Date </th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.createdDate}}
+                                    {{element.created_date}}
                                 </td>
                             </ng-container>
  
                    
 
-                            <tr mat-header-row *matHeaderRowDef="biddingDisplayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: biddingDisplayedColumns;"></tr>
+                            <tr mat-header-row *matHeaderRowDef="sellerDisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: sellerDisplayedColumns;"></tr>
 
                         </table>
 
-                        <mat-paginator [length]="bidding.length"
+                        <mat-paginator [length]="selling.length"
                          #paginator1
                             [pageSize]="10"
                             [pageSizeOptions]="[10, 20, 30, 100]"
