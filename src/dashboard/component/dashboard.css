@@ -49,3 +49,35 @@
 {
     color:aliceblue;
 }
+
+.table-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.table-row {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-header {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table-cell {
+  flex: 1;
+  padding: 12px;
+  border-right: 1px solid #ddd;
+}
+
+.table-cell:last-child {
+  border-right: none;
+}
+
+.table-row:hover {
+  background-color: #f9f9f9;
+}

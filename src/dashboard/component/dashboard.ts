@@ -70,7 +70,11 @@ export class Dashboard implements OnInit    {
 
   public bidding: any =[];
 
-  
+   users = [
+    { id: 1, name: 'Ali', role: 'Admin', status: 'Active' },
+    { id: 2, name: 'Ahmed', role: 'User', status: 'Inactive' },
+    { id: 3, name: 'Sara', role: 'Manager', status: 'Active' }
+  ];
 
   constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice,
               private dialog: MatDialog ,private userActivityService:Useractivityservice
@@ -114,8 +118,9 @@ export class Dashboard implements OnInit    {
   ];
 
   biddingDisplayedColumns: string[] = [
-      'categoryname', 'buyingQuantity', 'buyingRate' ,'sellerQuantity', 'sellerRate',
-      'high', 'low', 'createdDate',
+      'categoryname', 'buyingQuantity', 'buyingRate' ,
+      //'sellerQuantity', 'sellerRate',
+      'createdDate',
       // 'action'
   ];
  
@@ -232,7 +237,7 @@ export class Dashboard implements OnInit    {
 
      getAll(): void {
     
-      this.dashboarsService.getAllLiveBidding()
+      this.dashboarsService.getAllLiveSeller()
         .pipe(first())
         .subscribe(response => {
 

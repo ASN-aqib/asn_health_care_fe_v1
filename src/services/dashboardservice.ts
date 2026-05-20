@@ -17,8 +17,8 @@ export class Dashboardservice {
       
 
 
-      getAllLiveBidding(): Observable<BaseResponse<any>> {
-         let url = this.baseUrl + WebConstants.API_URL.DASHBOARD.LIVE_BIDDING;
+      getAllLiveSeller(): Observable<BaseResponse<any>> {
+         let url = this.baseUrl + WebConstants.API_URL.SELLER.FIND_ALL;
           
               return this.ajaxHelper.get(url);
      }

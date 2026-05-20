@@ -53,12 +53,7 @@
             </div>
         </div>
     </div>
-
-    <!-- TABLE SECTION -->
-    <div class="row mt-4">
-
-        <!-- LIVE TRADING -->
-        <div class="col-lg-6 mb-4">
+      <div class="">
             <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Live Trading</h5>
@@ -144,34 +139,28 @@
                 </mat-card>
             </div>
         </div>
+    <!-- TABLE SECTION -->
+    <div class="row mt-4">
 
-        <!--    ING -->
+        <!-- LIVE TRADING -->
+  
+
         <div class="col-lg-6 mb-3">
             <div class="card">
 
                  <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Live Bidding</h5>
-                    <button class="btn btn-outline-success btn-sm">See More</button>
+                    <!-- <button class="btn btn-outline-success btn-sm">See More</button> -->
                 </div> 
 
                 <div class="table-responsive">
                     
                     <mat-card>
-
-                    <!-- <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-    </mat-form-field> -->
+ 
 
                         <table mat-table [dataSource]="dataSource1" class="mat-elevation-z2 w-100">
 
-                            <!-- <ng-container matColumnDef="productname">
-                                <th mat-header-cell *matHeaderCellDef> Product</th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.productname}}
-                                </td>
-                            </ng-container> -->
-
+                      
                             <ng-container matColumnDef="categoryname">
                                 <th mat-header-cell *matHeaderCellDef> Category </th>
                                 <td mat-cell *matCellDef="let element">
@@ -195,7 +184,7 @@
 
 
                     
-                            <ng-container matColumnDef="sellerQuantity">
+                            <!-- <ng-container matColumnDef="sellerQuantity">
                                 <th mat-header-cell *matHeaderCellDef> Seller Qty </th>
                                 <td mat-cell *matCellDef="let element" class="text-success">
                                     {{element.sellerQuantity}}
@@ -207,22 +196,9 @@
                                 <td mat-cell *matCellDef="let element">
                                     {{element.sellerRate}}
                                 </td>
-                            </ng-container>
+                            </ng-container> -->
 
-                               <ng-container matColumnDef="high">
-                                <th mat-header-cell *matHeaderCellDef> High </th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.high}}
-                                </td>
-                            </ng-container>
-
-
-                            <ng-container matColumnDef="low">
-                                <th mat-header-cell *matHeaderCellDef> Low </th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.low}}
-                                </td>
-                            </ng-container>
+                          
 
                             <ng-container matColumnDef="createdDate">
                                 <th mat-header-cell *matHeaderCellDef> Date </th>
@@ -231,14 +207,7 @@
                                 </td>
                             </ng-container>
  
-                            <!-- <ng-container matColumnDef="action">
-                                <th mat-header-cell *matHeaderCellDef> Action </th>
-                                <td mat-cell *matCellDef="let element">
-                                    <button mat-stroked-button color="primary">
-                                        View
-                                    </button>
-                                </td>
-                            </ng-container>   -->
+                   
 
                             <tr mat-header-row *matHeaderRowDef="biddingDisplayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; columns: biddingDisplayedColumns;"></tr>
@@ -260,5 +229,92 @@
             </div>
         </div>
 
+
+        
+        <div class="col-lg-6 mb-3">
+            <div class="card">
+
+                 <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Live Bidding</h5>
+                    <!-- <button class="btn btn-outline-success btn-sm">See More</button> -->
+                </div> 
+
+                <div class="table-responsive">
+                    
+                    <mat-card>
+ 
+
+                        <table mat-table [dataSource]="dataSource1" class="mat-elevation-z2 w-100">
+
+                      
+                            <ng-container matColumnDef="categoryname">
+                                <th mat-header-cell *matHeaderCellDef> Category </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.categoryname}}
+                                </td>
+                            </ng-container>
+
+                             <ng-container matColumnDef="buyingQuantity">
+                                <th mat-header-cell *matHeaderCellDef> Buying Qty </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.buyingQuantity}}
+                                </td>
+                            </ng-container>
+ 
+                            <ng-container matColumnDef="buyingRate">
+                                <th mat-header-cell *matHeaderCellDef> Buying Rate </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.buyingRate}}
+                                </td>
+                            </ng-container>
+
+
+                    
+                            <!-- <ng-container matColumnDef="sellerQuantity">
+                                <th mat-header-cell *matHeaderCellDef> Seller Qty </th>
+                                <td mat-cell *matCellDef="let element" class="text-success">
+                                    {{element.sellerQuantity}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="sellerRate">
+                                <th mat-header-cell *matHeaderCellDef> Seller Rate </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.sellerRate}}
+                                </td>
+                            </ng-container> -->
+
+                          
+
+                            <ng-container matColumnDef="createdDate">
+                                <th mat-header-cell *matHeaderCellDef> Date </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.createdDate}}
+                                </td>
+                            </ng-container>
+ 
+                   
+
+                            <tr mat-header-row *matHeaderRowDef="biddingDisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: biddingDisplayedColumns;"></tr>
+
+                        </table>
+
+                        <mat-paginator [length]="bidding.length"
+                         #paginator1
+                            [pageSize]="10"
+                            [pageSizeOptions]="[10, 20, 30, 100]"
+                            aria-label="Select page">
+                        </mat-paginator>
+                 
+                
+
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>
+
+ 
     </div>
 </div>

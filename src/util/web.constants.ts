@@ -433,8 +433,8 @@ export const WebConstants = {
       UPDATE_PREFERENCES: "/api/preference/update",
       DELETE_PREFERENCES: "/api/preference/delete/",
     },
-    BIDDING: {
-      LIIV_BIDDING: "/api/seller/find-all"
+    SELLER: {
+      FIND_ALL: "/api/seller/find-all"
     },
     DELIVERY_NOTE: {
       FIND_ALL: "/api/deliverable/find-all-delivery-notes"
