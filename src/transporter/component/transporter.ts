@@ -276,7 +276,7 @@ changeIcon() {
     let roleObj = {
       companyname: this.transporterForm.controls['companyname'].value,
       owner: this.transporterForm.controls['owner'].value,
-      domain : "Mobile",
+      domain : "Web",
       mobile: this.transporterForm.controls['mobile'].value, 
       city: this.transporterForm.controls['city'].value, 
       address: this.transporterForm.controls['address'].value, 

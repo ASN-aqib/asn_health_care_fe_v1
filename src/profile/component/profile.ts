@@ -315,7 +315,7 @@ changeIcon() {
     let roleObj = {
       firstName: this.profileForm.controls['first'].value,
       lastName: this.profileForm.controls['last'].value,
-      domain : "Mobile",
+      domain : "Web",
       mobile_no: this.profileForm.controls['mobile'].value, 
       city: this.profileForm.controls['city'].value, 
       address: this.profileForm.controls['address'].value, 
@@ -389,6 +389,7 @@ changeIcon() {
     let roleObj = {
       
       id: this.profileForm.controls['id'].value,
+      domain : "Web",
       firstName: this.profileForm.controls['first'].value,
       lastName: this.profileForm.controls['last'].value,
       mobile_no: this.profileForm.controls['mobile'].value, 
