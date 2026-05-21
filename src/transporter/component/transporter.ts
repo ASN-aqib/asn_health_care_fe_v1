@@ -104,7 +104,8 @@ public dataSource = new MatTableDataSource<profileelements>();
       vehicletype : new FormControl('',[Validators.required]),   
       capacity : new FormControl('',[Validators.required]),   
       registrationno: new FormControl('',[Validators.required]), 
-      registrationcity: new FormControl('', ),   
+      registrationcity: new FormControl('', ),  
+      advance: new FormControl('', ),  
    
       username : new FormControl('',[Validators.required]),      
       password : new FormControl('',[Validators.required]),      

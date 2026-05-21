@@ -230,12 +230,12 @@ export class Dashboard implements OnInit    {
                statetrader.icon = "fas fa-chart-line";
                this.stats.push(statetrader);
         
-             let tradevol = new Stats();
-               tradevol.title = "Trade Vol";
-               tradevol.value = trader.length;
-               tradevol.change = 2.5;
-               tradevol.icon = "fas fa-chart-line";
-               this.stats.push(tradevol);
+            //  let tradevol = new Stats();
+            //    tradevol.title = "Trade Vol";
+            //    tradevol.value = trader.length;
+            //    tradevol.change = 2.5;
+            //    tradevol.icon = "fas fa-chart-line";
+            //    this.stats.push(tradevol);
 
                
 
