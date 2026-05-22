@@ -160,6 +160,10 @@ console.log(element);
   this.transporterForm.controls['registrationcity'].setValue(element.registration_city);
   this.transporterForm.controls['username'].setValue(element.username);
   this.transporterForm.get('zonelist')?.setValue(element.zone_id.toString());
+  this.transporterForm.controls['advance'].setValue(element.advance.toString());
+
+
+  
  // this.transporterForm.get('zonelist')?.setValue(element.zone_id.toString());
 
   //this.transporterForm.controls['zonelist'].setValue(element.zone_id.toString());
@@ -233,6 +237,9 @@ changeIcon() {
     this.transporterForm.controls['password'].setValidators([Validators.required]);
     this.transporterForm.controls['password'].updateValueAndValidity();
   
+    this.transporterForm.controls['advance'].setValidators([Validators.required]);
+    this.transporterForm.controls['advance'].updateValueAndValidity();
+  
   
   
   }
@@ -289,6 +296,7 @@ changeIcon() {
       emailaddress: this.transporterForm.controls['emailaddress'].value,
       isactive : check,
       createdBy : 1,
+      advance:  this.transporterForm.controls['advance'].value,
       zoneid:   this.transporterForm.controls['zonelist'].value,
      
      };
