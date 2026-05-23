@@ -1,0 +1,111 @@
+
+<div  style="margin-left: 230px;margin-top: 20px;">
+  <h1>Ledger Management</h1>
+     &nbsp;  &nbsp;   &nbsp;
+   <form class="login-form" id="ledgerForm"  [formGroup]="ledgerForm"  >
+  
+  <mat-form-field appearance="outline"  class="custom-height-field">
+  <mat-label >Select</mat-label>
+  <mat-select  (selectionChange)="selectedTransporter($event)"   placeholder="Select Transporter" name="transporterlist"  formControlName="transporterlist" >
+  <mat-option *ngFor="let trans of transporters" [value]="trans.id" >{{ trans.owner}}</mat-option>
+  </mat-select>
+  </mat-form-field>
+  </form>
+
+
+     <br/>
+      <div class="col-lg  ">
+            <div class="card">
+
+                 <!-- <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">User Log Activity</h5>
+                     
+                </div>  -->
+               <mat-form-field  class="custom-height-field">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+                </mat-form-field>
+                
+                <div class="table-responsive">
+                    <mat-card>
+        
+                   <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 w-100">
+                   
+                   <ng-container matColumnDef="created_date">
+                                <th mat-header-cell *matHeaderCellDef> Date </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.created_date}}
+                                </td>
+                            </ng-container>
+
+ 
+                            <ng-container matColumnDef="description">
+                                <th mat-header-cell *matHeaderCellDef>Description</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.description}}
+                                </td>
+                            </ng-container>
+
+                
+                            <ng-container matColumnDef="debit">
+                                <th mat-header-cell *matHeaderCellDef> Debit </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.debit}}
+                                </td>
+                            </ng-container>  
+
+                             <ng-container matColumnDef="credit">
+                                <th mat-header-cell *matHeaderCellDef> Credit</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.credit}}
+                                </td>
+                            </ng-container>
+ 
+                         <ng-container matColumnDef="balance">
+                                <th mat-header-cell *matHeaderCellDef> Balance</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.balance}}
+                                </td>
+                            </ng-container>
+
+                       
+  
+    
+
+                         
+ 
+ 
+                            <!-- <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button matIconButton >
+                                          <mat-icon>cancel</mat-icon>
+                                    </button>
+                                    <button matIconButton >
+                                           <mat-icon>edit</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>    -->
+
+                            <tr mat-header-row *matHeaderRowDef="DisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: DisplayedColumns;"></tr>
+
+                        </table>
+
+                        <mat-paginator [length]="ledgerdata.length"
+                         #paginator
+                            [pageSize]="10"
+                            [pageSizeOptions]="[10, 20, 30, 100]"
+                            aria-label="Select page">
+                        </mat-paginator>
+                 
+                
+
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>  
+</div>
+
+ 

@@ -43,7 +43,7 @@ export class Transporter  implements OnInit {
 public dataSource = new MatTableDataSource<profileelements>();
  
 @ViewChild(MatSort) sort!: MatSort;
-@ViewChild("paginator") paginator!: MatPaginator;
+@ViewChild("paginator") paginator!: MatPaginator; 
 @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
  
   

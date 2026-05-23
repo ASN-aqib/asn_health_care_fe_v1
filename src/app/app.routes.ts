@@ -12,6 +12,7 @@ import { Statement } from '../statement/component/statement';
 import { Transporter } from '../transporter/component/transporter';
 import { Map } from '../fleet/component/map';
 import { OrderComponent } from '../order/component/order.component';
+import { Ledger } from '../ledger/ledger';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect from root to home
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'transaction', component: Transaction ,canActivate: [AuthGuard]}, // Define the route for the home page
   { path: 'permission', component: PermissionComponent ,canActivate: [AuthGuard]}, // Define the route for the home page
   { path: 'map', component: Map ,canActivate: [AuthGuard]}, // Define the route for the home page
+  { path: 'ledger', component:  Ledger ,canActivate: [AuthGuard]}, // Define the route for the home page
 
   { path: 'statment', component: Statement ,canActivate: [AuthGuard]}, // Define the route for the home page
 

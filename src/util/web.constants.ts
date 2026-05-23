@@ -439,6 +439,9 @@ export const WebConstants = {
     BUYER: {
       FIND_ALL: "/api/buyer/find-all-buyer"
     },
+    LEDGER: {
+      FIND_ALL: "/api/ledger/find-By-transporterid"
+    },
     DELIVERY_NOTE: {
       FIND_ALL: "/api/deliverable/find-all-delivery-notes"
     },
