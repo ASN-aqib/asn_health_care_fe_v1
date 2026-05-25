@@ -1,4 +1,4 @@
- import { Component, OnInit, ViewChild } from '@angular/core';
+ import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -23,6 +23,8 @@ import { TransporterService } from '../services/transporter.service';
      FormsModule,MatSelectModule,MatPaginator,MatPaginatorModule,
      MatTableModule, MatCardModule,
      ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule],
+  
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './ledger.html',
   styleUrl: './ledger.css',
 })
@@ -71,9 +73,10 @@ export class Ledger  implements OnInit {
  
  
    
-    this.optiontext  = event.source.triggerValue;
+    this.optiontext  = event.source.value;
  
-  
+    console.log(this.optiontext);
+     this.getAll(this.optiontext);
   
 }
 

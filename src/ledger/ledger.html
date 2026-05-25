@@ -7,7 +7,7 @@
   <mat-form-field appearance="outline"  class="custom-height-field">
   <mat-label >Select</mat-label>
   <mat-select  (selectionChange)="selectedTransporter($event)"   placeholder="Select Transporter" name="transporterlist"  formControlName="transporterlist" >
-  <mat-option *ngFor="let trans of transporters" [value]="trans.id" >{{ trans.owner}}</mat-option>
+  <mat-option *ngFor="let trans of transporters" [value]="trans.user_id" >{{ trans.owner}}</mat-option>
   </mat-select>
   </mat-form-field>
   </form>
@@ -31,13 +31,12 @@
         
                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 w-100">
                    
-                   <ng-container matColumnDef="created_date">
-                                <th mat-header-cell *matHeaderCellDef> Date </th>
+                      <ng-container matColumnDef="created_date">
+                                <th mat-header-cell *matHeaderCellDef>Created Date</th>
                                 <td mat-cell *matCellDef="let element">
-                                    {{element.created_date}}
+                                   {{ element.created_date | date: 'dd/MM/yyyy, h:mm a ' }}
                                 </td>
-                            </ng-container>
-
+                            </ng-container>   
  
                             <ng-container matColumnDef="description">
                                 <th mat-header-cell *matHeaderCellDef>Description</th>
