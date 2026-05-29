@@ -86,7 +86,7 @@
       matInput
       
      formControlName="address"
-     
+      (keydown)="handleKeyDown($event)"
      
     />
    
@@ -155,7 +155,7 @@
 
   <mat-form-field appearance="outline"  class="custom-height-field">
   <mat-label >Select</mat-label>
-  <mat-select  (selectionChange)="selectedZone($event)"   placeholder="Select zones" name="options"  formControlName="zonelist" >
+  <mat-select  (selectionChange)="selectedZone($event)"   placeholder="Select zones" name="options"  formControlName="zonelist" [disabled]="true" >
    <mat-option *ngFor="let zone of zones" [value]="zone.id" >{{ zone.zone_name}}</mat-option>
   </mat-select>
   </mat-form-field>

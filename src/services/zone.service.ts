@@ -22,4 +22,13 @@ export class ZoneService {
           return this.ajaxHelper.get(url);
       }
 
+ 
+
+      
+      getZoneByAddress(payload: any): Observable<BaseResponse<any>> {
+       
+              return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.SUBZONE.FIND_BY_ADDRESS, payload);
+        }
+
+
 }

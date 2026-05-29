@@ -119,24 +119,24 @@ public dataSource = new MatTableDataSource<profileelements>();
   }
 
 
-  handleKeyDown(e:any) {
-    const typedValue = e.keyCode;
-    if (typedValue < 48 && typedValue > 57) {
-      // If the value is not a number, we skip the min/max comparison 
-      return;
-    }
+  // handleKeyDown(e:any) {
+  //   const typedValue = e.keyCode;
+  //   if (typedValue < 48 && typedValue > 57) {
+  //     // If the value is not a number, we skip the min/max comparison 
+  //     return;
+  //   }
 
-    const typedNumber = parseInt(e.key);
-    const min = parseInt(e.target.min);
-    const max = parseInt(e.target.max);
-    const currentVal = parseInt(e.target.value) || '';
-    const newVal = parseInt(typedNumber.toString() + currentVal.toString());
+  //   const typedNumber = parseInt(e.key);
+  //   const min = parseInt(e.target.min);
+  //   const max = parseInt(e.target.max);
+  //   const currentVal = parseInt(e.target.value) || '';
+  //   const newVal = parseInt(typedNumber.toString() + currentVal.toString());
 
-    if (newVal < min || newVal > max) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }
+  //   if (newVal < min || newVal > max) {
+  //     e.preventDefault();
+  //     e.stopPropagation();
+  //   }
+  // }
 
   selectedZone(event: MatSelectChange) {
   
@@ -354,6 +354,35 @@ changeIcon() {
       });
 
  }
+
+  handleKeyDown(event: KeyboardEvent) {
+  if (event.key === 'Tab') {
+    console.log('Tab key was pressed!');
+    const value = (event.target as HTMLInputElement).value;
+    console.log(value);
+
+
+      let obj = {
+ 
+      address: value, 
+ 
+     };
+
+     this.zoneService.getZoneByAddress(obj)
+      .pipe(first())
+      .subscribe(response => {
+        console.log(response);
+ 
+          this.profileForm.controls['zonelist'].setValue(response.value);
+
+      });
+
+    // To prevent the default tab behavior (moving focus):
+    // event.preventDefault(); 
+  }
+  
+}
+
 
 
 
