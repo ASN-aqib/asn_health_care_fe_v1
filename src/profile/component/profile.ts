@@ -372,8 +372,10 @@ changeIcon() {
       .pipe(first())
       .subscribe(response => {
         console.log(response);
+        
  
-          this.profileForm.controls['zonelist'].setValue(response.value);
+          this.profileForm.controls['zonelist'].setValue(String(response));
+          
 
       });
 
