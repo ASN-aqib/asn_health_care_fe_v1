@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {MatSelectChange, MatSelectModule} from '@angular/material/select';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { first } from 'rxjs';
@@ -24,7 +24,7 @@ import { ZoneService } from '../../services/zone.service';
 @Component({
   selector: 'app-transporter',
     imports: [CommonModule,MatFormFieldModule,MatTableModule, MatInputModule, MatCheckboxModule,MatSlideToggleModule,
-     FormsModule,MatSelectModule,MatPaginator,MatPaginatorModule,
+     FormsModule,MatSelectModule,MatPaginator,MatPaginatorModule,MatSortModule,
      MatTableModule, MatCardModule,
      ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule],
   
