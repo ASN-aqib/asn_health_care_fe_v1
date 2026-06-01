@@ -188,9 +188,9 @@ export class Dashboard implements OnInit    {
         .pipe(first())
         .subscribe(response => {
     
-            this.profiledata = response
+          this.profiledata = response
 
-         console.log("==== profile Data ==========");
+          console.log("==== profile Data ==========");
           console.log(this.profiledata);
           console.log("==============");
 
