@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {MatSelectChange, MatSelectModule} from '@angular/material/select';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ProfileService } from '../service/profile';
@@ -21,6 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ZoneService } from '../../services/zone.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from './dialog/confirmation-dialog';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
  
 
 @Component({
@@ -44,7 +45,8 @@ export class Profile implements OnInit {
   ngcolor: any;
 
 public dataSource = new MatTableDataSource<profileelements>();
- 
+   private _liveAnnouncer = inject(LiveAnnouncer);
+
 @ViewChild(MatSort) sort!: MatSort;
 @ViewChild("paginator") paginator!: MatPaginator;
 @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
@@ -108,7 +110,8 @@ public dataSource = new MatTableDataSource<profileelements>();
       isChecked: new FormControl('',[Validators.required]),  
       // capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),      
       options:['', Validators.required],
-      zonelist:['', Validators.required],
+      zonelist: ['', Validators.required],
+      
       // licenseno :  new FormControl({ value: "", disabled: true }),      
 
       
@@ -152,6 +155,7 @@ public dataSource = new MatTableDataSource<profileelements>();
    
   
 }
+
 
 
 
@@ -218,9 +222,23 @@ changeIcon() {
   }
 
     ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
+   
     this.dataSource.paginator = this.paginator;
+
     
+
+  }
+
+    announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
 
@@ -500,7 +518,8 @@ changeIcon() {
   
            this.dataSource = new MatTableDataSource(this.profiledata);
            this.dataSource.paginator = this.paginator;
-                 
+           this.dataSource.sort = this.sort;
+
   
            });
     }

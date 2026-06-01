@@ -369,7 +369,7 @@ changeIcon() {
   
            this.dataSource = new MatTableDataSource(this.profiledata);
            this.dataSource.paginator = this.paginator;
-                 
+           this.dataSource.sort = this.sort;
   
            });
     }

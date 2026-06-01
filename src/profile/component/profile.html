@@ -155,7 +155,8 @@
 
   <mat-form-field appearance="outline"  class="custom-height-field">
   <mat-label >Select</mat-label>
-  <mat-select  (selectionChange)="selectedZone($event)"   placeholder="Select zones" name="options"  formControlName="zonelist" [disabled]="true" >
+  <mat-select  (selectionChange)="selectedZone($event)"   placeholder="Select zones" name="options"  formControlName="zonelist" >
+  //[disabled]="true" >
    <mat-option *ngFor="let zone of zones" [value]="zone.id" >{{ zone.zone_name}}</mat-option>
   </mat-select>
   </mat-form-field>
@@ -204,11 +205,11 @@
                 <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
                 </mat-form-field>
                 
-                <div  >
+                <div  class="mat-elevation-z2 w-100">
                     
                     <mat-card>
 
-                        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 w-100">
+                        <table mat-table [dataSource]="dataSource" matSort>
  
                             
 
