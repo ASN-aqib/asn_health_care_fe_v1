@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {MatSelectChange, MatSelectModule} from '@angular/material/select';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ProfileService } from '../service/profile';
@@ -27,7 +27,7 @@ import { ConfirmationDialog } from './dialog/confirmation-dialog';
   selector: 'app-profile',
   imports: [CommonModule,MatFormFieldModule,MatTableModule, MatInputModule, MatCheckboxModule,MatSlideToggleModule,
      FormsModule,MatSelectModule,MatPaginator,MatPaginatorModule,
-     MatTableModule, MatCardModule,
+     MatTableModule, MatCardModule,MatSortModule,
      ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -154,6 +154,8 @@ public dataSource = new MatTableDataSource<profileelements>();
 }
 
 
+
+
 onEscape() {
   alert('deselect');
   // Deselect all options by setting the control value to empty array
@@ -216,7 +218,7 @@ changeIcon() {
   }
 
     ngAfterViewInit(): void {
-  //  this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     
   }
@@ -461,6 +463,14 @@ changeIcon() {
       });
 
  }
+
+
+
+ 
+    applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
 
 
