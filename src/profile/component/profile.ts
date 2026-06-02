@@ -283,6 +283,42 @@ changeIcon() {
   
   }
 
+
+  SetValidationForUpdate()
+ {
+    this.profileForm.controls['first'].setValidators([Validators.required]);
+    this.profileForm.controls['first'].updateValueAndValidity();
+   
+    this.profileForm.controls['last'].setValidators([Validators.required]);
+    this.profileForm.controls['last'].updateValueAndValidity();
+   
+    this.profileForm.controls['mobile'].setValidators([Validators.required]);
+    this.profileForm.controls['mobile'].updateValueAndValidity();
+  
+    this.profileForm.controls['exposure'].setValidators([Validators.required]);
+    this.profileForm.controls['exposure'].updateValueAndValidity();
+  
+    this.profileForm.controls['options'].setValidators([Validators.required]);
+    this.profileForm.controls['options'].updateValueAndValidity();
+
+    this.profileForm.controls['username'].setValidators([Validators.required]);
+    this.profileForm.controls['username'].updateValueAndValidity();
+
+    this.profileForm.controls['password'].setValidators([Validators.nullValidator]);
+    this.profileForm.controls['password'].updateValueAndValidity();
+
+    this.profileForm.controls['zonelist'].setValidators([Validators.required]);
+    this.profileForm.controls['zonelist'].updateValueAndValidity();
+
+    this.profileForm.controls['isChecked'].setValidators([Validators.required]);
+    this.profileForm.controls['isChecked'].updateValueAndValidity();
+
+
+ 
+  
+  
+  }
+
   submit(event: Event)
   {
     console.log("update ",this.update);
@@ -293,7 +329,7 @@ changeIcon() {
      else
      {
        console.log("update");
-      this.SetValidation();
+      this.SetValidationForUpdate();
       this.upateProfile();
      }
  
