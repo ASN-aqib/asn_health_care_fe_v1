@@ -89,9 +89,7 @@ export class Dashboard implements OnInit    {
     this.getAllSellers();
     this.getAllOnlineUsers();
     this.getAllBuyer();
-    
-   
-    
+     
   }
     
     
@@ -118,18 +116,18 @@ export class Dashboard implements OnInit    {
  
 
   tradingDisplayedColumns: string[] = [
-    'transactionId' ,'categoryname', 'quantity' ,'price' ,'buyername' ,'sellername' , 
+    'transactionId' ,'categoryname', 'quantity' ,'price' ,'buyername' ,'sellername' ,  'created_date',
   ];
 
   biddingDisplayedColumns: string[] = [
-      'category_name', 'quantity', 'price' ,
+     'FullName', 'category_name', 'quantity', 'price' ,
       //'sellerQuantity', 'sellerRate',
       'created_date',
       // 'action'
   ];
  
     sellerDisplayedColumns: string[] = [
-      'category_name', 'quantity', 'sell_price' ,
+     'seller_name', 'category_name', 'quantity', 'sell_price' ,
       //'sellerQuantity', 'sellerRate',
       'created_date',
       // 'action'
@@ -250,7 +248,7 @@ export class Dashboard implements OnInit    {
 
       this.bidding = response
       //this.dataSource1 =this.bidding;
-      console.log("Buyer",this.bidding);
+      console.log("Buyers only ",this.bidding);
 
        this.dataSource1 = new MatTableDataSource(this.bidding);
        this.dataSource1.paginator = this.paginator1;
