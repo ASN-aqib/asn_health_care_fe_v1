@@ -85,7 +85,7 @@ public dataSource = new MatTableDataSource<profileelements>();
    toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage'];
 
    ngOnInit(): void {
-    this.getprofiles();
+    this.getTransporters();
     this.update = 0;
     this.initializeForm();
     this.getZones();
@@ -95,6 +95,7 @@ public dataSource = new MatTableDataSource<profileelements>();
 
    initializeForm() {
       this.transporterForm = this.formBuilder.group({
+      id : new FormControl('', ),
       companyname : new FormControl('', [Validators.required]),
       owner :  new FormControl('', [Validators.required]),
       emailaddress : new FormControl('', ),
@@ -148,8 +149,7 @@ edit(element:any) {
 
 console.log(element);
 
- 
- 
+  this.transporterForm.controls['id'].setValue(element.id);
   this.transporterForm.controls['owner'].setValue(element.owner);
   this.transporterForm.controls['emailaddress'].setValue(element.emailaddress);
   this.transporterForm.controls['mobile'].setValue(element.mobile);
@@ -160,10 +160,13 @@ console.log(element);
   this.transporterForm.controls['capacity'].setValue(element.loading_capacity);
   this.transporterForm.controls['registrationno'].setValue(element.vehicle_registration_no);
   this.transporterForm.controls['registrationcity'].setValue(element.registration_city);
-  this.transporterForm.controls['username'].setValue(element.username);
+  this.transporterForm.controls['username'].setValue(element.user_name);
   this.transporterForm.get('zonelist')?.setValue(element.zone_id.toString());
-  this.transporterForm.controls['advance'].setValue(element.advance.toString());
+  this.transporterForm.controls['advance'].setValue(element.advance);
+  
+  this.update = 1;
 
+  console.log(this.update);
 
   
  // this.transporterForm.get('zonelist')?.setValue(element.zone_id.toString());
@@ -179,6 +182,8 @@ console.log(element);
   if(element.is_active == 1)
   {this.transporterForm.controls['isChecked'].setValue(true);}
     else{this.transporterForm.controls['isChecked'].setValue(false);}
+
+    
 
   }
 
@@ -246,13 +251,68 @@ changeIcon() {
   
   }
 
+
+   SetValidationForUpdate()
+ {
+    this.transporterForm.controls['companyname'].setValidators([Validators.required]);
+    this.transporterForm.controls['companyname'].updateValueAndValidity();
+   
+    this.transporterForm.controls['owner'].setValidators([Validators.required]);
+    this.transporterForm.controls['owner'].updateValueAndValidity();
+   
+    this.transporterForm.controls['mobile'].setValidators([Validators.required]);
+    this.transporterForm.controls['mobile'].updateValueAndValidity();
+  
+    this.transporterForm.controls['address'].setValidators([Validators.required]);
+    this.transporterForm.controls['address'].updateValueAndValidity();
+  
+    this.transporterForm.controls['vehicletype'].setValidators([Validators.required]);
+    this.transporterForm.controls['vehicletype'].updateValueAndValidity();
+  
+    this.transporterForm.controls['capacity'].setValidators([Validators.required]);
+    this.transporterForm.controls['capacity'].updateValueAndValidity();
+  
+
+    this.transporterForm.controls['registrationno'].setValidators([Validators.required]);
+    this.transporterForm.controls['registrationno'].updateValueAndValidity();
+ 
+  
+    this.transporterForm.controls['zonelist'].setValidators([Validators.required]);
+    this.transporterForm.controls['zonelist'].updateValueAndValidity();
+
+    this.transporterForm.controls['username'].setValidators([Validators.required]);
+    this.transporterForm.controls['username'].updateValueAndValidity();
+
+    
+    this.transporterForm.controls['password'].setValidators([Validators.nullValidator]);
+    this.transporterForm.controls['password'].updateValueAndValidity();
+  
+
+    this.transporterForm.controls['advance'].setValidators([Validators.required]);
+    this.transporterForm.controls['advance'].updateValueAndValidity();
+  
+  
+  
+  }
+
+
   submit(event: Event)
   {
  
-     this.SetValidation();
-     this.addTransporter();
+    //  this.SetValidation();
+    //  this.addTransporter();
  
+   console.log("update ",this.update);
+    if(this.update ==0)
+    {this.SetValidation();
+     this.addTransporter();}
 
+     else
+     {
+       console.log("update and SetValidationForUpdate");
+      this.SetValidationForUpdate();
+      this.updateTransporter();
+     }
  
  
   }
@@ -283,6 +343,8 @@ changeIcon() {
     //alert(check)
     
     let roleObj = {
+
+      
       companyname: this.transporterForm.controls['companyname'].value,
       owner: this.transporterForm.controls['owner'].value,
       domain : "Mobile",
@@ -320,13 +382,88 @@ changeIcon() {
 
 
         this.clear();
-        this.getprofiles();
+        this.getTransporters();
         //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
        //   this.toaster.success("Role privilege has been updated", "Success");
         //}
       });
 
  }
+
+
+
+  updateTransporter()
+ {
+
+   if (this.transporterForm.invalid) {
+      return;
+  }
+  
+
+  var check:any;
+  if(this.isChecked)
+  {
+      check = 1;
+  }
+  else
+  {
+       check = 0;
+  }
+
+
+    
+
+
+    //alert(check)
+    
+    let roleObj = {
+      id: this.transporterForm.controls['id'].value,
+
+      companyname: this.transporterForm.controls['companyname'].value,
+      owner: this.transporterForm.controls['owner'].value,
+      domain : "Mobile",
+      mobile: this.transporterForm.controls['mobile'].value, 
+      city: this.transporterForm.controls['city'].value, 
+      address: this.transporterForm.controls['address'].value, 
+      vehicle_type: this.transporterForm.controls['vehicletype'].value, 
+      loading_capacity:this.transporterForm.controls['capacity'].value, 
+      vehicle_registration_no:this.transporterForm.controls['registrationno'].value,
+      registration_city :this.transporterForm.controls['registrationcity'].value,
+      username: this.transporterForm.controls['username'].value,
+      password: this.transporterForm.controls['password'].value,
+      emailaddress: this.transporterForm.controls['emailaddress'].value,
+      isactive : check,
+      createdBy : 1,
+      advance:  this.transporterForm.controls['advance'].value,
+      zoneid:   this.transporterForm.controls['zonelist'].value,
+     
+     };
+    // console.log( this.userNameField.value);
+    // console.log( this.passwordField.value);
+    // console.log( this.emailField.value);
+
+    this.transporterService.updateTransporter(roleObj)
+      .pipe(first())
+      .subscribe(response => {
+        console.log(response);
+
+             this.snackBar.open(' Record has been updated successfully! ','Close', {    
+              duration: 4000,    
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: 'custom-style',
+            });
+
+
+        this.clear();
+        this.getTransporters();
+        //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
+       //   this.toaster.success("Role privilege has been updated", "Success");
+        //}
+      });
+
+ }
+
 
     clear()
     {  
@@ -357,7 +494,7 @@ changeIcon() {
 
     }
 
-  getprofiles(){
+  getTransporters(){
       
      this.transporterService.getAllTransporters()
           .pipe(first())

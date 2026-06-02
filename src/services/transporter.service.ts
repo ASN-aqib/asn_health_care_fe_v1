@@ -21,10 +21,17 @@ export class TransporterService {
         }
        
        
+
        addTransporter(payload: any): Observable<BaseResponse<any>> {
        
-         console.log("add role",payload);
+
        
-              return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.TRANSPORTER.ADD, payload);
+        return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.TRANSPORTER.ADD, payload);
+
+      }
+
+       updateTransporter(payload: any): Observable<BaseResponse<any>> {
+       
+              return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.TRANSPORTER.UPDATE, payload);
         }
 }

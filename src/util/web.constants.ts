@@ -180,6 +180,7 @@ export const WebConstants = {
     },
     TRANSPORTER: {
       ADD: "/api/transporter/create",
+      UPDATE: "/api/transporter/update",
       FIND_ALL: "/api/transporter/find-all",
       
     },
