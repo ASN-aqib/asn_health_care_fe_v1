@@ -68,7 +68,7 @@ public dataSource = new MatTableDataSource<profileelements>();
   public  zones: any = [];
 
   DisplayedColumns: string[] = [ 
-      'firstName','lastName' ,'email_address','mobile_no','exposure','profile_type','zoneName','created_date',
+      'FullName' ,'email_address','mobile_no','exposure','profile_type','zoneName','is_active','created_date',
     'action'
   ];
 
@@ -98,6 +98,7 @@ public dataSource = new MatTableDataSource<profileelements>();
    initializeForm() {
       this.profileForm = this.formBuilder.group({
       id : new FormControl('', ),
+      userId : new FormControl('', ),
       first : new FormControl('', [Validators.required]),
       last :  new FormControl('', [Validators.required]),
       emailaddress : new FormControl('', [Validators.required, Validators.email],),
@@ -172,6 +173,8 @@ edit(element:any) {
 console.log(element);
 
 this.profileForm.controls['id'].setValue(element.id);
+this.profileForm.controls['userId'].setValue(element.user_id);
+
   
   this.profileForm.controls['first'].setValue(element.firstName);
   this.profileForm.controls['last'].setValue(element.lastName);
@@ -475,6 +478,7 @@ changeIcon() {
     
     let roleObj = {
       
+      userId: this.profileForm.controls['userId'].value,
       id: this.profileForm.controls['id'].value,
       domain : "Web",
       firstName: this.profileForm.controls['first'].value,
@@ -549,6 +553,20 @@ changeIcon() {
           .subscribe(response => {
       
               this.profiledata = response
+
+               //for (const item of this.profiledata) {
+
+                // if(item.is_active  == 1 )
+                // {
+                 
+                //   item.is_active = "frue";
+                // }
+                // else
+                // {
+                //   item.is_active = "false";
+                // }
+
+                //  }
 
               console.log(this.profiledata)
   
