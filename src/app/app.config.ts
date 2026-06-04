@@ -8,7 +8,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { jwtInterceptor } from '../util/interceptor/jwt-interceptor';
 import { LoaderInterceptor } from '../util/interceptor/loader';
 import { NgxSpinnerModule, provideSpinnerConfig } from 'ngx-spinner';
-import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+ 
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { firebaseConfig } from '../environments/firebase.config';
 
 
 export const appConfig: ApplicationConfig = {
@@ -24,8 +26,12 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgxSpinnerModule.forRoot(/*config*/)),
  
  
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+
+ 
      provideRouter(routes), provideClientHydration(withEventReplay())
   ]
 };
  
 
+ 
