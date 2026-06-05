@@ -155,7 +155,6 @@ export class Dashboard implements OnInit    {
 
   }
 
-  
 
   
    requestPermission() {
