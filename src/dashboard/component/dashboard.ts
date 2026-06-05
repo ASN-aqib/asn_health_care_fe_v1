@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Userservice } from '../../user/service/userservice';
 import { ProfileService } from '../../profile/service/profile';
-import { first } from 'rxjs';
+import { first, Observable, Subscription, switchMap, timer } from 'rxjs';
 import { Stats } from '../model/stats.model';
 import { Sellerservice } from '../../services/sellerservice';
 import { Dashboardservice } from '../../services/dashboardservice';
@@ -17,6 +17,10 @@ import {MatInputModule} from '@angular/material/input';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Onlineusers } from '../onlinedialog/onlineusers/onlineusers';
 import { Useractivityservice } from '../../services/useractivityservice';
+import { subscribe } from 'node:diagnostics_channel';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../environments/firebase.config';
 
 
 export interface tradingelements {
@@ -65,7 +69,7 @@ export interface biddingelements {
 
 export class Dashboard implements OnInit    {
  
-  
+  private messaging: any;
   public trading: any =[];
 
   public bidding: any =[];
@@ -75,6 +79,8 @@ export class Dashboard implements OnInit    {
     { id: 2, name: 'Ahmed', role: 'User', status: 'Inactive' },
     { id: 3, name: 'Sara', role: 'Manager', status: 'Active' }
   ];
+
+
 
   constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice,
               private dialog: MatDialog ,private userActivityService:Useractivityservice
@@ -89,10 +95,9 @@ export class Dashboard implements OnInit    {
     this.getAllSellers();
     this.getAllOnlineUsers();
     this.getAllBuyer();
-    
-   
-    
-  }
+    this.onMessage();
+    this.requestPermission();
+    }
     
     
 
@@ -118,25 +123,65 @@ export class Dashboard implements OnInit    {
  
 
   tradingDisplayedColumns: string[] = [
-    'transactionId' ,'categoryname', 'quantity' ,'price' ,'buyername' ,'sellername' , 
+    'transactionId' ,'categoryname', 'quantity' ,'price' ,'buyername' ,'sellername' , 'transactionStatus', 'createdDate',
   ];
 
   biddingDisplayedColumns: string[] = [
-      'category_name', 'quantity', 'price' ,
+     'FullName', 'category_name', 'quantity', 'price' ,
       //'sellerQuantity', 'sellerRate',
       'created_date',
       // 'action'
   ];
  
     sellerDisplayedColumns: string[] = [
-      'category_name', 'quantity', 'sell_price' ,
+     'seller_name', 'category_name', 'quantity', 'sell_price' ,
       //'sellerQuantity', 'sellerRate',
       'created_date',
       // 'action'
   ];
  
 
+
+  onMessage()
+  {
+    
+      const app = initializeApp(firebaseConfig);
+    
+      this.messaging = getMessaging(app);
+     onMessage(this.messaging, (payload) => {
+      alert(JSON.stringify(payload));
+      // ...
+    });
+
+  }
+
   
+   requestPermission() {
+    console.log('Requesting permission...');
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+        getToken(this.messaging, {
+          vapidKey: "BGyrEyQa5Z8n37BQ2XxbPwLE_ZLvLBdTJvxQCN675w20oLe3Gmcy95c3uqFenmeq0-mlgAfgGXGOStDCnNcXtZs",
+        })
+          .then((currentToken: string) => {
+            if (currentToken) {
+              console.log(currentToken);
+            } else {
+              console.log(
+                'No registration token available. Request permission to generate one.'
+              );
+            }
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
+      }
+    });
+  }
+
+
+
  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource1.filter = filterValue.trim().toLowerCase();
@@ -188,9 +233,9 @@ export class Dashboard implements OnInit    {
         .pipe(first())
         .subscribe(response => {
     
-            this.profiledata = response
+          this.profiledata = response
 
-         console.log("==== profile Data ==========");
+          console.log("==== profile Data ==========");
           console.log(this.profiledata);
           console.log("==============");
 
@@ -250,7 +295,7 @@ export class Dashboard implements OnInit    {
 
       this.bidding = response
       //this.dataSource1 =this.bidding;
-      console.log("Buyer",this.bidding);
+      console.log("Buyers only ",this.bidding);
 
        this.dataSource1 = new MatTableDataSource(this.bidding);
        this.dataSource1.paginator = this.paginator1;
@@ -275,40 +320,7 @@ export class Dashboard implements OnInit    {
        this.dataSource2.paginator = this.paginator2;
        this.getLiveTrading();  
         
-         
-      //   this.dataSource = new MatTableDataSource(this.reponsedata);
-//   this.dataSource.paginator = this.paginator;
-           
-        
-
-
-          //   // for (let item of this.filtered) {
-          // //  for (let item of this.filtered) {
-          //      for (let i: number = 0; i < 4; i++) {
-
-          //      let stat = new Stats();
-          //      stat.title = "Buyer";
-          //      stat.value = 500;
-          //      stat.change = 2.5;
-          //      stat.icon = "fas fa-users";
-          //      this.stats.push(stat);
-          //     }
-          //   console.log(this.stats);
-
-
-            // this.dataSource.data =this.profiledata;
-            // this.dataSource.paginator = this.paginator;
-
-          // this.dataSource.paginator = this.paginator;
-          // if (response && response.code === WebConstants.STATUS.CODE_SUCCESS) {
-          //   this.parkingSpots = response.data;
-          //   this.dataSource = new MatTableDataSource<unknown>(this.parkingSpots);
-          //   this.dataSource.paginator = this.paginator;
-          //   this.dataSource.sort = this.sort;
-          //   //console.log("response ",response.data);
-          // } else {
-          //   this.toastrService.error(response.value, "Failed To Load Data!")
-          // }
+     
      });
     }
 
@@ -332,11 +344,15 @@ export class Dashboard implements OnInit    {
 
          this.trading = response
 
-         console.log(this.trading);
+         console.log("trading",this.trading);
          this.dataSource = new MatTableDataSource(this.trading);
          this.dataSource.paginator = this.paginator;
        
 
        });
    }
+
+   ngOnDestroy() {
+      
+    }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {MatSelectChange, MatSelectModule} from '@angular/material/select';
-import { MatSort } from '@angular/material/sort';
+import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ProfileService } from '../service/profile';
@@ -21,13 +21,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ZoneService } from '../../services/zone.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from './dialog/confirmation-dialog';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
  
 
 @Component({
   selector: 'app-profile',
   imports: [CommonModule,MatFormFieldModule,MatTableModule, MatInputModule, MatCheckboxModule,MatSlideToggleModule,
      FormsModule,MatSelectModule,MatPaginator,MatPaginatorModule,
-     MatTableModule, MatCardModule,
+     MatTableModule, MatCardModule,MatSortModule,
      ReactiveFormsModule,MatButtonModule, MatDividerModule, MatIconModule],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,7 +45,8 @@ export class Profile implements OnInit {
   ngcolor: any;
 
 public dataSource = new MatTableDataSource<profileelements>();
- 
+   private _liveAnnouncer = inject(LiveAnnouncer);
+
 @ViewChild(MatSort) sort!: MatSort;
 @ViewChild("paginator") paginator!: MatPaginator;
 @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
@@ -66,7 +68,7 @@ public dataSource = new MatTableDataSource<profileelements>();
   public  zones: any = [];
 
   DisplayedColumns: string[] = [ 
-      'firstName','lastName' ,'email_address','mobile_no','exposure','profile_type','zoneName','created_date',
+      'FullName' ,'email_address','mobile_no','exposure','profile_type','zoneName','is_active','created_date',
     'action'
   ];
 
@@ -96,6 +98,7 @@ public dataSource = new MatTableDataSource<profileelements>();
    initializeForm() {
       this.profileForm = this.formBuilder.group({
       id : new FormControl('', ),
+      userId : new FormControl('', ),
       first : new FormControl('', [Validators.required]),
       last :  new FormControl('', [Validators.required]),
       emailaddress : new FormControl('', [Validators.required, Validators.email],),
@@ -108,7 +111,8 @@ public dataSource = new MatTableDataSource<profileelements>();
       isChecked: new FormControl('',[Validators.required]),  
       // capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),      
       options:['', Validators.required],
-      zonelist:['', Validators.required],
+      zonelist: ['', Validators.required],
+      
       // licenseno :  new FormControl({ value: "", disabled: true }),      
 
       
@@ -154,6 +158,9 @@ public dataSource = new MatTableDataSource<profileelements>();
 }
 
 
+
+
+
 onEscape() {
   alert('deselect');
   // Deselect all options by setting the control value to empty array
@@ -166,6 +173,8 @@ edit(element:any) {
 console.log(element);
 
 this.profileForm.controls['id'].setValue(element.id);
+this.profileForm.controls['userId'].setValue(element.user_id);
+
   
   this.profileForm.controls['first'].setValue(element.firstName);
   this.profileForm.controls['last'].setValue(element.lastName);
@@ -216,9 +225,23 @@ changeIcon() {
   }
 
     ngAfterViewInit(): void {
-  //  this.dataSource.sort = this.sort;
+   
     this.dataSource.paginator = this.paginator;
+
     
+
+  }
+
+    announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
 
@@ -263,6 +286,42 @@ changeIcon() {
   
   }
 
+
+  SetValidationForUpdate()
+ {
+    this.profileForm.controls['first'].setValidators([Validators.required]);
+    this.profileForm.controls['first'].updateValueAndValidity();
+   
+    this.profileForm.controls['last'].setValidators([Validators.required]);
+    this.profileForm.controls['last'].updateValueAndValidity();
+   
+    this.profileForm.controls['mobile'].setValidators([Validators.required]);
+    this.profileForm.controls['mobile'].updateValueAndValidity();
+  
+    this.profileForm.controls['exposure'].setValidators([Validators.required]);
+    this.profileForm.controls['exposure'].updateValueAndValidity();
+  
+    this.profileForm.controls['options'].setValidators([Validators.required]);
+    this.profileForm.controls['options'].updateValueAndValidity();
+
+    this.profileForm.controls['username'].setValidators([Validators.required]);
+    this.profileForm.controls['username'].updateValueAndValidity();
+
+    this.profileForm.controls['password'].setValidators([Validators.nullValidator]);
+    this.profileForm.controls['password'].updateValueAndValidity();
+
+    this.profileForm.controls['zonelist'].setValidators([Validators.required]);
+    this.profileForm.controls['zonelist'].updateValueAndValidity();
+
+    this.profileForm.controls['isChecked'].setValidators([Validators.required]);
+    this.profileForm.controls['isChecked'].updateValueAndValidity();
+
+
+ 
+  
+  
+  }
+
   submit(event: Event)
   {
     console.log("update ",this.update);
@@ -273,7 +332,7 @@ changeIcon() {
      else
      {
        console.log("update");
-      this.SetValidation();
+      this.SetValidationForUpdate();
       this.upateProfile();
      }
  
@@ -419,6 +478,7 @@ changeIcon() {
     
     let roleObj = {
       
+      userId: this.profileForm.controls['userId'].value,
       id: this.profileForm.controls['id'].value,
       domain : "Web",
       firstName: this.profileForm.controls['first'].value,
@@ -464,6 +524,14 @@ changeIcon() {
 
 
 
+ 
+    applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+
 
   clear()
     {  
@@ -486,11 +554,26 @@ changeIcon() {
       
               this.profiledata = response
 
+               //for (const item of this.profiledata) {
+
+                // if(item.is_active  == 1 )
+                // {
+                 
+                //   item.is_active = "frue";
+                // }
+                // else
+                // {
+                //   item.is_active = "false";
+                // }
+
+                //  }
+
               console.log(this.profiledata)
   
            this.dataSource = new MatTableDataSource(this.profiledata);
            this.dataSource.paginator = this.paginator;
-                 
+           this.dataSource.sort = this.sort;
+
   
            });
     }
