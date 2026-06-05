@@ -1,10 +1,10 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { userElement } from '../../user/component/user';
-import { MatSort } from '@angular/material/sort';
+import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Userservice } from '../../user/service/userservice';
 import { ProfileService } from '../../profile/service/profile';
@@ -21,29 +21,16 @@ import { subscribe } from 'node:diagnostics_channel';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../environments/firebase.config';
+import { TokenStorage } from '../../util/token.storage';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { ConfirmationDialog } from './dialog/confirmation-dialog';
 
-
-export interface tradingelements {
-  
-  transactionId:string;
-  quantity:number;
-  price:number;
-  buyername:string;
-  sellername:string;
-  categoryname:string;
-
-}
+ 
 
 export interface biddingelements {
   
-  categoryname:string;
-  buyingQuantity:number;
-  buyingRate:number;
-  sellerQuantity:number;
-  sellerRate:number;
-  high:number;
-  low:number;
-  createdDate:string
+  id:number;
 
   
 }
@@ -57,7 +44,7 @@ export interface biddingelements {
   imports: [
     CommonModule,MatPaginator,MatPaginatorModule,
     MatTableModule,MatFormFieldModule,MatInputModule,
-    MatButtonModule,
+    MatButtonModule,MatSortModule,MatIconModule,
     MatCardModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -69,6 +56,9 @@ export interface biddingelements {
 
 export class Dashboard implements OnInit    {
  
+    private _liveAnnouncer = inject(LiveAnnouncer);
+
+
   private messaging: any;
   public trading: any =[];
 
@@ -83,7 +73,8 @@ export class Dashboard implements OnInit    {
 
 
   constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice,
-              private dialog: MatDialog ,private userActivityService:Useractivityservice
+              private dialog: MatDialog ,private userActivityService:Useractivityservice,
+              public tokenStorage: TokenStorage,
   ){}
 
   
@@ -101,12 +92,15 @@ export class Dashboard implements OnInit    {
     
     
 
-  public dataSource = new MatTableDataSource<tradingelements>();
+  public dataSource = new MatTableDataSource<biddingelements>();
   public dataSource1 = new MatTableDataSource<biddingelements>();
   public dataSource2 = new MatTableDataSource<biddingelements>();
 
 
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('sellerSort') sellerSort!: MatSort;
+  @ViewChild('buyerSort') buyerSort!: MatSort;
+  @ViewChild('transSort') transSort!: MatSort;
+  @ViewChild(MatSort) sortb!: MatSort;
   @ViewChild("paginator") paginator!: MatPaginator;
   @ViewChild("paginator1") paginator1!: MatPaginator;
   @ViewChild("paginator1") paginator2!: MatPaginator;
@@ -130,14 +124,14 @@ export class Dashboard implements OnInit    {
      'FullName', 'category_name', 'quantity', 'price' ,
       //'sellerQuantity', 'sellerRate',
       'created_date',
-      // 'action'
+       'action'
   ];
  
     sellerDisplayedColumns: string[] = [
      'seller_name', 'category_name', 'quantity', 'sell_price' ,
       //'sellerQuantity', 'sellerRate',
       'created_date',
-      // 'action'
+       'action'
   ];
  
 
@@ -168,6 +162,8 @@ export class Dashboard implements OnInit    {
           .then((currentToken: string) => {
             if (currentToken) {
               console.log(currentToken);
+
+              this.tokenStorage.getToken();
             } else {
               console.log(
                 'No registration token available. Request permission to generate one.'
@@ -181,6 +177,18 @@ export class Dashboard implements OnInit    {
     });
   }
 
+
+    announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
 
 
  applyFilter(event: Event) {
@@ -300,7 +308,8 @@ export class Dashboard implements OnInit    {
 
        this.dataSource1 = new MatTableDataSource(this.bidding);
        this.dataSource1.paginator = this.paginator1;
-    
+       this.dataSource1.sort= this.buyerSort;
+
         
         });
     }
@@ -319,20 +328,56 @@ export class Dashboard implements OnInit    {
 
        this.dataSource2 = new MatTableDataSource(this.selling);
        this.dataSource2.paginator = this.paginator2;
+       this.dataSource2.sort= this.sellerSort;
+
        this.getLiveTrading();  
         
      
      });
     }
 
+  deleteBuyer(element:any) {
+  
+    console.log(element);
+        const confirmDialog = this.dialog.open(ConfirmationDialog, {
+       data: {
+         title: 'Confirm Remove Buyer',
+         message: 'Are you sure, you want to remove this Buyer: ' + element.FullName,
+         id:element.id,
+         isBuyer: 1
+       }
+     });
+     confirmDialog.afterClosed().subscribe(result => {
+         this.getAllBuyer();
+     });
+     
+    }
  
  
- 
+
+    deleteSeller(element:any) {
+      
+        console.log(element);
+        const confirmDialog = this.dialog.open(ConfirmationDialog, {
+        data: {
+         title: 'Confirm Remove Seller',
+         message: 'Are you sure, you want to remove this Seller : ' + element.seller_name,
+         id:element.id,
+         isBuyer: 0
+       }
+     });
+     confirmDialog.afterClosed().subscribe(result => {
+         this.getAllSellers();
+     });
+     
+    }
 
     ngAfterViewInit() {
       // Assign paginators to their respective data sources
       this.dataSource.paginator = this.paginator;
       this.dataSource1.paginator = this.paginator1;
+      this.dataSource2.paginator = this.paginator2;
+
     }
 
     getLiveTrading()
@@ -348,7 +393,8 @@ export class Dashboard implements OnInit    {
          console.log("trading",this.trading);
          this.dataSource = new MatTableDataSource(this.trading);
          this.dataSource.paginator = this.paginator;
-       
+          this.dataSource.sort= this.transSort;
+
 
        });
    }
