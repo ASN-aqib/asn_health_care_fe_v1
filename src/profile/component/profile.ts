@@ -101,7 +101,7 @@ public dataSource = new MatTableDataSource<profileelements>();
       userId : new FormControl('', ),
       first : new FormControl('', [Validators.required]),
       last :  new FormControl('', [Validators.required]),
-      emailaddress : new FormControl('', [Validators.required, Validators.email],),
+      emailaddress : new FormControl('', ),
       mobile : new FormControl('',),
       city : new FormControl('',),
       address : new FormControl('',),
@@ -554,19 +554,21 @@ changeIcon() {
       
               this.profiledata = response
 
-               //for (const item of this.profiledata) {
+              //  for (const item of this.profiledata) {
 
-                // if(item.is_active  == 1 )
-                // {
+              //    item.firstName + ' ' + item.itemlastName
+
+              //   if(item.is_active  == 1 )
+              //   {
                  
-                //   item.is_active = "frue";
-                // }
-                // else
-                // {
-                //   item.is_active = "false";
-                // }
+              //     item.is_active = "frue";
+              //   }
+              //   else
+              //   {
+              //     item.is_active = "false";
+              //   }
 
-                //  }
+              //    }
 
               console.log(this.profiledata)
   
