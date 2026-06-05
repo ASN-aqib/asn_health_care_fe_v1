@@ -34,5 +34,21 @@ export class Dashboardservice {
           
               return this.ajaxHelper.get(url);
      }
+
+     deleteBuyer(id: any ): Observable<BaseResponse<any>> {
+
+
+               let url = this.baseUrl + WebConstants.API_URL.DASHBOARD.DELETE_BUYER+id;
+              console.log(url);
+               return this.ajaxHelper.get(url);
+      }
+
+      deleteSeller(id: any ): Observable<BaseResponse<any>> {
+
+
+               let url = this.baseUrl + WebConstants.API_URL.DASHBOARD.DELETE_SELLER+id;
+              console.log(url);
+               return this.ajaxHelper.get(url);
+      }
   
 }

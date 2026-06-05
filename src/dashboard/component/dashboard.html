@@ -57,23 +57,23 @@
             <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Live Trading</h5>
-                    <button class="btn btn-outline-success btn-sm">See More</button>
+                    <!-- <button class="btn btn-outline-success btn-sm">See More</button> -->
                 </div> 
 
                 <mat-card class="mb-4">
                   
 
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2 w-100">
+                    <table mat-table [dataSource]="dataSource"  class="mat-elevation-z2 w-100" #transSort="matSort" matSort  >
 
                         <!-- Symbol -->
                      <!-- Name Column -->
                     <ng-container matColumnDef="transactionId">
-                        <th mat-header-cell *matHeaderCellDef> Transaction Id </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Id </th>
                         <td mat-cell *matCellDef="let element"> {{element.transactionId}} </td>
                     </ng-container>
  
                      <ng-container matColumnDef="categoryname">
-                            <th mat-header-cell *matHeaderCellDef> Category </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.categoryname}}
                             </td>
@@ -81,35 +81,35 @@
 
 
                      <ng-container matColumnDef="quantity">
-                            <th mat-header-cell *matHeaderCellDef>  Quantity </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Quantity </th>
                             <td mat-cell *matCellDef="let element" class="text-success">
                                 {{element.quantity}}
                             </td>
                         </ng-container>
    
                         <ng-container matColumnDef="price">
-                            <th mat-header-cell *matHeaderCellDef> Price </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
                             <td mat-cell *matCellDef="let element" class="text-success">
                                 {{element.price}}
                             </td>
                         </ng-container>
 
                      <ng-container matColumnDef="buyername">
-                            <th mat-header-cell *matHeaderCellDef> Buyer</th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Buyer</th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.buyername}}
                             </td>
                         </ng-container>
 
                      <ng-container matColumnDef="sellername">
-                            <th mat-header-cell *matHeaderCellDef> Seller </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Seller </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.sellername}}
                             </td>
                         </ng-container>
 
                     <ng-container matColumnDef="transactionStatus">
-                            <th mat-header-cell *matHeaderCellDef> Trans Status </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Trans Status </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.transactionStatus}}
                             </td>
@@ -118,7 +118,7 @@
 
    
                             <ng-container matColumnDef="createdDate">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header >Created Date</th>
                                 <td mat-cell *matCellDef="let element">
                                    {{ element.createdDate | date: 'dd/MM/yyyy, h:mm a ' }}
                                 </td>
@@ -163,7 +163,7 @@
 
                  <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Live Bidding</h5>
-                    <!-- <button class="btn btn-outline-success btn-sm">See More</button> -->
+                   
                 </div> 
 
                 <div class="table-responsive">
@@ -171,32 +171,32 @@
                     <mat-card>
  
 
-                        <table mat-table [dataSource]="dataSource1" class="mat-elevation-z2 w-100">
+                        <table mat-table [dataSource]="dataSource1" class="mat-elevation-z2 w-100"  #buyerSort="matSort" matSort>
 
 
                             <ng-container matColumnDef="FullName">
-                                <th mat-header-cell *matHeaderCellDef> Buyer Name </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Buyer Name </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.FullName}}
                                 </td>
                             </ng-container>
                       
                             <ng-container matColumnDef="category_name">
-                                <th mat-header-cell *matHeaderCellDef> Category </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.category_name}}
                                 </td>
                             </ng-container>
 
                              <ng-container matColumnDef="quantity">
-                                <th mat-header-cell *matHeaderCellDef> Buying Qty </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Buying Qty </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.quantity}}
                                 </td>
                             </ng-container>
  
                             <ng-container matColumnDef="price">
-                                <th mat-header-cell *matHeaderCellDef> Buying Rate </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Buying Rate </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.price}}
                                 </td>
@@ -226,6 +226,18 @@
                             </ng-container>  
                    
 
+                                <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>
+                                <td mat-cell *matCellDef="let element">
+                               
+                                    <button matIconButton (click)="deleteBuyer(element)">
+                                           <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>  
+
+
+
                             <tr mat-header-row *matHeaderRowDef="biddingDisplayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; columns: biddingDisplayedColumns;"></tr>
 
@@ -253,40 +265,39 @@
 
                  <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Live Seller</h5>
-                    <!-- <button class="btn btn-outline-success btn-sm">See More</button> -->
-                </div> 
+                 </div> 
 
                 <div class="table-responsive">
                     
-                    <mat-card>
+                    <mat-card class="mat-elevation-z2 w-100">
  
 
-                        <table mat-table [dataSource]="dataSource2" class="mat-elevation-z2 w-100">
+                        <table mat-table [dataSource]="dataSource2" #sellerSort="matSort" matSort>
 
                       
                               <ng-container matColumnDef="seller_name">
-                                <th mat-header-cell *matHeaderCellDef> Seller Name </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Seller Name </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.seller_name}}
                                 </td>
                             </ng-container>
 
                             <ng-container matColumnDef="category_name">
-                                <th mat-header-cell *matHeaderCellDef> Category </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.category_name}}
                                 </td>
                             </ng-container>
 
                              <ng-container matColumnDef="quantity">
-                                <th mat-header-cell *matHeaderCellDef> Selling Qty </th>
+                                <th mat-header-cell *matHeaderCellDef  mat-sort-header > Selling Qty </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.quantity}}
                                 </td>
                             </ng-container>
  
                             <ng-container matColumnDef="sell_price">
-                                <th mat-header-cell *matHeaderCellDef> Selling Rate </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header > Selling Rate </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.sell_price}}
                                 </td>
@@ -294,30 +305,26 @@
 
 
                     
-                            <!-- <ng-container matColumnDef="sellerQuantity">
-                                <th mat-header-cell *matHeaderCellDef> Seller Qty </th>
-                                <td mat-cell *matCellDef="let element" class="text-success">
-                                    {{element.sellerQuantity}}
-                                </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="sellerRate">
-                                <th mat-header-cell *matHeaderCellDef> Seller Rate </th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.sellerRate}}
-                                </td>
-                            </ng-container> -->
-
-                          
+                       
 
                              <ng-container matColumnDef="created_date">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header >Created Date</th>
                                 <td mat-cell *matCellDef="let element">
                                    {{ element.created_date | date: 'dd/MM/yyyy, h:mm a ' }}
                                 </td>
                             </ng-container>  
  
                    
+                                <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>
+                                <td mat-cell *matCellDef="let element">
+                               
+                                    <button matIconButton (click)="deleteSeller(element)">
+                                           <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>  
+
 
                             <tr mat-header-row *matHeaderRowDef="sellerDisplayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; columns: sellerDisplayedColumns;"></tr>
