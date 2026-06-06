@@ -56,6 +56,13 @@ export class TokenStorage {
      }
   }
 
+  
+  public saveUserId(userId: string): void {
+     if (this.isBrowser) {
+    localStorage.removeItem(WebConstants.USER.ID);
+    localStorage.setItem(WebConstants.USER.ID, userId);
+     }
+  }
   public saveTokenObject(token: string): void {
      if (this.isBrowser) {
     localStorage.removeItem(WebConstants.USER.TOKEN);
@@ -98,6 +105,17 @@ export class TokenStorage {
       return  "";
     }
   }
+
+
+   public getUserId(): string {
+    if (this.isBrowser) {
+    return localStorage.getItem(WebConstants.USER.ID)!;
+    }
+    else{
+      return  "";
+    }
+  }
+
 
   // public getPages(): string {
   //   let loggedInUserObject = JSON.parse(this.getLoggedInUser());

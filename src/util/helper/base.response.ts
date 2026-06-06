@@ -3,5 +3,6 @@ export class BaseResponse<T> {
     value?: string;
     data?: T; 
     access_token?:any;
+    userinfo?: T; 
   }
    
