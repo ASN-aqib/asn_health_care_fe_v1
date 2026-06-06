@@ -163,7 +163,13 @@ export class Dashboard implements OnInit    {
             if (currentToken) {
               console.log(currentToken);
 
-              this.tokenStorage.getToken();
+
+              var userid = this.tokenStorage.getUserId();
+              
+              
+
+
+              
             } else {
               console.log(
                 'No registration token available. Request permission to generate one.'

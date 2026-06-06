@@ -48,7 +48,7 @@ export const WebConstants = {
   },
   USER: {
     LOGGED_IN: "LOGGED_IN_USER", //"currentUser",
-    ID: "CITS_CD_USER_ID",
+    ID: "USER_ID",
     ORGANIZATION_ID: "CITS_CD_ORGANIZATION_ID",
     TOKEN: "CITS_CD_USER_TOKEN",
     AUTHORITIES: "CITS_CD_AUTHORITIES",
