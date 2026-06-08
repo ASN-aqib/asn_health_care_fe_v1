@@ -25,6 +25,7 @@ import { TokenStorage } from '../../util/token.storage';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { ConfirmationDialog } from './dialog/confirmation-dialog';
+import { Fcmservice } from '../../services/fcmservice';
 
  
 
@@ -74,7 +75,7 @@ export class Dashboard implements OnInit    {
 
   constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice,
               private dialog: MatDialog ,private userActivityService:Useractivityservice,
-              public tokenStorage: TokenStorage,
+              public tokenStorage: TokenStorage, private fcmservice:Fcmservice
   ){}
 
   
@@ -143,8 +144,12 @@ export class Dashboard implements OnInit    {
     
       this.messaging = getMessaging(app);
      onMessage(this.messaging, (payload) => {
-      alert(JSON.stringify(payload));
+      //alert(JSON.stringify(payload));
       // ...
+      //this.getprofiles();
+      this.getAllSellers();
+      //this.getAllOnlineUsers();
+      this.getAllBuyer()
     });
 
   }
@@ -164,10 +169,20 @@ export class Dashboard implements OnInit    {
               console.log(currentToken);
 
 
-              var userid = this.tokenStorage.getUserId();
+              var userId = this.tokenStorage.getUserId();
               
-              
+              let obj = {
+              userid: userId,
+              fmctoken: currentToken,
+            
+          };
+          
+                 this.fcmservice.updateToken(obj)
+                .pipe(first())
+                .subscribe(response => {
+                  console.log(response);
 
+                });
 
               
             } else {
@@ -329,8 +344,20 @@ export class Dashboard implements OnInit    {
         .subscribe(response => {
 
       this.selling = response
+
+      //  for (const item of this.selling) {
+
+
+      //   const hoursToSubtract = 5;
+      //   const updatedDate = new Date(item.created_date); // Clones the date to avoid modifying the original state
+      //   updatedDate.setHours(updatedDate.getHours() - hoursToSubtract);
+      //    item.created_date = updatedDate;
+
+      //  }
       //this.dataSource1 =this.bidding;
       console.log("Seller",this.selling);
+
+
 
        this.dataSource2 = new MatTableDataSource(this.selling);
        this.dataSource2.paginator = this.paginator2;

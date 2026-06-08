@@ -22,6 +22,7 @@ import { ZoneService } from '../../services/zone.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from './dialog/confirmation-dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { TokenStorage } from '../../util/token.storage';
  
 
 @Component({
@@ -75,7 +76,7 @@ public dataSource = new MatTableDataSource<profileelements>();
   constructor( private profileService:ProfileService, private roleService:Roleservice,
     private matIconRegistry: MatIconRegistry,     public formBuilder: FormBuilder, 
     private domSanitizer: DomSanitizer ,     private snackBar: MatSnackBar,
-    private zoneService:ZoneService ,  private dialog: MatDialog 
+    private zoneService:ZoneService ,  private dialog: MatDialog ,public tokenStorage: TokenStorage
 
   ) {
 
@@ -374,7 +375,7 @@ changeIcon() {
     let roleObj = {
       firstName: this.profileForm.controls['first'].value,
       lastName: this.profileForm.controls['last'].value,
-      domain : "Web",
+      domain : "Mobile",
       mobile_no: this.profileForm.controls['mobile'].value, 
       city: this.profileForm.controls['city'].value, 
       address: this.profileForm.controls['address'].value, 
@@ -474,51 +475,50 @@ changeIcon() {
     password =  this.profileForm.controls['password'].value;
   }
 
-
+ 
     
-    let roleObj = {
-      
-      userId: this.profileForm.controls['userId'].value,
-      id: this.profileForm.controls['id'].value,
-      domain : "Web",
-      firstName: this.profileForm.controls['first'].value,
-      lastName: this.profileForm.controls['last'].value,
-      mobile_no: this.profileForm.controls['mobile'].value, 
-      city: this.profileForm.controls['city'].value, 
-      address: this.profileForm.controls['address'].value, 
-      exposure: this.profileForm.controls['exposure'].value, 
-      username: this.profileForm.controls['username'].value,
-      password:password,
-      emailaddress: this.profileForm.controls['emailaddress'].value,
-      isactive : check,
-      updatedBy : 1,
-      profile_type_id:   this.profileForm.controls['options'].value,
-      profile_type:  this.optiontext,
-      zoneId:   this.profileForm.controls['zonelist'].value,
-     };
-    // console.log( this.userNameField.value);
-    // console.log( this.passwordField.value);
-    // console.log( this.emailField.value);
+        let roleObj = {
+          
+          userId: this.profileForm.controls['userId'].value,
+          id: this.profileForm.controls['id'].value,
+          domain : "Mobile",
+          firstName: this.profileForm.controls['first'].value,
+          lastName: this.profileForm.controls['last'].value,
+          mobile_no: this.profileForm.controls['mobile'].value, 
+          city: this.profileForm.controls['city'].value, 
+          address: this.profileForm.controls['address'].value, 
+          exposure: this.profileForm.controls['exposure'].value, 
+          username: this.profileForm.controls['username'].value,
+          password:password,
+          emailaddress: this.profileForm.controls['emailaddress'].value,
+          isactive : check,
+          profile_type_id:   this.profileForm.controls['options'].value,
+          profile_type:  this.optiontext,
+          zoneId:   this.profileForm.controls['zonelist'].value,
+          updatedBy: this.tokenStorage.getUserId(),
+        };
+        // console.log( this.userNameField.value);
+        // console.log( this.passwordField.value);
+        // console.log( this.emailField.value);
 
-    this.profileService.updateProfile(roleObj)
-      .pipe(first())
-      .subscribe(response => {
-        console.log(response);
+        this.profileService.updateProfile(roleObj)
+          .pipe(first())
+          .subscribe(response => {
+            console.log(response);
 
-             this.snackBar.open(' Record has been updated successfully! ','Close', {    
-              duration: 4000,    
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-              panelClass: 'custom-style',
-            });
+                this.snackBar.open(' Record has been updated successfully! ','Close', {    
+                  duration: 4000,    
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                  panelClass: 'custom-style',
+                });
 
 
-        this.clear();
-        this.getprofiles();
-        //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
-       //   this.toaster.success("Role privilege has been updated", "Success");
-        //}
-      });
+            this.clear();
+            this.getprofiles();
+            
+          });
+ 
 
  }
 

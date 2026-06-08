@@ -221,7 +221,7 @@
                          <ng-container matColumnDef="created_date">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
                                 <td mat-cell *matCellDef="let element">
-                                   {{ element.created_date   }}
+                                   {{ element.created_date | date: 'dd/MM/yyyy, h:mm a ' }}
                                 </td>
                             </ng-container>  
                    

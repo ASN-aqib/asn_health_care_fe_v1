@@ -73,6 +73,8 @@ export const WebConstants = {
 
 
   },
+ 
+
   STATUS: {
     CODE_SUCCESS: 0,
     MSG_SUCCESS: "success",
@@ -170,6 +172,7 @@ export const WebConstants = {
       FIND_USER_PRIVILEGES: "/api/userprivilege/findUserPrivilegesByUserId/",
       ADD_USER_PRIVILEGE: "/api/userprivilege/add",
       DELETE_USER_PRIVILEGE: "/api/userprivilege/deleteUserPrivilegeByUserIdAndPrivId/",
+      UPDATE_TOKEN : "/api/user/update-token",
     },
     PROFILE: {
       ADD: "/api/profile/create",
