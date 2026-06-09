@@ -190,8 +190,14 @@ this.profileForm.controls['userId'].setValue(element.user_id);
   this.profileForm.controls['zonelist'].setValue(element.zoneid);
 
   if(element.is_active == 1)
-  {this.profileForm.controls['isChecked'].setValue(true);}
-  else{this.profileForm.controls['isChecked'].setValue(false);}
+  {this.profileForm.controls['isChecked'].setValue(true);
+    this.isChecked = true;
+  }
+  else{
+    this.profileForm.controls['isChecked'].setValue(false);
+    this.isChecked = false;
+
+  }
   
   this.profileForm.controls['username'].setValue(element.user_name);
 
