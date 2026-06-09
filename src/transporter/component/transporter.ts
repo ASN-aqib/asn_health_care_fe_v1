@@ -96,6 +96,7 @@ public dataSource = new MatTableDataSource<profileelements>();
    initializeForm() {
       this.transporterForm = this.formBuilder.group({
       id : new FormControl('', ),
+      userid : new FormControl('', ),
       companyname : new FormControl('', [Validators.required]),
       owner :  new FormControl('', [Validators.required]),
       emailaddress : new FormControl('', ),
@@ -150,6 +151,7 @@ edit(element:any) {
 console.log(element);
 
   this.transporterForm.controls['id'].setValue(element.id);
+  this.transporterForm.controls['userid'].setValue(element.user_id);
   this.transporterForm.controls['owner'].setValue(element.owner);
   this.transporterForm.controls['emailaddress'].setValue(element.emailaddress);
   this.transporterForm.controls['mobile'].setValue(element.mobile);
@@ -418,7 +420,7 @@ changeIcon() {
     
     let roleObj = {
       id: this.transporterForm.controls['id'].value,
-
+      userId: this.transporterForm.controls['userid'].value,
       companyname: this.transporterForm.controls['companyname'].value,
       owner: this.transporterForm.controls['owner'].value,
       domain : "Mobile",
