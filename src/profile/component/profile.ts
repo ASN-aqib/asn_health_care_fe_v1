@@ -513,10 +513,11 @@ changeIcon() {
             console.log(response);
 
                 this.snackBar.open(' Record has been updated successfully! ','Close', {    
-                  duration: 4000,    
+                  duration: 400000,    
                   horizontalPosition: 'center',
                   verticalPosition: 'top',
-                  panelClass: 'custom-style',
+                  panelClass: ['success-snackbar'] // Your custom CSS class
+
                 });
 
 

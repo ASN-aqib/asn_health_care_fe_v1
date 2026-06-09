@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,7 +26,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { ConfirmationDialog } from './dialog/confirmation-dialog';
 import { Fcmservice } from '../../services/fcmservice';
-
+ 
  
 
 export interface biddingelements {
@@ -55,10 +55,12 @@ export interface biddingelements {
 })
 
 
-export class Dashboard implements OnInit    {
+export class Dashboard implements OnInit  ,OnDestroy   {
  
-    private _liveAnnouncer = inject(LiveAnnouncer);
-
+  private _liveAnnouncer = inject(LiveAnnouncer);
+  private app = initializeApp(firebaseConfig);
+    private broadcastChannel = new BroadcastChannel('asn-channel');
+  public messagePayload: any = null;
 
   private messaging: any;
   public trading: any =[];
@@ -75,7 +77,8 @@ export class Dashboard implements OnInit    {
 
   constructor(private profileService:ProfileService,private dashboarsService: Dashboardservice,
               private dialog: MatDialog ,private userActivityService:Useractivityservice,
-              public tokenStorage: TokenStorage, private fcmservice:Fcmservice
+              public tokenStorage: TokenStorage, private fcmservice:Fcmservice,
+              private ngZone: NgZone
   ){}
 
   
@@ -89,6 +92,10 @@ export class Dashboard implements OnInit    {
     this.getAllBuyer();
     this.onMessage();
     this.requestPermission();
+    this.onBackGroundMessage();
+
+
+      
     }
     
     
@@ -140,9 +147,8 @@ export class Dashboard implements OnInit    {
   onMessage()
   {
     
-      const app = initializeApp(firebaseConfig);
-    
-      this.messaging = getMessaging(app);
+     
+      this.messaging = getMessaging(this.app);
      onMessage(this.messaging, (payload) => {
       //alert(JSON.stringify(payload));
       // ...
@@ -152,7 +158,27 @@ export class Dashboard implements OnInit    {
       this.getAllBuyer()
     });
 
+ 
   }
+
+  onBackGroundMessage()
+  {
+        this.broadcastChannel.onmessage = (event) => {
+        this.ngZone.run(() => {
+        this.messagePayload = event.data;
+        console.log('Received background message in component:', this.messagePayload);
+        
+         this.getAllSellers();
+      //this.getAllOnlineUsers();
+         this.getAllBuyer()
+      });
+    };
+  }
+
+  
+
+ 
+  
 
 
   
@@ -175,7 +201,7 @@ export class Dashboard implements OnInit    {
               userid: userId,
               fmctoken: currentToken,
             
-          };
+              };
           
                  this.fcmservice.updateToken(obj)
                 .pipe(first())
@@ -433,6 +459,7 @@ export class Dashboard implements OnInit    {
    }
 
    ngOnDestroy() {
-      
+          this.broadcastChannel.close();
+
     }
 }

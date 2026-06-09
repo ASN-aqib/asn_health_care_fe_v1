@@ -34,4 +34,14 @@ export class TransporterService {
        
               return this.ajaxHelper.post(this.baseUrl + WebConstants.API_URL.TRANSPORTER.UPDATE, payload);
         }
+
+
+        delete(id: any ): Observable<BaseResponse<any>> {
+
+                  
+
+               let url = this.baseUrl + WebConstants.API_URL.TRANSPORTER.DELETE+id;
+              console.log(url);
+               return this.ajaxHelper.get(url);
+      }
 }

@@ -20,3 +20,11 @@ importScripts(
  
 const app = firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
+const channel = new BroadcastChannel('asn-channel');
+
+
+messaging.onBackgroundMessage((payload) => {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+   channel.postMessage(payload);
+
+});

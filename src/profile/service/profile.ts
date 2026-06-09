@@ -43,7 +43,7 @@ export class ProfileService {
                   duration: 4000,    
                   horizontalPosition: 'center',
                   verticalPosition: 'top',
-                  panelClass: 'custom-style',
+                  panelClass: ['success'] 
                 });
 
                
