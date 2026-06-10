@@ -20,6 +20,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { disabled, validate } from '@angular/forms/signals';
 import { TransporterService } from '../../services/transporter.service';
 import { ZoneService } from '../../services/zone.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialog } from '../dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-transporter',
@@ -71,7 +73,7 @@ public dataSource = new MatTableDataSource<profileelements>();
   constructor( private transporterService:TransporterService,
        private matIconRegistry: MatIconRegistry,     public formBuilder: FormBuilder, 
        private domSanitizer: DomSanitizer ,     private snackBar: MatSnackBar,
-       private zoneService:ZoneService 
+       private zoneService:ZoneService , private dialog: MatDialog 
 
 
   ) {
@@ -391,6 +393,23 @@ changeIcon() {
       });
 
  }
+
+
+  delete(element:any) {
+  
+ console.log(element);
+        const confirmDialog = this.dialog.open(ConfirmationDialog, {
+       data: {
+         title: 'Confirm Remove Profile',
+         message: 'Are you sure, you want to remove the transporter of : ' + element.user_name,
+         id:element.id
+       }
+     });
+     confirmDialog.afterClosed().subscribe(result => {
+         this.getTransporters();
+     });
+     
+    }
 
 
 

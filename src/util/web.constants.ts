@@ -184,6 +184,7 @@ export const WebConstants = {
     TRANSPORTER: {
       ADD: "/api/transporter/create",
       UPDATE: "/api/transporter/update",
+      DELETE: "/api/transporter/delete/",
       FIND_ALL: "/api/transporter/find-all",
       
     },
