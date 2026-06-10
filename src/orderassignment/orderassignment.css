@@ -1,0 +1,89 @@
+.stat-card {
+    border-radius: 12px;
+}
+
+.icon-box {
+    width: 55px;
+    height: 55px;
+    background: #f5a623;
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.table thead th {
+    background-color: #2E2EFF;
+    color: #fff;
+    font-weight: 500;
+}
+
+.card {
+    border-radius: 14px;
+}
+
+.flex-container {
+  display: flex; /* Turns on Flexbox layout, automatically places items in a row */
+  gap: 20px; /* Adds space between the columns */
+}
+
+
+ /* .mat-mdc-card-header {
+  background-color: #076D70;
+  padding: 16px;
+}
+
+.mat-mdc-card-title
+{
+        color: white;
+}  */
+
+.mat-mdc-header-row 
+{
+    background-color:  #076D70;
+    
+}
+.mat-mdc-header-cell
+{
+    color:aliceblue;
+}
+.centered-div {
+  /* Optional: Add styling to visualize the div */
+  width: 1200px;
+  height: 50px;
+    display: fixed;
+  }
+
+.table-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.table-row {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-header {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table-cell {
+  flex: 1;
+  padding: 12px;
+  border-right: 1px solid #ddd;
+}
+
+.table-cell:last-child {
+  border-right: none;
+}
+
+.table-row:hover {
+  background-color: #f9f9f9;
+}

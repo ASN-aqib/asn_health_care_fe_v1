@@ -109,7 +109,7 @@ public dataSource = new MatTableDataSource<profileelements>();
       exposure : new FormControl('',[Validators.required]),   
       username : new FormControl('',[Validators.required]),      
       password : new FormControl('',[Validators.required]),      
-      isChecked: new FormControl('',[Validators.required]),  
+      isChecked: new FormControl(''),  
       // capacity:  new FormControl({ value: "", disabled: true },[Validators.required]),      
       options:['', Validators.required],
       zonelist: ['', Validators.required],
@@ -284,8 +284,8 @@ changeIcon() {
     this.profileForm.controls['zonelist'].setValidators([Validators.required]);
     this.profileForm.controls['zonelist'].updateValueAndValidity();
 
-    this.profileForm.controls['isChecked'].setValidators([Validators.required]);
-    this.profileForm.controls['isChecked'].updateValueAndValidity();
+    // this.profileForm.controls['isChecked'].setValidators([Validators.required]);
+    // this.profileForm.controls['isChecked'].updateValueAndValidity();
 
 
  
