@@ -21,5 +21,10 @@ export class Orderservice {
         }
          
   
-
+       getOrdres(): Observable<BaseResponse<any>> {
+        let url = this.baseUrl + WebConstants.API_URL.ORDER.FIND_ORDRES;
+                   
+         return this.ajaxHelper.get(url);
+        }
+         
 }

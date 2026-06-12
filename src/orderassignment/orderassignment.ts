@@ -11,7 +11,8 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Dashboardservice } from '../services/dashboardservice';
 import { first } from 'rxjs';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
+import { Orderservice } from '../services/orderservice';
 
 export interface biddingelements {
   
@@ -26,8 +27,7 @@ export interface biddingelements {
                MatTableModule,MatFormFieldModule,MatInputModule,
                MatButtonModule,MatSortModule,MatIconModule,MatCheckboxModule,
                MatCardModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-
+   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './orderassignment.html',
   styleUrl: './orderassignment.css',
 })
@@ -36,71 +36,124 @@ export interface biddingelements {
 
 
 export class Orderassignment implements OnInit    {
-    public bidding: any =[];
-    public selling: any =[];
-   
+    
+    public orders: any =[];
 
-    public dataSource1 = new MatTableDataSource<biddingelements>();
-    public dataSource2 = new MatTableDataSource<biddingelements>();
+    public mergeorders: any =[];
+    public mergeorderdetail: any =[];
 
+
+     isChecked: any;
+    public dataSource = new MatTableDataSource<biddingelements>();
     @ViewChild('sellerSort') sellerSort!: MatSort;
-    @ViewChild('buyerSort') buyerSort!: MatSort;
-    
-    @ViewChild(MatSort) sortb!: MatSort;
-    
-    @ViewChild("paginator1") paginator1!: MatPaginator;
-    @ViewChild("paginator2") paginator2!: MatPaginator;
-    
-
-      biddingDisplayedColumns: string[] = [
-     'FullName', 'category_name', 'quantity', 'price' ,
-      //'sellerQuantity', 'sellerRate',
-      'created_date',
-      
-  ];
+    @ViewChild("paginator") paginator!: MatPaginator;
  
-    sellerDisplayedColumns: string[] = [
-    'select', 'seller_name', 'category_name', 'quantity', 'sell_price' ,
-      //'sellerQuantity', 'sellerRate',
-      'created_date',
+    ordersDisplayedColumns: string[] = [
+    'select', 'SellerName','quantity', 
+     'pickupZone', 'price', 'pickupLocation' ,'BuyerName','dropOffZone' ,
+     'dropoffLocation', 
+     'createdDate',
       
   ];
 
   constructor(private dialog: MatDialog  ,private dashboarsService: Dashboardservice,
+              private orderService: Orderservice
            
-   ){    }
+   ){   
+ 
+    }
 
 
   ngOnInit(): void {
 
-        this.getAllSellers();
+        this.getOrders();
 
-        this.getAllBuyer();
+        
    }
+
+  toggle(event: MatCheckboxChange,element :any) {
+    this.isChecked = event.checked; // This is the boolean value (true/false)
+    console.log("Checkbox value:", this.isChecked); // This gets the assigned 'value' attribute
+    console.log(" element ", element); // This gets the assigned 'value' attribute
+
+    if(this.isChecked)
+    {
+      this.mergeorders.push(element.orderId);
+      this.mergeorderdetail.push(element.id);
+    }
+    else
+    {
+      const index = this.mergeorders.indexOf(element.orderId);
+        if (index !== -1) {
+        this.mergeorders.splice(index, 1); // Removes only the first 'banana'
+      }
+
+      const index1 = this.mergeorderdetail.indexOf(element.id);
+        if (index1 !== -1) {
+        this.mergeorderdetail.splice(index, 1); // Removes only the first 'banana'
+      }
+
+      
+    }
+
+    console.log("thie mergorders",this.mergeorders);
+    console.log("thie mergeorderdetail",this.mergeorderdetail);
+
+  }
 
 
   submit(event: Event){
 
+
+
+      
+    // let roleObj = {
+    //   orderId:  this.mergeorders,
+    //   orderDetailId: this.mergeorderdetail,
+    //   pickupZoneId: ,
+    //   dropoffZoneId: ,
+    //   totalQuantity: 1,
+    //   updatedBy : 1
+      
+    //  };
+    // // console.log( this.userNameField.value);
+    // // console.log( this.passwordField.value);
+    // // console.log( this.emailField.value);
+
+    // this.profileService.addProfile(roleObj)
+    //   .pipe(first())
+    //   .subscribe(response => {
+    //     console.log(response);
+
+    //          this.snackBar.open(' Record has been added successfully! ','Close', {    
+    //           duration: 4000,    
+    //           horizontalPosition: 'center',
+    //           verticalPosition: 'top',
+    //           panelClass: 'custom-style',
+    //         });
+
+
+    //     this.clear();
+    //     this.getprofiles();
+    //     //if (response.code === WebConstants.STATUS.CODE_SUCCESS) {
+    //    //   this.toaster.success("Role privilege has been updated", "Success");
+    //     //}
+    //   });
+
+
+  
+
+
   }
 
-     getAllBuyer(): void {
     
-      this.dashboarsService.getAllLiveBuyer()
-        .pipe(first())
-        .subscribe(response => {
+ ngAfterViewInit(): void {
+   
+    this.dataSource.paginator = this.paginator;
 
-      this.bidding = response
-      //this.dataSource1 =this.bidding;
-      console.log("Buyers only ",this.bidding);
+    
 
-       this.dataSource1 = new MatTableDataSource(this.bidding);
-       this.dataSource1.paginator = this.paginator1;
-       this.dataSource1.sort= this.buyerSort;
-
-        
-        });
-    }
- 
+  }
 
    isSomeSelected() {
    
@@ -108,13 +161,13 @@ export class Orderassignment implements OnInit    {
 
 
 
-     getAllSellers(): void {
+     getOrders(): void {
     
-      this.dashboarsService.getAllLiveSeller()
+      this.orderService.getOrdres()
         .pipe(first())
         .subscribe(response => {
 
-      this.selling = response
+      this.orders = response
 
       //  for (const item of this.selling) {
 
@@ -126,13 +179,13 @@ export class Orderassignment implements OnInit    {
 
       //  }
       //this.dataSource1 =this.bidding;
-      console.log("Seller",this.selling);
+      console.log("orders",this.orders);
 
 
 
-       this.dataSource2 = new MatTableDataSource(this.selling);
-       this.dataSource2.paginator = this.paginator2;
-       this.dataSource2.sort= this.sellerSort;
+       this.dataSource = new MatTableDataSource(this.orders);
+       this.dataSource.paginator = this.paginator;
+       this.dataSource.sort= this.sellerSort;
   
         
      

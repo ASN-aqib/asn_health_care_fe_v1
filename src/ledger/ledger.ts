@@ -60,7 +60,7 @@ export class Ledger  implements OnInit {
     ngOnInit(): void {
 
     this.initializeForm();
-    this.getAll(0);
+    
     this.getTransporters();
       // this.getZones();
  
