@@ -426,6 +426,7 @@ export const WebConstants = {
     },
     ORDER: {
       FIND_ALL: "/api/order/find-all",
+      FIND_ORDRES: "/api/order/find-orders",
       FIND_OCCUPANCY_COUNT: "/api/excel/find-occupancy-count",
       FIND_OCCUPANCY_HOUR: "/api/excel/find-occupancy-hour",
       FIND_OCCUPANCY_TIME_COUNT: "/api/excel/find-occupancy-time-count",
